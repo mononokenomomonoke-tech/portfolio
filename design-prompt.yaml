@@ -1,0 +1,212 @@
+# ============================================================
+# Design Prompt YAML — Ring Magazine 抽象化
+# 参照元: https://www.ringmagazine.com/
+# 用途: 任意のサイトのデザイン指示書として流用可能
+# ============================================================
+
+identity:
+  mood: "権威・信頼・スポーツ誌の迫力。プレミアム感と情報の密度を両立する"
+  tone: "プロフェッショナル・ダイナミック・エディトリアル（雑誌的）"
+  keywords:
+    - "dark & bold"
+    - "editorial authority"
+    - "high-contrast"
+    - "athletic energy"
+    - "information-dense"
+
+# ──────────────────────────────────────────
+# カラーシステム
+# ──────────────────────────────────────────
+colors:
+  background:
+    primary: "#111111"       # ページ地 — ほぼ黒
+    surface: "#1c1c1c"       # カード・パネル背景
+    elevated: "#242424"      # ホバー・アクティブ状態
+  text:
+    primary: "#ffffff"       # 見出し・主要テキスト
+    secondary: "#b0b0b0"     # サブテキスト・メタ情報
+    muted: "#666666"         # タイムスタンプ・補足
+  accent:
+    primary: "#c8a84b"       # ゴールド — CTA・ハイライト・ランク番号
+    hover: "#e0be6a"         # アクセントのホバー
+    subtle: "#2a2218"        # アクセントの薄い背景（バッジ下地など）
+  border:
+    default: "#2e2e2e"       # 区切り線
+    strong: "#444444"        # 強調区切り
+  overlay:
+    image_scrim: "rgba(0,0,0,0.55)"   # 画像テキストオーバーレイ用
+
+# ──────────────────────────────────────────
+# タイポグラフィ
+# ──────────────────────────────────────────
+typography:
+  font_stack:
+    heading: "'Arial Black', 'Helvetica Neue', sans-serif"   # 太く力強いゴシック
+    body: "'Arial', 'Helvetica Neue', sans-serif"
+    label: "inherit"   # ラベル・タグは同系フォントをすべて大文字で使用
+
+  scale:
+    hero_title: "clamp(2.4rem, 5vw, 4rem)"
+    section_title: "clamp(1.4rem, 3vw, 2rem)"
+    card_title: "1.1rem"
+    body: "0.9rem"
+    label: "0.7rem"
+    meta: "0.75rem"
+
+  weight:
+    black: 900          # ヒーロー見出し
+    bold: 700           # カード見出し・ナビ
+    regular: 400        # 本文
+
+  transform:
+    labels: "uppercase"          # カテゴリタグ・ナビアイテムはすべて大文字
+    headings: "none"             # 見出しはそのまま
+  letter_spacing:
+    labels: "0.1em"              # 大文字ラベルは広め
+    headings: "-0.01em"          # 見出しはやや詰め
+
+# ──────────────────────────────────────────
+# レイアウト
+# ──────────────────────────────────────────
+layout:
+  max_width: "1200px"
+  grid_columns: 12             # 基本12カラムグリッド
+  gutter: "20px"
+  section_padding_y: "64px"
+
+  breakpoints:
+    mobile: "600px"
+    tablet: "960px"
+    desktop: "1200px"
+
+  content_density: "high"      # 情報量を多く詰め込む。余白は最小限
+  image_ratio:
+    hero: "16/9"
+    card: "3/2"
+    thumbnail: "1/1"
+
+# ──────────────────────────────────────────
+# コンポーネントスタイル
+# ──────────────────────────────────────────
+components:
+
+  navigation:
+    background: "#0a0a0a"
+    border_bottom: "2px solid #c8a84b"      # ゴールドのアンダーライン — ブランドの顔
+    height: "56px"
+    logo_weight: 900
+    link_transform: "uppercase"
+    link_spacing: "0.08em"
+    link_color: "#cccccc"
+    link_hover_color: "#c8a84b"
+    sticky: true
+
+  card:
+    background: "#1c1c1c"
+    border: "none"
+    border_radius: "4px"                    # 小さめ — シャープな印象
+    overflow: "hidden"
+    shadow: "0 4px 16px rgba(0,0,0,0.5)"
+    hover_transform: "translateY(-3px)"
+    hover_shadow: "0 8px 28px rgba(0,0,0,0.7)"
+    image_position: "top"
+    title_color: "#ffffff"
+    title_size: "1.05rem"
+    title_weight: 700
+    meta_color: "#888888"
+    overlay_gradient: "linear-gradient(to top, rgba(0,0,0,0.85) 0%, transparent 60%)"
+
+  button:
+    primary:
+      background: "#c8a84b"
+      color: "#000000"
+      font_weight: 800
+      text_transform: "uppercase"
+      letter_spacing: "0.08em"
+      border_radius: "3px"
+      padding: "10px 24px"
+      hover_background: "#e0be6a"
+    secondary:
+      background: "transparent"
+      color: "#c8a84b"
+      border: "1.5px solid #c8a84b"
+      border_radius: "3px"
+      hover_background: "#c8a84b"
+      hover_color: "#000000"
+
+  tag_badge:
+    background: "#c8a84b"
+    color: "#000000"
+    font_size: "0.65rem"
+    font_weight: 800
+    text_transform: "uppercase"
+    letter_spacing: "0.1em"
+    padding: "3px 8px"
+    border_radius: "2px"
+
+  divider:
+    color: "#2e2e2e"
+    accent_divider: "3px solid #c8a84b"    # セクション区切りに使うゴールドライン
+
+  hero_section:
+    background: "#000000"
+    text_shadow: "0 2px 12px rgba(0,0,0,0.8)"
+    overlay: true
+    title_color: "#ffffff"
+    cta_style: "button.primary"
+
+  filter_bar:
+    background: "#1c1c1c"
+    active_color: "#c8a84b"
+    active_border_bottom: "2px solid #c8a84b"
+    inactive_color: "#888888"
+    style: "tab"                           # tab / pill から選択
+
+# ──────────────────────────────────────────
+# 画像・メディアの扱い方
+# ──────────────────────────────────────────
+imagery:
+  quality: "high"              # プロフォト・高解像度を優先
+  treatment: "dark_overlay"    # テキスト可読性のため暗いオーバーレイ必須
+  focal_point: "top center"    # 人物写真は顔・上半身を基準にトリミング
+  format_priority: "webp"
+  lazy_loading: true
+  aspect_ratio_consistency: true   # カード内は同一比率を強制
+
+# ──────────────────────────────────────────
+# モーション・インタラクション
+# ──────────────────────────────────────────
+motion:
+  duration_fast: "150ms"
+  duration_base: "200ms"
+  easing: "ease-out"
+  card_hover: "lift"           # lift / glow / border-highlight から選択
+  link_hover: "color-shift"
+  transition_properties:
+    - "transform"
+    - "box-shadow"
+    - "color"
+    - "background-color"
+
+# ──────────────────────────────────────────
+# 雰囲気の言語化（プロンプト文章として使用可能）
+# ──────────────────────────────────────────
+design_language_prompt: |
+  Design this as a dark-themed, editorial-style digital publication.
+  The visual language should feel authoritative and premium — like a print magazine
+  translated to the web. Use near-black backgrounds (#111) with gold (#c8a84b) as
+  the sole accent color for CTAs, active states, and section dividers.
+
+  Typography must be bold and impactful: uppercase labels with generous letter-spacing,
+  heavy-weight headlines, and a clear 3-level hierarchy (hero → card title → meta).
+
+  Cards are image-driven and information-dense. Each card carries an overlay gradient
+  so white text remains legible over any photo. No rounded corners beyond 4px — keep
+  edges sharp to reinforce the athletic, no-nonsense tone.
+
+  Navigation sits on a near-black bar with a gold bottom border as the brand signature.
+  All nav links are uppercase. The sticky header should feel like a command bar, not
+  decoration.
+
+  Avoid: pastel colors, large border-radius, drop shadows lighter than rgba(0,0,0,0.4),
+  decorative illustrations, or any element that softens the aggressive editorial tone.
