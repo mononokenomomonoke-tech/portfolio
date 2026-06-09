@@ -1,665 +1,489 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="田中そら — Claude Code を使った AI 開発のポートフォリオ。業務自動化・コンテンツ生成・Webスクレイピングなどの実績を紹介。" />
-  <meta property="og:title" content="田中そら | AI 開発ポートフォリオ" />
-  <meta property="og:description" content="Claude Code を使った AI 開発の実績集" />
-  <meta property="og:type" content="website" />
-  <title>田中そら | AI 開発ポートフォリオ</title>
-  <style>
-    /* ── Reset & Tokens ── */
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>田中そら | AI Developer Portfolio</title>
+<meta name="description" content="田中そら のAI開発ポートフォリオ。Claude Code を活用した業務自動化・コンテンツ生成・Webスクレイピング・画像生成など、実用的なAIツールの制作実績を掲載。">
+<meta name="author" content="田中そら">
+<meta property="og:type" content="website">
+<meta property="og:title" content="田中そら | AI Developer Portfolio">
+<meta property="og:description" content="Claude Code を使ってAIエージェント・自動化・スクレイピング・画像生成ツールを開発するAI開発者のポートフォリオ。">
+<meta property="og:url" content="https://mononokenomomonoke-tech.github.io/portfolio/">
+<meta property="og:locale" content="ja_JP">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="田中そら | AI Developer Portfolio">
+<meta name="twitter:description" content="Claude Code を使ってAIツールを開発するAI開発者のポートフォリオ。">
+<style>
+  :root{
+    --bg:#111111; --surface:#1c1c1c; --elevated:#242424;
+    --text:#ffffff; --text-2:#b0b0b0; --muted:#666666;
+    --accent:#c8a84b; --accent-hover:#e0be6a; --accent-subtle:#2a2218;
+    --border:#2e2e2e; --border-strong:#444444;
+    --nav-bg:#0a0a0a;
+    --font-head:'Arial Black','Helvetica Neue',sans-serif;
+    --font-body:'Arial','Helvetica Neue',sans-serif;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    background:var(--bg); color:var(--text); font-family:var(--font-body);
+    line-height:1.6; -webkit-font-smoothing:antialiased;
+  }
+  a{color:inherit;text-decoration:none;}
+  img{display:block;max-width:100%;}
 
-    :root {
-      --bg:            #111111;
-      --surface:       #1c1c1c;
-      --elevated:      #242424;
-      --text:          #ffffff;
-      --text-sub:      #b0b0b0;
-      --text-muted:    #666666;
-      --accent:        #c8a84b;
-      --accent-hover:  #e0be6a;
-      --accent-subtle: #2a2218;
-      --border:        #2e2e2e;
-      --border-strong: #444444;
-      --nav-bg:        #0a0a0a;
-      --font-head:     'Arial Black', 'Helvetica Neue', sans-serif;
-      --font-body:     'Arial', 'Helvetica Neue', sans-serif;
-      --radius:        4px;
-      --shadow:        0 4px 16px rgba(0,0,0,.5);
-      --shadow-lg:     0 8px 28px rgba(0,0,0,.7);
-    }
+  .skip-link{
+    position:absolute; left:-999px; top:0; z-index:1000;
+    background:var(--accent); color:#000; padding:10px 18px; font-weight:800;
+  }
+  .skip-link:focus{left:8px;top:8px;}
 
-    html { scroll-behavior: smooth; }
-    body  { font-family: var(--font-body); background: var(--bg); color: var(--text); line-height: 1.65; }
+  /* NAV */
+  .nav{
+    position:sticky; top:0; z-index:100;
+    background:var(--nav-bg); border-bottom:2px solid var(--accent);
+    height:56px; display:flex; align-items:center;
+  }
+  .nav-inner{
+    max-width:1200px; width:100%; margin:0 auto; padding:0 24px;
+    display:flex; align-items:center; justify-content:space-between;
+  }
+  .nav-logo{font-family:var(--font-head); font-weight:900; font-size:1.05rem; letter-spacing:-0.01em;}
+  .nav-logo span{color:var(--accent);}
+  .nav-links{display:flex; gap:28px; list-style:none;}
+  .nav-links a{
+    text-transform:uppercase; letter-spacing:0.08em; font-size:0.78rem;
+    font-weight:700; color:#cccccc; transition:color 200ms ease-out;
+  }
+  .nav-links a:hover,.nav-links a:focus{color:var(--accent);}
+  .nav-toggle{
+    display:none; background:none; border:none; color:var(--accent);
+    font-size:1.5rem; cursor:pointer; line-height:1;
+  }
 
-    /* ── Skip link (accessibility) ── */
-    .skip-link {
-      position: absolute; top: -40px; left: 0;
-      background: var(--accent); color: #000;
-      padding: 8px 16px; font-weight: 700; font-size: .8rem;
-      text-decoration: none; z-index: 999;
-      transition: top .2s;
-    }
-    .skip-link:focus { top: 0; }
+  .wrap{max-width:1200px; margin:0 auto; padding:0 24px;}
 
-    /* ── Nav ── */
-    nav {
-      position: sticky; top: 0;
-      background: var(--nav-bg);
-      border-bottom: 2px solid var(--accent);
-      z-index: 100;
-    }
-    .nav-inner {
-      max-width: 1200px; margin: 0 auto; padding: 0 24px;
-      height: 56px; display: flex; align-items: center; justify-content: space-between;
-    }
-    .nav-logo {
-      font-family: var(--font-head); font-weight: 900; font-size: .95rem;
-      letter-spacing: .06em; text-transform: uppercase; color: var(--accent);
-      text-decoration: none;
-    }
-    .nav-links { display: flex; gap: 28px; list-style: none; }
-    .nav-links a {
-      text-decoration: none; color: #ccc;
-      font-size: .72rem; font-weight: 700;
-      text-transform: uppercase; letter-spacing: .08em;
-      transition: color 150ms;
-    }
-    .nav-links a:hover { color: var(--accent); }
+  /* LAYOUT: left fixed profile + right grid */
+  .layout{display:grid; grid-template-columns:340px 1fr; gap:48px; padding:64px 0;}
 
-    /* hamburger */
-    .nav-toggle {
-      display: none; flex-direction: column; gap: 5px;
-      background: none; border: none; cursor: pointer; padding: 4px;
-    }
-    .nav-toggle span {
-      display: block; width: 22px; height: 2px;
-      background: var(--text-sub); border-radius: 2px;
-      transition: all 200ms;
-    }
-    .nav-toggle.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
-    .nav-toggle.open span:nth-child(2) { opacity: 0; }
-    .nav-toggle.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+  /* HERO / PROFILE (left) */
+  .profile{position:sticky; top:88px; align-self:start;}
+  .eyebrow{
+    text-transform:uppercase; letter-spacing:0.1em; font-size:0.7rem;
+    font-weight:700; color:var(--accent); margin-bottom:14px;
+  }
+  .hero-title{
+    font-family:var(--font-head); font-weight:900;
+    font-size:clamp(2.4rem,5vw,3.4rem); line-height:1.05; letter-spacing:-0.01em;
+  }
+  .hero-title span{color:var(--accent);}
+  .hero-role{
+    text-transform:uppercase; letter-spacing:0.1em; font-size:0.85rem;
+    font-weight:700; color:var(--text-2); margin-top:12px;
+  }
+  .hero-catch{color:var(--text-2); font-size:0.95rem; margin-top:20px;}
+  .hero-btns{display:flex; gap:12px; margin-top:28px; flex-wrap:wrap;}
+  .btn{
+    display:inline-block; text-transform:uppercase; letter-spacing:0.08em;
+    font-weight:800; font-size:0.8rem; border-radius:3px; padding:11px 22px;
+    cursor:pointer; transition:all 200ms ease-out; border:1.5px solid transparent;
+  }
+  .btn-primary{background:var(--accent); color:#000;}
+  .btn-primary:hover,.btn-primary:focus{background:var(--accent-hover);}
+  .btn-outline{background:transparent; color:var(--accent); border-color:var(--accent);}
+  .btn-outline:hover,.btn-outline:focus{background:var(--accent); color:#000;}
+  .profile-links{display:flex; gap:18px; margin-top:28px;}
+  .profile-links a{
+    text-transform:uppercase; letter-spacing:0.08em; font-size:0.72rem;
+    font-weight:700; color:var(--muted); transition:color 200ms ease-out;
+  }
+  .profile-links a:hover,.profile-links a:focus{color:var(--accent);}
 
-    @media (max-width: 600px) {
-      .nav-toggle { display: flex; }
-      .nav-links {
-        display: none; flex-direction: column; gap: 0;
-        position: absolute; top: 56px; left: 0; right: 0;
-        background: var(--nav-bg);
-        border-bottom: 1px solid var(--border);
-      }
-      .nav-links.open { display: flex; }
-      .nav-links a { padding: 14px 24px; border-top: 1px solid var(--border); }
-    }
+  /* MAIN (right) */
+  .section-title{
+    font-family:var(--font-head); font-weight:900;
+    font-size:clamp(1.4rem,3vw,2rem); letter-spacing:-0.01em;
+  }
+  .accent-line{width:48px; height:3px; background:var(--accent); margin:14px 0 28px;}
 
-    /* ── Shared ── */
-    .container { max-width: 1200px; margin: 0 auto; }
-    section { padding: 64px 24px; }
+  /* STATS BAR */
+  .stats{
+    display:grid; grid-template-columns:repeat(3,1fr); gap:2px;
+    background:var(--accent); border-radius:4px; overflow:hidden; margin-bottom:40px;
+  }
+  .stat{background:var(--bg); padding:20px 16px; text-align:center;}
+  .stat-num{font-family:var(--font-head); font-weight:900; font-size:2rem; color:var(--accent);}
+  .stat-label{
+    text-transform:uppercase; letter-spacing:0.1em; font-size:0.68rem;
+    font-weight:700; color:var(--text-2); margin-top:4px;
+  }
 
-    .section-label {
-      font-size: .7rem; font-weight: 800;
-      letter-spacing: .1em; text-transform: uppercase;
-      color: var(--accent); margin-bottom: 6px;
-    }
-    .section-divider {
-      width: 40px; height: 3px;
-      background: var(--accent); margin-bottom: 32px;
-    }
-    .section-title {
-      font-family: var(--font-head);
-      font-size: clamp(1.4rem, 3vw, 2rem);
-      font-weight: 900; letter-spacing: -.01em;
-      margin-bottom: 8px;
-    }
+  /* FILTER */
+  .filters{
+    display:flex; gap:6px; flex-wrap:wrap; border-bottom:1px solid var(--border);
+    margin-bottom:32px;
+  }
+  .filter-btn{
+    background:none; border:none; cursor:pointer;
+    text-transform:uppercase; letter-spacing:0.08em; font-size:0.74rem;
+    font-weight:700; color:#888888; padding:12px 16px;
+    border-bottom:2px solid transparent; transition:color 200ms ease-out;
+  }
+  .filter-btn:hover{color:var(--text);}
+  .filter-btn.active{color:var(--accent); border-bottom-color:var(--accent);}
 
-    /* ── Hero ── */
-    #hero {
-      padding: 0; background: #000;
-      min-height: 520px; display: flex; align-items: center;
-      position: relative; overflow: hidden;
-    }
-    .hero-bg {
-      position: absolute; inset: 0;
-      background:
-        repeating-linear-gradient(
-          -45deg, transparent, transparent 40px,
-          rgba(200,168,75,.03) 40px, rgba(200,168,75,.03) 41px
-        );
-    }
-    /* subtle radial glow */
-    .hero-bg::after {
-      content: ''; position: absolute; inset: 0;
-      background: radial-gradient(ellipse 60% 60% at 20% 50%, rgba(200,168,75,.08) 0%, transparent 70%);
-    }
-    .hero-inner {
-      position: relative; max-width: 1200px;
-      margin: 0 auto; padding: 96px 24px 80px;
-    }
-    .hero-eyebrow {
-      display: inline-block;
-      background: var(--accent); color: #000;
-      font-size: .62rem; font-weight: 800;
-      padding: 4px 10px; border-radius: 2px;
-      text-transform: uppercase; letter-spacing: .1em;
-      margin-bottom: 20px;
-    }
-    .hero-name {
-      font-family: var(--font-head);
-      font-size: clamp(2.6rem, 6vw, 4.2rem);
-      font-weight: 900; letter-spacing: -.02em; line-height: 1.08;
-      text-shadow: 0 2px 12px rgba(0,0,0,.8);
-      margin-bottom: 20px;
-    }
-    .hero-name .gold { color: var(--accent); }
-    .hero-sub {
-      font-size: 1rem; color: var(--text-sub);
-      max-width: 500px; margin-bottom: 40px; line-height: 1.75;
-    }
-    .hero-actions { display: flex; gap: 14px; flex-wrap: wrap; }
-    .btn-primary {
-      display: inline-block;
-      background: var(--accent); color: #000;
-      font-size: .76rem; font-weight: 800;
-      text-transform: uppercase; letter-spacing: .08em;
-      padding: 12px 28px; border-radius: var(--radius);
-      text-decoration: none;
-      transition: background 150ms, transform 150ms;
-    }
-    .btn-primary:hover { background: var(--accent-hover); transform: translateY(-2px); }
-    .btn-secondary {
-      display: inline-block;
-      background: transparent; color: var(--accent);
-      border: 1.5px solid var(--accent);
-      font-size: .76rem; font-weight: 800;
-      text-transform: uppercase; letter-spacing: .08em;
-      padding: 12px 28px; border-radius: var(--radius);
-      text-decoration: none;
-      transition: background 150ms, color 150ms, transform 150ms;
-    }
-    .btn-secondary:hover {
-      background: var(--accent); color: #000; transform: translateY(-2px);
-    }
+  /* GRID */
+  .grid{display:grid; grid-template-columns:repeat(2,1fr); gap:24px;}
+  .card{
+    background:var(--surface); border-radius:4px; overflow:hidden;
+    box-shadow:0 4px 16px rgba(0,0,0,0.5); cursor:pointer;
+    transition:transform 200ms ease-out, box-shadow 200ms ease-out;
+    display:flex; flex-direction:column;
+    opacity:0; transform:translateY(18px);
+  }
+  .card.in-view{opacity:1; transform:translateY(0);}
+  .card:hover{transform:translateY(-3px); box-shadow:0 8px 28px rgba(0,0,0,0.7);}
+  .card-media{position:relative; aspect-ratio:3/2; overflow:hidden; background:#000;}
+  .card-media img{width:100%; height:100%; object-fit:cover; transition:transform 300ms ease-out;}
+  .card:hover .card-media img{transform:scale(1.04);}
+  .card-badge{
+    position:absolute; top:10px; left:10px; z-index:2;
+    background:var(--accent); color:#000; font-size:0.62rem; font-weight:800;
+    text-transform:uppercase; letter-spacing:0.1em; padding:3px 8px; border-radius:2px;
+  }
+  .card-body{padding:18px; display:flex; flex-direction:column; flex:1;}
+  .card-title{font-weight:700; font-size:1.05rem; color:var(--text); line-height:1.3;}
+  .card-desc{color:var(--text-2); font-size:0.85rem; margin-top:10px; flex:1;}
+  .card-tags{display:flex; gap:6px; flex-wrap:wrap; margin-top:14px;}
+  .tag{
+    font-size:0.65rem; font-weight:700; text-transform:uppercase; letter-spacing:0.08em;
+    color:var(--accent); background:var(--accent-subtle); padding:3px 8px; border-radius:2px;
+  }
 
-    /* ── Stats bar ── */
-    #stats {
-      padding: 24px;
-      background: var(--accent);
-      border-top: none; border-bottom: none;
-    }
-    .stats-inner {
-      max-width: 1200px; margin: 0 auto;
-      display: flex; gap: 48px; flex-wrap: wrap; align-items: center;
-    }
-    .stat { text-align: center; }
-    .stat-num {
-      font-family: var(--font-head); font-size: 1.8rem;
-      font-weight: 900; color: #000; line-height: 1;
-    }
-    .stat-label {
-      font-size: .65rem; font-weight: 800;
-      text-transform: uppercase; letter-spacing: .08em;
-      color: rgba(0,0,0,.65); margin-top: 2px;
-    }
+  /* SKILLS */
+  .skills-section{margin-top:56px;}
+  .chips{display:flex; gap:10px; flex-wrap:wrap; margin-top:6px;}
+  .chip{
+    background:var(--surface); border:1px solid var(--border);
+    text-transform:uppercase; letter-spacing:0.08em; font-size:0.72rem; font-weight:700;
+    color:var(--text-2); padding:8px 14px; border-radius:4px;
+  }
 
-    /* ── Skills ── */
-    #skills {
-      background: var(--surface);
-      border-top: 1px solid var(--border);
-      border-bottom: 1px solid var(--border);
-    }
-    .skills-grid { display: flex; flex-wrap: wrap; gap: 10px; }
-    .skill-chip {
-      background: var(--elevated);
-      border: 1px solid var(--border-strong);
-      border-radius: var(--radius);
-      padding: 8px 16px;
-      font-size: .76rem; font-weight: 700; color: var(--text-sub);
-      text-transform: uppercase; letter-spacing: .06em;
-      display: flex; align-items: center; gap: 8px;
-      transition: border-color 150ms, color 150ms, background 150ms;
-    }
-    .skill-chip:hover { border-color: var(--accent); color: var(--accent); background: var(--accent-subtle); }
+  /* CONTACT */
+  .contact{margin-top:56px;}
+  .contact p{color:var(--text-2); font-size:0.95rem; margin-bottom:20px;}
+  .contact-mail{
+    font-family:var(--font-head); font-weight:900; color:var(--accent);
+    font-size:clamp(1.1rem,2.4vw,1.6rem); word-break:break-all;
+  }
+  .contact-mail:hover,.contact-mail:focus{color:var(--accent-hover);}
 
-    /* ── Projects ── */
-    #projects { background: var(--bg); }
+  /* FOOTER */
+  footer{
+    border-top:1px solid var(--border); margin-top:80px; padding:32px 0;
+    text-align:center;
+  }
+  footer p{
+    color:var(--muted); font-size:0.75rem; text-transform:uppercase; letter-spacing:0.08em;
+  }
 
-    .filter-bar {
-      display: flex; flex-wrap: wrap; gap: 0;
-      margin-bottom: 36px;
-      border-bottom: 1px solid var(--border);
-    }
-    .filter-btn {
-      background: transparent; border: none;
-      border-bottom: 2px solid transparent; margin-bottom: -1px;
-      padding: 10px 20px;
-      font-size: .7rem; font-weight: 800;
-      text-transform: uppercase; letter-spacing: .08em;
-      cursor: pointer; color: var(--text-muted);
-      transition: color 150ms, border-color 150ms;
-    }
-    .filter-btn:hover { color: var(--text-sub); }
-    .filter-btn.active { color: var(--accent); border-bottom-color: var(--accent); }
+  /* LIGHTBOX */
+  .lightbox{
+    position:fixed; inset:0; z-index:200; display:none;
+    background:rgba(0,0,0,0.92); align-items:center; justify-content:center; padding:24px;
+  }
+  .lightbox.open{display:flex;}
+  .lightbox img{max-width:92vw; max-height:88vh; border-radius:4px; box-shadow:0 12px 48px rgba(0,0,0,0.8);}
+  .lightbox-close{
+    position:absolute; top:20px; right:28px; background:none; border:none;
+    color:var(--accent); font-size:2.4rem; line-height:1; cursor:pointer; font-family:var(--font-head);
+  }
+  .lightbox-close:hover{color:var(--accent-hover);}
 
-    .projects-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 20px;
+  @media (max-width:960px){
+    .layout{grid-template-columns:1fr; gap:32px; padding:40px 0;}
+    .profile{position:static;}
+    .grid{grid-template-columns:1fr;}
+  }
+  @media (max-width:600px){
+    .nav-links{
+      display:none; position:absolute; top:56px; left:0; right:0;
+      flex-direction:column; gap:0; background:var(--nav-bg);
+      border-bottom:2px solid var(--accent);
     }
-    @media (max-width: 960px) { .projects-grid { grid-template-columns: repeat(2, 1fr); } }
-    @media (max-width: 600px) { .projects-grid { grid-template-columns: 1fr; } }
-
-    .card {
-      background: var(--surface);
-      border-radius: var(--radius); overflow: hidden;
-      box-shadow: var(--shadow);
-      border: 1px solid var(--border);
-      transition: transform 200ms ease-out, box-shadow 200ms ease-out, border-color 200ms;
-      cursor: pointer;
-    }
-    .card:hover {
-      transform: translateY(-4px);
-      box-shadow: var(--shadow-lg);
-      border-color: var(--border-strong);
-    }
-    .card.hidden { display: none; }
-
-    .card-thumb-wrap {
-      position: relative; width: 100%; aspect-ratio: 3/2; overflow: hidden;
-    }
-    .card-thumb {
-      width: 100%; height: 100%;
-      object-fit: cover; object-position: top; display: block;
-      transition: transform 400ms ease-out;
-    }
-    .card:hover .card-thumb { transform: scale(1.04); }
-    .card-overlay {
-      position: absolute; inset: 0;
-      background: linear-gradient(to top, rgba(0,0,0,.7) 0%, transparent 55%);
-      pointer-events: none;
-    }
-    .card-badge {
-      position: absolute; top: 10px; left: 10px;
-      background: var(--accent); color: #000;
-      font-size: .58rem; font-weight: 800;
-      text-transform: uppercase; letter-spacing: .1em;
-      padding: 3px 8px; border-radius: 2px;
-    }
-
-    .card-body { padding: 16px 18px 20px; }
-    .card-title {
-      font-family: var(--font-head); font-size: .98rem; font-weight: 900;
-      color: var(--text); letter-spacing: -.01em; line-height: 1.35;
-      margin-bottom: 8px;
-    }
-    .card-desc { font-size: .82rem; color: var(--text-sub); margin-bottom: 14px; line-height: 1.6; }
-    .card-tags { display: flex; flex-wrap: wrap; gap: 6px; }
-    .tag {
-      background: var(--elevated); color: var(--text-muted);
-      font-size: .62rem; font-weight: 800;
-      text-transform: uppercase; letter-spacing: .05em;
-      padding: 3px 8px; border-radius: 2px; border: 1px solid var(--border);
-    }
-    .tag.gold { background: var(--accent-subtle); color: var(--accent); border-color: rgba(200,168,75,.4); }
-
-    /* ── Lightbox ── */
-    .lightbox {
-      display: none; position: fixed; inset: 0;
-      background: rgba(0,0,0,.9); z-index: 200;
-      justify-content: center; align-items: center; padding: 24px;
-    }
-    .lightbox.open { display: flex; }
-    .lightbox-img {
-      max-width: 92vw; max-height: 88vh;
-      border-radius: var(--radius);
-      box-shadow: 0 24px 64px rgba(0,0,0,.8);
-    }
-    .lightbox-close {
-      position: absolute; top: 20px; right: 24px;
-      background: rgba(255,255,255,.1);
-      border: 1px solid rgba(255,255,255,.2);
-      color: #fff; font-size: 1.1rem;
-      width: 40px; height: 40px;
-      border-radius: 2px; cursor: pointer;
-      display: flex; align-items: center; justify-content: center;
-      transition: background 150ms;
-    }
-    .lightbox-close:hover { background: rgba(200,168,75,.35); border-color: var(--accent); }
-
-    /* ── Contact ── */
-    #contact {
-      background: var(--surface);
-      border-top: 3px solid var(--accent);
-    }
-    .contact-links { display: flex; gap: 14px; flex-wrap: wrap; margin-top: 28px; }
-    .contact-link {
-      display: inline-flex; align-items: center; gap: 8px;
-      padding: 10px 22px;
-      border: 1.5px solid var(--border-strong);
-      border-radius: var(--radius);
-      text-decoration: none; color: var(--text-sub);
-      font-size: .76rem; font-weight: 800;
-      text-transform: uppercase; letter-spacing: .08em;
-      transition: all 200ms;
-    }
-    .contact-link:hover {
-      border-color: var(--accent); color: var(--accent); background: var(--accent-subtle);
-    }
-
-    /* ── Footer ── */
-    footer {
-      text-align: center; padding: 24px;
-      font-size: .7rem; color: var(--text-muted);
-      border-top: 1px solid var(--border);
-      text-transform: uppercase; letter-spacing: .06em;
-    }
-    footer a { color: var(--accent); text-decoration: none; }
-    footer a:hover { text-decoration: underline; }
-
-    /* ── Scroll fade-in animation ── */
-    .fade-in { opacity: 0; transform: translateY(20px); transition: opacity .5s ease-out, transform .5s ease-out; }
-    .fade-in.visible { opacity: 1; transform: none; }
-  </style>
+    .nav-links.open{display:flex;}
+    .nav-links li{border-top:1px solid var(--border);}
+    .nav-links a{display:block; padding:14px 24px;}
+    .nav-toggle{display:block;}
+    .stats{grid-template-columns:1fr;}
+  }
+  @media (prefers-reduced-motion:reduce){
+    *{transition:none !important; animation:none !important;}
+    .card{opacity:1; transform:none;}
+  }
+</style>
 </head>
 <body>
+<a class="skip-link" href="#main">メインコンテンツへスキップ</a>
 
-<a class="skip-link" href="#projects">コンテンツへスキップ</a>
-
-<!-- Nav -->
-<nav>
+<nav class="nav" aria-label="メインナビゲーション">
   <div class="nav-inner">
-    <a href="#" class="nav-logo">田中そら</a>
-    <button class="nav-toggle" id="navToggle" aria-label="メニュー">
-      <span></span><span></span><span></span>
-    </button>
-    <ul class="nav-links" id="navLinks">
+    <a class="nav-logo" href="#top">田中<span>そら</span></a>
+    <button class="nav-toggle" aria-label="ナビゲーションを開閉" aria-expanded="false" aria-controls="nav-links">&#9776;</button>
+    <ul class="nav-links" id="nav-links">
+      <li><a href="#works">Works</a></li>
       <li><a href="#skills">Skills</a></li>
-      <li><a href="#projects">Works</a></li>
       <li><a href="#contact">Contact</a></li>
+      <li><a href="https://github.com/mononokenomomonoke-tech" target="_blank" rel="noopener">GitHub</a></li>
     </ul>
   </div>
 </nav>
 
-<!-- Hero -->
-<section id="hero" aria-label="ヒーロー">
-  <div class="hero-bg"></div>
-  <div class="hero-inner">
-    <span class="hero-eyebrow">AI Developer</span>
-    <h1 class="hero-name">田中<span class="gold">そら</span></h1>
-    <p class="hero-sub">
-      Claude Code を使って業務自動化・コンテンツ生成・Web スクレイピングなど、
-      AI を活用した実用ツールを開発しています。
-    </p>
-    <div class="hero-actions">
-      <a href="#projects" class="btn-primary">View Works →</a>
-      <a href="#contact" class="btn-secondary">Contact</a>
-    </div>
-  </div>
-</section>
+<div class="wrap" id="top">
+  <div class="layout">
+    <!-- LEFT: PROFILE -->
+    <header class="profile">
+      <p class="eyebrow">AI Developer Portfolio</p>
+      <h1 class="hero-title">田中<span>そら</span></h1>
+      <p class="hero-role">AI Developer</p>
+      <p class="hero-catch">Claude Code を使って業務自動化・コンテンツ生成・Webスクレイピングなど、AI を活用した実用ツールを開発しています。</p>
+      <div class="hero-btns">
+        <a class="btn btn-primary" href="#works">View Works &rarr;</a>
+        <a class="btn btn-outline" href="#contact">Contact</a>
+      </div>
+      <div class="profile-links">
+        <a href="https://github.com/mononokenomomonoke-tech" target="_blank" rel="noopener">GitHub</a>
+        <a href="mailto:mononokenomomonoke@gmail.com">Email</a>
+      </div>
+    </header>
 
-<!-- Stats bar -->
-<div id="stats">
-  <div class="stats-inner">
-    <div class="stat"><div class="stat-num">8</div><div class="stat-label">Projects</div></div>
-    <div class="stat"><div class="stat-num">5</div><div class="stat-label">Categories</div></div>
-    <div class="stat"><div class="stat-num">9</div><div class="stat-label">Technologies</div></div>
-    <div class="stat"><div class="stat-num">2026</div><div class="stat-label">Year</div></div>
+    <!-- RIGHT: MAIN -->
+    <main id="main">
+      <section id="works" aria-labelledby="works-title">
+        <h2 class="section-title" id="works-title">Works</h2>
+        <div class="accent-line" aria-hidden="true"></div>
+
+        <div class="stats" role="list" aria-label="統計サマリー">
+          <div class="stat" role="listitem">
+            <div class="stat-num">8</div>
+            <div class="stat-label">Projects</div>
+          </div>
+          <div class="stat" role="listitem">
+            <div class="stat-num">4</div>
+            <div class="stat-label">Categories</div>
+          </div>
+          <div class="stat" role="listitem">
+            <div class="stat-num">12+</div>
+            <div class="stat-label">Technologies</div>
+          </div>
+        </div>
+
+        <div class="filters" role="tablist" aria-label="カテゴリフィルター">
+          <button class="filter-btn active" role="tab" aria-selected="true" data-filter="all">All</button>
+          <button class="filter-btn" role="tab" aria-selected="false" data-filter="image">Image Generation</button>
+          <button class="filter-btn" role="tab" aria-selected="false" data-filter="agent">AI Agent</button>
+          <button class="filter-btn" role="tab" aria-selected="false" data-filter="automation">Automation</button>
+          <button class="filter-btn" role="tab" aria-selected="false" data-filter="scraping">Web Scraping</button>
+        </div>
+
+        <div class="grid" id="grid">
+
+          <article class="card" data-category="image">
+            <div class="card-media">
+              <span class="card-badge">Image Generation</span>
+              <img src="image/スクリーンショット 2026-06-03 174648.png" alt="fal API 画像生成ウォークスルーのスクリーンショット" loading="lazy">
+            </div>
+            <div class="card-body">
+              <h3 class="card-title">fal API 画像生成ウォークスルー</h3>
+              <p class="card-desc">fal の FLUX/imagen 系 API を使った画像生成パイプラインを構築。プロンプトからインフォグラフィック画像を自動生成し、ウォークスルー資料としてまとめた。</p>
+              <div class="card-tags"><span class="tag">fal API</span><span class="tag">画像生成</span><span class="tag">FLUX</span></div>
+            </div>
+          </article>
+
+          <article class="card" data-category="agent">
+            <div class="card-media">
+              <span class="card-badge">AI Agent</span>
+              <img src="image/スクリーンショット 2026-06-05 142436.png" alt="Claude Code SubAgent SEO記事生成のスクリーンショット" loading="lazy">
+            </div>
+            <div class="card-body">
+              <h3 class="card-title">Claude Code SubAgent SEO記事生成</h3>
+              <p class="card-desc">seo-blog-writer サブエージェントと toc-generator / char-counter スキルを組み合わせ、目次付き3000文字以内のSEOブログ記事を自動執筆するワークフローを構築した。</p>
+              <div class="card-tags"><span class="tag">Claude Code</span><span class="tag">SubAgents</span><span class="tag">Skills</span></div>
+            </div>
+          </article>
+
+          <article class="card" data-category="agent">
+            <div class="card-media">
+              <span class="card-badge">AI Agent</span>
+              <img src="image/スクリーンショット 2026-06-05 161441.png" alt="競合リサーチ分析エージェントのスクリーンショット" loading="lazy">
+            </div>
+            <div class="card-body">
+              <h3 class="card-title">競合リサーチ分析エージェント</h3>
+              <p class="card-desc">my_project 内で competitor-heading-research スキルを用い、競合サイトの見出し構成を取得・分析。リサーチ結果を構造化フォーマットで出力するエージェントを実装した。</p>
+              <div class="card-tags"><span class="tag">Skills</span><span class="tag">競合分析</span><span class="tag">リサーチ</span></div>
+            </div>
+          </article>
+
+          <article class="card" data-category="automation">
+            <div class="card-media">
+              <span class="card-badge">Automation</span>
+              <img src="image/スクリーンショット 2026-06-05 165955.png" alt="README 要約スキルのスクリーンショット" loading="lazy">
+            </div>
+            <div class="card-body">
+              <h3 class="card-title">README 要約スキル</h3>
+              <p class="card-desc">summarize スキルで README.md を読み込み、自己紹介プロフィールをトピック・結論・改善提案の定型フォーマットで日本語要約。文書レビューを自動化した。</p>
+              <div class="card-tags"><span class="tag">summarize</span><span class="tag">要約</span><span class="tag">ドキュメント</span></div>
+            </div>
+          </article>
+
+          <article class="card" data-category="agent">
+            <div class="card-media">
+              <span class="card-badge">AI Agent</span>
+              <img src="image/スクリーンショット 2026-06-05 173810.png" alt="技術記事 Build & Review エージェントのスクリーンショット" loading="lazy">
+            </div>
+            <div class="card-body">
+              <h3 class="card-title">技術記事 Build &amp; Review エージェント</h3>
+              <p class="card-desc">Analyzer / Builder / Reviewer の3段階エージェントで元テキストのノイズ除去・再構成・品質評価を実施。約1,950文字の技術解説記事を生成・承認まで自動化した。</p>
+              <div class="card-tags"><span class="tag">マルチエージェント</span><span class="tag">レビュー</span><span class="tag">記事生成</span></div>
+            </div>
+          </article>
+
+          <article class="card" data-category="automation">
+            <div class="card-media">
+              <span class="card-badge">Automation</span>
+              <img src="image/スクリーンショット 2026-06-07 210009.png" alt="Selenium ログイン自動化のスクリーンショット" loading="lazy">
+            </div>
+            <div class="card-body">
+              <h3 class="card-title">Selenium ログイン自動化</h3>
+              <p class="card-desc">Selenium を用いてWebサイトのログインフローを自動化。ユーザー名・パスワード入力からセキュアエリアへの遷移までを6ステップで再現・検証した。</p>
+              <div class="card-tags"><span class="tag">Selenium</span><span class="tag">ブラウザ自動化</span><span class="tag">Python</span></div>
+            </div>
+          </article>
+
+          <article class="card" data-category="scraping">
+            <div class="card-media">
+              <span class="card-badge">Web Scraping</span>
+              <img src="image/スクリーンショット 2026-06-07 212949.png" alt="ニュース見出しスプレッドシート連携のスクリーンショット" loading="lazy">
+            </div>
+            <div class="card-body">
+              <h3 class="card-title">ニュース見出しスプレッドシート連携</h3>
+              <p class="card-desc">Yahoo!ニュースから見出し10件を取得し、Google スプレッドシートのA1〜A10セルへ自動入力。スクレイピングとシート連携を組み合わせた。</p>
+              <div class="card-tags"><span class="tag">スクレイピング</span><span class="tag">Google Sheets</span><span class="tag">ニュース</span></div>
+            </div>
+          </article>
+
+          <article class="card" data-category="scraping">
+            <div class="card-media">
+              <span class="card-badge">Web Scraping</span>
+              <img src="image/スクリーンショット 2026-06-07 215121.png" alt="複数サイトニュース見出し収集のスクリーンショット" loading="lazy">
+            </div>
+            <div class="card-body">
+              <h3 class="card-title">複数サイトニュース見出し収集</h3>
+              <p class="card-desc">The Ring / BoxingScene / ESPN Boxing の3サイトからボクシングニュースの見出しを横断取得し、日本語に整理して一覧化するスクレイパーを構築した。</p>
+              <div class="card-tags"><span class="tag">スクレイピング</span><span class="tag">多サイト横断</span><span class="tag">日本語整形</span></div>
+            </div>
+          </article>
+
+        </div>
+      </section>
+
+      <section class="skills-section" id="skills" aria-labelledby="skills-title">
+        <h2 class="section-title" id="skills-title">Skills</h2>
+        <div class="accent-line" aria-hidden="true"></div>
+        <div class="chips">
+          <span class="chip">Claude Code</span>
+          <span class="chip">SubAgents</span>
+          <span class="chip">Skills</span>
+          <span class="chip">Python</span>
+          <span class="chip">Selenium</span>
+          <span class="chip">Web Scraping</span>
+          <span class="chip">fal API</span>
+          <span class="chip">FLUX</span>
+          <span class="chip">画像生成</span>
+          <span class="chip">Google Sheets</span>
+          <span class="chip">マルチエージェント</span>
+          <span class="chip">業務自動化</span>
+        </div>
+      </section>
+
+      <section class="contact" id="contact" aria-labelledby="contact-title">
+        <h2 class="section-title" id="contact-title">Contact</h2>
+        <div class="accent-line" aria-hidden="true"></div>
+        <p>お仕事のご相談・ご連絡はメールにてお気軽にどうぞ。</p>
+        <a class="contact-mail" href="mailto:mononokenomomonoke@gmail.com">mononokenomomonoke@gmail.com</a>
+      </section>
+    </main>
   </div>
 </div>
 
-<!-- Skills -->
-<section id="skills">
-  <div class="container">
-    <p class="section-label">Skills</p>
-    <div class="section-divider"></div>
-    <div class="skills-grid">
-      <div class="skill-chip"><span>🤖</span> Claude Code</div>
-      <div class="skill-chip"><span>🧠</span> Claude API</div>
-      <div class="skill-chip"><span>🎨</span> fal API</div>
-      <div class="skill-chip"><span>🌐</span> Selenium / Browser 自動化</div>
-      <div class="skill-chip"><span>📊</span> Google スプレッドシート連携</div>
-      <div class="skill-chip"><span>🔍</span> Web スクレイピング</div>
-      <div class="skill-chip"><span>⚙️</span> SubAgents / Skills</div>
-      <div class="skill-chip"><span>📝</span> SEO コンテンツ生成</div>
-      <div class="skill-chip"><span>🐍</span> Python</div>
-    </div>
-  </div>
-</section>
-
-<!-- Projects -->
-<section id="projects">
-  <div class="container">
-    <p class="section-label">Projects</p>
-    <div class="section-divider"></div>
-
-    <div class="filter-bar" role="tablist" aria-label="カテゴリフィルター">
-      <button class="filter-btn active" data-filter="all"   role="tab" aria-selected="true">All</button>
-      <button class="filter-btn"        data-filter="image" role="tab" aria-selected="false">画像生成</button>
-      <button class="filter-btn"        data-filter="agent" role="tab" aria-selected="false">エージェント</button>
-      <button class="filter-btn"        data-filter="automation" role="tab" aria-selected="false">自動化</button>
-      <button class="filter-btn"        data-filter="scraping"   role="tab" aria-selected="false">スクレイピング</button>
-    </div>
-
-    <div class="projects-grid" id="projectsGrid">
-
-      <article class="card fade-in" data-category="image">
-        <div class="card-thumb-wrap">
-          <img class="card-thumb" src="スクリーンショット 2026-06-03 174648.png" alt="fal API 画像生成のデモ画面" loading="lazy" />
-          <div class="card-overlay"></div>
-          <span class="card-badge">画像生成</span>
-        </div>
-        <div class="card-body">
-          <h2 class="card-title">fal API で画像生成を自動化</h2>
-          <p class="card-desc">fal.ai の Image 3 API をプロンプトから呼び出し、スタイルを指定した画像を自動生成するウォークスルーを実装。</p>
-          <div class="card-tags">
-            <span class="tag gold">fal API</span>
-            <span class="tag">Claude Code</span>
-          </div>
-        </div>
-      </article>
-
-      <article class="card fade-in" data-category="agent">
-        <div class="card-thumb-wrap">
-          <img class="card-thumb" src="スクリーンショット 2026-06-05 142436.png" alt="SEO ブログ記事執筆エージェントのデモ" loading="lazy" />
-          <div class="card-overlay"></div>
-          <span class="card-badge">エージェント</span>
-        </div>
-        <div class="card-body">
-          <h2 class="card-title">SEO ブログ記事執筆エージェント</h2>
-          <p class="card-desc">SubAgents × Skills を組み合わせ、目次付き・3000文字以内の SEO 記事を自動生成。toc-generator skill と連携。</p>
-          <div class="card-tags">
-            <span class="tag gold">SubAgents</span>
-            <span class="tag">Skills</span>
-            <span class="tag">SEO</span>
-          </div>
-        </div>
-      </article>
-
-      <article class="card fade-in" data-category="agent">
-        <div class="card-thumb-wrap">
-          <img class="card-thumb" src="スクリーンショット 2026-06-05 161441.png" alt="ドキュメント要約 skill のデモ" loading="lazy" />
-          <div class="card-overlay"></div>
-          <span class="card-badge">エージェント</span>
-        </div>
-        <div class="card-body">
-          <h2 class="card-title">ドキュメント要約・分析 Skill</h2>
-          <p class="card-desc">summarize skill でファイルを読み込み、見出し・トピック・結論・改善提案を構造化して出力。</p>
-          <div class="card-tags">
-            <span class="tag gold">Skills</span>
-            <span class="tag">テキスト解析</span>
-          </div>
-        </div>
-      </article>
-
-      <article class="card fade-in" data-category="agent">
-        <div class="card-thumb-wrap">
-          <img class="card-thumb" src="スクリーンショット 2026-06-05 165955.png" alt="README 自己紹介要約のデモ" loading="lazy" />
-          <div class="card-overlay"></div>
-          <span class="card-badge">エージェント</span>
-        </div>
-        <div class="card-body">
-          <h2 class="card-title">README 自己紹介の自動要約・改善提案</h2>
-          <p class="card-desc">Markdown ファイルを summarize skill で読み込み、プロフィールの要点整理と改善点を自動提案。</p>
-          <div class="card-tags">
-            <span class="tag gold">Skills</span>
-            <span class="tag">Markdown</span>
-          </div>
-        </div>
-      </article>
-
-      <article class="card fade-in" data-category="agent">
-        <div class="card-thumb-wrap">
-          <img class="card-thumb" src="スクリーンショット 2026-06-05 173810.png" alt="Build & Review マルチエージェントのデモ" loading="lazy" />
-          <div class="card-overlay"></div>
-          <span class="card-badge">エージェント</span>
-        </div>
-        <div class="card-body">
-          <h2 class="card-title">Build &amp; Review マルチエージェント</h2>
-          <p class="card-desc">Analyzer → Builder → Reviewer の 3エージェントが連携し、技術記事のノイズ除去・再構成・品質評価を自動実行。</p>
-          <div class="card-tags">
-            <span class="tag gold">マルチエージェント</span>
-            <span class="tag">SubAgents</span>
-          </div>
-        </div>
-      </article>
-
-      <article class="card fade-in" data-category="automation">
-        <div class="card-thumb-wrap">
-          <img class="card-thumb" src="スクリーンショット 2026-06-07 210009.png" alt="Selenium ログイン自動化のデモ" loading="lazy" />
-          <div class="card-overlay"></div>
-          <span class="card-badge">自動化</span>
-        </div>
-        <div class="card-body">
-          <h2 class="card-title">Selenium × Claude でログイン自動化</h2>
-          <p class="card-desc">Claude in Chrome を使い、Web サイトへの自動ログインを 6ステップで実現。ブラウザ操作を自然言語で指示。</p>
-          <div class="card-tags">
-            <span class="tag gold">Selenium</span>
-            <span class="tag">ブラウザ操作</span>
-          </div>
-        </div>
-      </article>
-
-      <article class="card fade-in" data-category="automation">
-        <div class="card-thumb-wrap">
-          <img class="card-thumb" src="スクリーンショット 2026-06-07 212949.png" alt="Yahoo ニュース スプレッドシート自動入力のデモ" loading="lazy" />
-          <div class="card-overlay"></div>
-          <span class="card-badge">自動化</span>
-        </div>
-        <div class="card-body">
-          <h2 class="card-title">ニュース見出しをスプレッドシートへ自動入力</h2>
-          <p class="card-desc">Yahoo ニュースから見出し10件を取得し、Google スプレッドシートの指定セルへ 150ステップで自動入力。</p>
-          <div class="card-tags">
-            <span class="tag gold">スプレッドシート</span>
-            <span class="tag">Claude in Chrome</span>
-          </div>
-        </div>
-      </article>
-
-      <article class="card fade-in" data-category="scraping">
-        <div class="card-thumb-wrap">
-          <img class="card-thumb" src="スクリーンショット 2026-06-07 215121.png" alt="ボクシングニュース スクレイピングのデモ" loading="lazy" />
-          <div class="card-overlay"></div>
-          <span class="card-badge">スクレイピング</span>
-        </div>
-        <div class="card-body">
-          <h2 class="card-title">複数サイトからニュース見出しを一括収集</h2>
-          <p class="card-desc">Ring Magazine・BoxingScene・ESPN Boxing の 3サイトを横断スクレイピングし、見出しを一覧化。</p>
-          <div class="card-tags">
-            <span class="tag gold">マルチサイト</span>
-            <span class="tag">Claude in Chrome</span>
-          </div>
-        </div>
-      </article>
-
-    </div>
-  </div>
-</section>
-
-<!-- Contact -->
-<section id="contact">
-  <div class="container">
-    <p class="section-label">Contact</p>
-    <div class="section-divider"></div>
-    <p style="color:var(--text-sub);font-size:.9rem;max-width:480px;line-height:1.75">
-      AI 開発・自動化に関するご相談はお気軽にどうぞ。
-    </p>
-    <div class="contact-links">
-      <a class="contact-link" href="mailto:mononokenomomonoke@gmail.com">✉️ &nbsp;Email</a>
-    </div>
-  </div>
-</section>
-
 <footer>
-  © 2026 <a href="#">田中そら</a> — Built with <a href="https://claude.ai/code" target="_blank" rel="noopener">Claude Code</a>
+  <p>&copy; 2026 田中そら &mdash; Built with Claude Code</p>
 </footer>
 
-<!-- Lightbox -->
-<div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="画像拡大表示">
-  <button class="lightbox-close" id="lightboxClose" aria-label="閉じる">✕</button>
-  <img class="lightbox-img" id="lightboxImg" src="" alt="" />
+<div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="拡大画像">
+  <button class="lightbox-close" id="lightbox-close" aria-label="閉じる">&times;</button>
+  <img id="lightbox-img" src="" alt="">
 </div>
 
 <script>
-  // ── Mobile nav toggle ──
-  const navToggle = document.getElementById('navToggle');
-  const navLinks  = document.getElementById('navLinks');
-  navToggle.addEventListener('click', () => {
-    const open = navLinks.classList.toggle('open');
-    navToggle.classList.toggle('open', open);
-    navToggle.setAttribute('aria-expanded', open);
+  // Mobile nav
+  var toggle = document.querySelector('.nav-toggle');
+  var navLinks = document.getElementById('nav-links');
+  toggle.addEventListener('click', function(){
+    var open = navLinks.classList.toggle('open');
+    toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
   });
-  // close on link click (mobile)
-  navLinks.querySelectorAll('a').forEach(a => {
-    a.addEventListener('click', () => {
+  navLinks.querySelectorAll('a').forEach(function(a){
+    a.addEventListener('click', function(){
       navLinks.classList.remove('open');
-      navToggle.classList.remove('open');
+      toggle.setAttribute('aria-expanded','false');
     });
   });
 
-  // ── Filter tabs ──
-  const filterBtns = document.querySelectorAll('.filter-btn');
-  const cards      = document.querySelectorAll('.card');
-
-  filterBtns.forEach(btn => {
-    btn.addEventListener('click', () => {
-      filterBtns.forEach(b => { b.classList.remove('active'); b.setAttribute('aria-selected','false'); });
-      btn.classList.add('active');
-      btn.setAttribute('aria-selected','true');
-      const f = btn.dataset.filter;
-      cards.forEach(card => {
-        const hide = f !== 'all' && card.dataset.category !== f;
-        card.classList.toggle('hidden', hide);
+  // Filter
+  var filterBtns = document.querySelectorAll('.filter-btn');
+  var cards = Array.prototype.slice.call(document.querySelectorAll('.card'));
+  filterBtns.forEach(function(btn){
+    btn.addEventListener('click', function(){
+      filterBtns.forEach(function(b){ b.classList.remove('active'); b.setAttribute('aria-selected','false'); });
+      btn.classList.add('active'); btn.setAttribute('aria-selected','true');
+      var f = btn.getAttribute('data-filter');
+      cards.forEach(function(card){
+        var show = (f === 'all' || card.getAttribute('data-category') === f);
+        card.style.display = show ? 'flex' : 'none';
       });
     });
   });
 
-  // ── Lightbox ──
-  const lightbox     = document.getElementById('lightbox');
-  const lightboxImg  = document.getElementById('lightboxImg');
-  const lightboxClose= document.getElementById('lightboxClose');
+  // Scroll fade-in
+  if ('IntersectionObserver' in window){
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(e){
+        if (e.isIntersecting){ e.target.classList.add('in-view'); io.unobserve(e.target); }
+      });
+    }, { threshold:0.12 });
+    cards.forEach(function(c){ io.observe(c); });
+  } else {
+    cards.forEach(function(c){ c.classList.add('in-view'); });
+  }
 
-  cards.forEach(card => {
-    card.addEventListener('click', () => {
-      const img = card.querySelector('.card-thumb');
+  // Lightbox
+  var lightbox = document.getElementById('lightbox');
+  var lightboxImg = document.getElementById('lightbox-img');
+  var lightboxClose = document.getElementById('lightbox-close');
+  cards.forEach(function(card){
+    card.addEventListener('click', function(){
+      var img = card.querySelector('.card-media img');
       lightboxImg.src = img.src;
       lightboxImg.alt = img.alt;
       lightbox.classList.add('open');
-      lightboxClose.focus();
     });
   });
-  const closeLightbox = () => lightbox.classList.remove('open');
+  function closeLightbox(){ lightbox.classList.remove('open'); lightboxImg.src = ''; }
   lightboxClose.addEventListener('click', closeLightbox);
-  lightbox.addEventListener('click', e => { if (e.target === lightbox) closeLightbox(); });
-  document.addEventListener('keydown', e => { if (e.key === 'Escape') closeLightbox(); });
-
-  // ── Scroll fade-in ──
-  const observer = new IntersectionObserver(entries => {
-    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); } });
-  }, { threshold: 0.1 });
-  document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+  lightbox.addEventListener('click', function(e){ if (e.target === lightbox) closeLightbox(); });
+  document.addEventListener('keydown', function(e){ if (e.key === 'Escape') closeLightbox(); });
 </script>
 </body>
 </html>
