@@ -3,240 +3,255 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>田中そら — AI Developer Portfolio</title>
+<title>SORA.AI — AI Developer 田中そら</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
 <style>
-  :root {
-    --bg: #111111;
-    --surface: #1F1F1F;
-    --accent: #54D8FF;
-    --accent-dim: rgba(84,216,255,.1);
-    --accent-glow: rgba(84,216,255,.25);
-    --border: #333333;
-    --border-accent: rgba(84,216,255,.35);
-    --text: #FFFFFF;
-    --text2: #999999;
-    --nav-bg: #0d0d0d;
+  :root{
+    --bg:#050505;
+    --bg-2:#0A1014;
+    --cyan:#00F0FF;
+    --green:#00FF66;
+    --txt:#FFFFFF;
+    --txt-2:#88A0A8;
+    --cat-image:#a855f7;
+    --cat-agent:#00F0FF;
+    --cat-auto:#f59e0b;
+    --cat-scraping:#00FF66;
   }
-  * { margin: 0; padding: 0; box-sizing: border-box; }
-  html { scroll-behavior: smooth; }
-  body {
-    background: var(--bg);
-    background-image:
-      radial-gradient(ellipse 70% 50% at 100% 0%, rgba(84,216,255,.055) 0%, transparent 60%),
-      radial-gradient(ellipse 50% 40% at 0% 100%, rgba(84,216,255,.04) 0%, transparent 55%);
-    color: var(--text);
-    font-family: 'Space Grotesk', sans-serif;
-    line-height: 1.6;
-    overflow-x: hidden;
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{
+    background-color:var(--bg);
+    background-image:radial-gradient(rgba(0,240,255,0.07) 1px, transparent 1px);
+    background-size:28px 28px;
+    color:var(--txt);
+    font-family:'Space Grotesk',sans-serif;
+    line-height:1.7;
+    overflow-x:hidden;
   }
-  .mono { font-family: 'Space Mono', monospace; }
-  a { color: inherit; text-decoration: none; }
-  .container { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
+  h1,h2,h3,.mono{font-family:'Space Mono',monospace}
+  a{color:inherit;text-decoration:none}
+  .wrap{max-width:1140px;margin:0 auto;padding:0 24px}
 
   /* NAV */
-  nav {
-    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
-    background: rgba(13,13,13,.85); backdrop-filter: blur(12px);
-    border-bottom: 1px solid var(--border);
+  nav{
+    position:fixed;top:0;left:0;right:0;z-index:100;
+    background:rgba(5,5,5,0.7);
+    backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);
+    border-bottom:1px solid rgba(0,240,255,0.2);
   }
-  nav .container { display: flex; align-items: center; justify-content: space-between; height: 64px; }
-  .logo { font-weight: 700; font-size: 1.1rem; letter-spacing: .02em; }
-  .logo span { color: var(--accent); }
-  .nav-links { display: flex; gap: 32px; align-items: center; }
-  .nav-links a { font-size: .9rem; color: var(--text2); transition: color .2s; }
-  .nav-links a:hover { color: var(--accent); }
-  .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; background: none; border: none; padding: 4px; }
-  .hamburger span { width: 24px; height: 2px; background: var(--text); transition: .3s; }
+  .nav-inner{display:flex;align-items:center;justify-content:space-between;height:64px}
+  .logo{font-family:'Space Mono',monospace;font-weight:700;font-size:1.2rem;letter-spacing:0.08em}
+  .nav-links{display:flex;gap:32px;list-style:none}
+  .nav-links a{
+    font-family:'Space Mono',monospace;font-size:0.85rem;letter-spacing:0.1em;
+    color:var(--txt-2);transition:color .2s;
+  }
+  .nav-links a:hover{color:var(--green)}
+  .hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;background:none;border:none;padding:6px}
+  .hamburger span{width:24px;height:2px;background:var(--cyan);transition:.3s}
 
   /* HERO */
-  #hero {
-    min-height: 33svh;
-    background-image:
-      linear-gradient(to right, rgba(17,17,17,.85) 0%, rgba(17,17,17,.5) 50%, rgba(17,17,17,.1) 100%),
-      url('image/hero.png');
-    background-size: cover;
-    background-position: center right;
-    display: flex;
-    align-items: center;
+  .hero{
+    position:relative;min-height:40svh;display:flex;align-items:center;
+    padding:120px 0 80px;
+    background:url('image/hero.png') no-repeat center right;
+    background-size:cover;
   }
-  .hero-content { max-width: 580px; }
-  .eyebrow { display: inline-flex; align-items: center; gap: 10px; font-size: .8rem; color: var(--text2); letter-spacing: .08em; margin-bottom: 24px; }
-  .eyebrow .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--accent); box-shadow: 0 0 12px var(--accent); }
-  #hero h1 { font-size: clamp(2.2rem, 5.5vw, 3.6rem); font-weight: 700; line-height: 1.2; margin-bottom: 20px; }
-  #hero h1 em { color: var(--accent); font-style: normal; }
-  .hero-sub { color: var(--text2); font-size: 1.05rem; margin-bottom: 36px; max-width: 480px; }
-  .cta-row { display: flex; gap: 16px; flex-wrap: wrap; margin-bottom: 48px; }
-  .btn { display: inline-block; padding: 14px 28px; border-radius: 10px; font-weight: 500; font-size: .95rem; transition: all .25s; cursor: pointer; }
-  .btn-primary { background: var(--accent); color: #06222b; }
-  .btn-primary:hover { box-shadow: 0 0 28px var(--accent-glow); transform: translateY(-2px); }
-  .btn-outline { border: 1px solid var(--border-accent); color: var(--accent); }
-  .btn-outline:hover { background: var(--accent-dim); box-shadow: 0 0 28px var(--accent-glow); }
-  .stats { display: flex; gap: 40px; padding-top: 28px; border-top: 1px solid var(--border); max-width: 460px; }
-  .stat .num { font-size: 1.6rem; font-weight: 700; color: var(--accent); }
-  .stat .label { font-size: .75rem; color: var(--text2); letter-spacing: .05em; }
+  .hero::before{
+    content:'';position:absolute;inset:0;
+    background:linear-gradient(to right, rgba(5,5,5,0.92) 0%, rgba(5,5,5,0.5) 50%, rgba(5,5,5,0.15) 100%);
+  }
+  .hero .wrap{position:relative;z-index:2;max-width:1140px}
+  .eyebrow{
+    font-family:'Space Mono',monospace;font-size:0.85rem;letter-spacing:0.15em;
+    color:var(--cyan);margin-bottom:20px;text-transform:uppercase;
+  }
+  .hero h1{font-size:clamp(2.2rem,5vw,3.6rem);line-height:1.25;letter-spacing:0.04em;margin-bottom:24px}
+  .hero h1 em{color:var(--green);font-style:normal}
+  .hero .sub{max-width:560px;color:var(--txt-2);font-size:1.05rem;margin-bottom:36px}
+  .cta-row{display:flex;gap:16px;flex-wrap:wrap;margin-bottom:48px}
+  .btn{
+    font-family:'Space Mono',monospace;font-size:0.9rem;letter-spacing:0.08em;
+    padding:14px 28px;border-radius:6px;cursor:pointer;transition:.25s;display:inline-block;
+  }
+  .btn-primary{background:var(--cyan);color:#050505;font-weight:700;border:1px solid var(--cyan)}
+  .btn-primary:hover{box-shadow:0 0 28px rgba(0,240,255,.5)}
+  .btn-outline{background:transparent;color:var(--cyan);border:1px solid rgba(0,240,255,0.5)}
+  .btn-outline:hover{border-color:var(--green);color:var(--green);box-shadow:0 0 28px rgba(0,255,102,.25)}
+  .stats{display:flex;gap:48px;flex-wrap:wrap}
+  .stat .num{font-family:'Space Mono',monospace;font-size:2rem;color:var(--cyan);font-weight:700}
+  .stat .lbl{font-size:0.8rem;color:var(--txt-2);letter-spacing:0.08em}
 
-  /* SECTION GENERIC */
-  section { padding: 100px 0; position: relative; overflow: hidden; }
-  /* Ambient glow orbs per section */
-  #value::before {
-    content: ''; position: absolute; inset: 0; pointer-events: none;
-    background: radial-gradient(ellipse 55% 45% at 90% 20%, rgba(84,216,255,.06) 0%, transparent 65%);
+  /* SECTIONS */
+  section{padding:96px 0}
+  .sec-label{
+    font-family:'Space Mono',monospace;font-size:0.8rem;letter-spacing:0.15em;
+    color:var(--green);margin-bottom:14px;
   }
-  #works::before {
-    content: ''; position: absolute; inset: 0; pointer-events: none;
-    background: radial-gradient(ellipse 45% 55% at 5% 70%, rgba(84,216,255,.055) 0%, transparent 60%);
-  }
-  #process::before {
-    content: ''; position: absolute; inset: 0; pointer-events: none;
-    background: radial-gradient(ellipse 60% 40% at 85% 80%, rgba(84,216,255,.06) 0%, transparent 60%);
-  }
-  #contact::before {
-    content: ''; position: absolute; inset: 0; pointer-events: none;
-    background: radial-gradient(ellipse 70% 60% at 50% 50%, rgba(84,216,255,.07) 0%, transparent 65%);
-  }
-  .sec-head { margin-bottom: 56px; }
-  .sec-label { font-size: .8rem; color: var(--accent); letter-spacing: .12em; margin-bottom: 12px; }
-  .sec-head h2 {
-    font-size: clamp(1.8rem, 4vw, 2.6rem); font-weight: 700;
-    padding-left: 16px;
-    border-left: 3px solid var(--accent);
-    box-shadow: -6px 0 18px rgba(84,216,255,.3);
-  }
-  .sec-head p { color: var(--text2); margin-top: 12px; max-width: 560px; }
+  .sec-h{font-size:clamp(1.8rem,3.5vw,2.6rem);letter-spacing:0.06em;margin-bottom:48px}
 
-  /* VALUE */
-  .value-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
-  .value-card {
-    background: linear-gradient(135deg, var(--surface) 0%, #181818 100%);
-    border: 1px solid var(--border); border-radius: 12px; padding: 36px 28px;
-    transition: all .3s;
-    box-shadow: 0 2px 16px rgba(0,0,0,.4), inset 0 1px 0 rgba(255,255,255,.04);
+  /* CARDS */
+  .card{
+    background:rgba(10,16,20,0.75);
+    border:1px solid rgba(0,240,255,0.25);
+    backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);
+    border-radius:10px;transition:.3s;
   }
-  .value-card:hover { border-color: var(--border-accent); box-shadow: 0 0 32px var(--accent-glow), inset 0 1px 0 rgba(84,216,255,.08); transform: translateY(-4px); }
-  .value-card .ico { font-size: 2rem; margin-bottom: 18px; }
-  .value-card h3 { font-size: 1.2rem; margin-bottom: 10px; }
-  .value-card p { color: var(--text2); font-size: .95rem; }
+  .card:hover{border-color:rgba(0,255,102,0.6);box-shadow:0 0 28px rgba(0,240,255,.3);transform:translateY(-4px)}
+
+  .value-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+  .value-card{padding:36px 28px}
+  .value-card .ic{font-size:2rem;margin-bottom:18px}
+  .value-card h3{font-size:1.2rem;letter-spacing:0.06em;margin-bottom:12px;color:var(--cyan)}
+  .value-card p{color:var(--txt-2);font-size:0.95rem}
+
+  /* FILTERS */
+  .filters{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:36px}
+  .filter-btn{
+    font-family:'Space Mono',monospace;font-size:0.82rem;letter-spacing:0.08em;
+    padding:8px 20px;border-radius:6px;cursor:pointer;
+    background:transparent;color:var(--txt-2);
+    border:1px solid rgba(0,240,255,0.25);transition:.25s;
+  }
+  .filter-btn:hover{color:var(--cyan);border-color:var(--cyan)}
+  .filter-btn.active{background:var(--cyan);color:#050505;border-color:var(--cyan);font-weight:700}
 
   /* WORKS */
-  .filters { display: flex; gap: 12px; flex-wrap: wrap; margin-bottom: 40px; }
-  .filter-btn { background: transparent; border: 1px solid var(--border); color: var(--text2); padding: 8px 20px; border-radius: 8px; font-family: 'Space Mono', monospace; font-size: .85rem; cursor: pointer; transition: all .25s; }
-  .filter-btn:hover { color: var(--text); border-color: var(--border-accent); }
-  .filter-btn.active { background: var(--accent-dim); color: var(--accent); border-color: var(--border-accent); }
-  .works-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 24px; }
-  .work-card {
-    background: linear-gradient(160deg, var(--surface) 0%, #181818 100%);
-    border: 1px solid var(--border); border-radius: 12px; overflow: hidden;
-    cursor: pointer; transition: all .3s;
-    opacity: 0; transform: translateY(24px);
-    box-shadow: 0 2px 16px rgba(0,0,0,.4), inset 0 1px 0 rgba(255,255,255,.04);
+  .works-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:24px}
+  .work-card{
+    overflow:hidden;cursor:pointer;
+    opacity:0;transform:translateY(24px);
+    transition:opacity .6s ease, transform .6s ease, border-color .3s, box-shadow .3s;
   }
-  .work-card.visible { opacity: 1; transform: translateY(0); }
-  .work-card:hover { border-color: var(--border-accent); box-shadow: 0 0 28px var(--accent-glow); transform: translateY(-4px); }
-  .work-card .thumb { aspect-ratio: 16/10; overflow: hidden; background: #000; }
-  .work-card .thumb img { width: 100%; height: 100%; object-fit: cover; transition: transform .4s; }
-  .work-card:hover .thumb img { transform: scale(1.05); }
-  .work-card .body { padding: 20px; }
-  .work-card .cat { font-family: 'Space Mono', monospace; font-size: .72rem; color: var(--accent); letter-spacing: .08em; text-transform: uppercase; }
-  .work-card h3 { font-size: 1.05rem; margin-top: 8px; }
+  .work-card.visible{opacity:1;transform:translateY(0)}
+  .work-card.hidden{display:none}
+  .work-thumb{aspect-ratio:16/10;overflow:hidden;background:#0A1014}
+  .work-thumb img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .4s}
+  .work-card:hover .work-thumb img{transform:scale(1.06)}
+  .work-body{padding:20px 22px}
+  .cat-badge{
+    display:inline-block;font-family:'Space Mono',monospace;font-size:0.72rem;
+    letter-spacing:0.1em;padding:3px 10px;border-radius:4px;margin-bottom:12px;
+    text-transform:uppercase;
+  }
+  .cat-image{background:rgba(168,85,247,0.15);color:var(--cat-image);border:1px solid var(--cat-image)}
+  .cat-agent{background:rgba(0,240,255,0.12);color:var(--cat-agent);border:1px solid var(--cat-agent)}
+  .cat-automation{background:rgba(245,158,11,0.12);color:var(--cat-auto);border:1px solid var(--cat-auto)}
+  .cat-scraping{background:rgba(0,255,102,0.12);color:var(--cat-scraping);border:1px solid var(--cat-scraping)}
+  .work-body h3{font-size:1.02rem;letter-spacing:0.03em;line-height:1.5}
 
   /* PROCESS */
-  .process-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
-  .process-card {
-    background: linear-gradient(135deg, var(--surface) 0%, #181818 100%);
-    border: 1px solid var(--border); border-radius: 12px; padding: 36px 28px;
-    transition: all .3s;
-    box-shadow: 0 2px 16px rgba(0,0,0,.4), inset 0 1px 0 rgba(255,255,255,.04);
-  }
-  .process-card:hover { border-color: var(--border-accent); box-shadow: 0 0 32px var(--accent-glow), inset 0 1px 0 rgba(84,216,255,.08); }
-  .process-card .pnum { font-family: 'Space Mono', monospace; color: var(--accent); font-size: .9rem; margin-bottom: 16px; }
-  .process-card h3 { font-size: 1.2rem; margin-bottom: 10px; }
-  .process-card p { color: var(--text2); font-size: .95rem; }
+  .process-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+  .process-card{padding:32px 28px}
+  .process-card .step{font-family:'Space Mono',monospace;color:var(--green);font-size:0.85rem;letter-spacing:0.1em;margin-bottom:14px}
+  .process-card h3{font-size:1.15rem;letter-spacing:0.05em;margin-bottom:12px;color:var(--cyan)}
+  .process-card p{color:var(--txt-2);font-size:0.95rem}
 
   /* CONTACT */
-  #contact { text-align: center; }
-  .glow-line { width: 120px; height: 2px; margin: 0 auto 40px; background: var(--accent); box-shadow: 0 0 24px var(--accent), 0 0 48px var(--accent-glow); border-radius: 2px; }
-  #contact h2 { font-size: clamp(2rem, 5vw, 3rem); margin-bottom: 20px; }
-  #contact p { color: var(--text2); max-width: 480px; margin: 0 auto 36px; }
-  .contact-links { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
+  .contact{text-align:center}
+  .glow-line{width:80px;height:3px;background:var(--cyan);margin:0 auto 28px;box-shadow:0 0 18px var(--cyan)}
+  .contact p{color:var(--txt-2);max-width:520px;margin:0 auto 36px}
+  .contact .cta-row{justify-content:center}
 
-  footer { border-top: 1px solid var(--border); padding: 32px 0; text-align: center; color: var(--text2); font-size: .85rem; }
+  /* FOOTER */
+  footer{
+    border-top:1px solid rgba(0,240,255,0.2);
+    padding:32px 0;text-align:center;
+    font-family:'Space Mono',monospace;font-size:0.8rem;letter-spacing:0.08em;color:var(--txt-2);
+  }
 
   /* LIGHTBOX */
-  .lightbox { position: fixed; inset: 0; background: rgba(0,0,0,.92); z-index: 200; display: none; align-items: center; justify-content: center; padding: 40px; }
-  .lightbox.open { display: flex; }
-  .lightbox img { max-width: 92vw; max-height: 88vh; border-radius: 8px; box-shadow: 0 0 60px var(--accent-glow); }
-  .lightbox .close { position: absolute; top: 24px; right: 32px; font-size: 2rem; color: var(--text); cursor: pointer; line-height: 1; }
+  .lightbox{
+    position:fixed;inset:0;z-index:200;display:none;
+    align-items:center;justify-content:center;padding:32px;
+    background:rgba(5,5,5,0.92);backdrop-filter:blur(6px);
+  }
+  .lightbox.open{display:flex}
+  .lightbox img{max-width:92vw;max-height:88vh;border:1px solid rgba(0,240,255,0.4);border-radius:8px;box-shadow:0 0 40px rgba(0,240,255,.3)}
+  .lightbox .close{
+    position:absolute;top:24px;right:32px;font-family:'Space Mono',monospace;
+    font-size:2rem;color:var(--cyan);cursor:pointer;line-height:1;
+  }
 
-  @media (max-width: 860px) {
-    .value-grid, .process-grid { grid-template-columns: 1fr; }
-    .nav-links { position: fixed; top: 64px; left: 0; right: 0; flex-direction: column; background: var(--nav-bg); padding: 24px; gap: 20px; border-bottom: 1px solid var(--border); transform: translateY(-150%); transition: transform .3s; }
-    .nav-links.open { transform: translateY(0); }
-    .hamburger { display: flex; }
-    .stats { gap: 28px; }
+  /* RESPONSIVE */
+  @media(max-width:860px){
+    .hamburger{display:flex}
+    .nav-links{
+      position:fixed;top:64px;left:0;right:0;flex-direction:column;gap:0;
+      background:rgba(5,5,5,0.97);backdrop-filter:blur(12px);
+      border-bottom:1px solid rgba(0,240,255,0.2);
+      max-height:0;overflow:hidden;transition:max-height .3s;
+    }
+    .nav-links.open{max-height:320px}
+    .nav-links li{padding:16px 24px;border-top:1px solid rgba(0,240,255,0.1)}
+    .value-grid,.process-grid{grid-template-columns:1fr}
+    .stats{gap:32px}
   }
 </style>
 </head>
 <body>
 
 <nav>
-  <div class="container">
-    <div class="logo">SORA<span>.</span>AI</div>
-    <button class="hamburger" id="hamburger" aria-label="menu">
-      <span></span><span></span><span></span>
-    </button>
-    <div class="nav-links" id="navLinks">
-      <a href="#value">Value</a>
-      <a href="#works">Works</a>
-      <a href="#process">Process</a>
-      <a href="#contact">Contact</a>
-    </div>
+  <div class="wrap nav-inner">
+    <div class="logo">SORA<span style="color:#00F0FF">.</span>AI</div>
+    <ul class="nav-links">
+      <li><a href="#value">Value</a></li>
+      <li><a href="#works">Works</a></li>
+      <li><a href="#process">Process</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+    <button class="hamburger" aria-label="menu"><span></span><span></span><span></span></button>
   </div>
 </nav>
 
-<section id="hero">
-  <div class="container">
-    <div class="hero-content">
-      <div class="eyebrow"><span class="dot"></span><span class="mono">AI Developer — 田中そら</span></div>
-      <h1>AIと一緒につくる、<br>新しい<em>クリエイティブ</em>。</h1>
-      <p class="hero-sub">生成AIとエージェントを組み合わせて、自動化・コンテンツ生成・データ収集を形にします。</p>
-      <div class="cta-row">
-        <a href="#works" class="btn btn-primary">作品を見る →</a>
-        <a href="#contact" class="btn btn-outline">Contact</a>
-      </div>
-      <div class="stats">
-        <div class="stat"><div class="num mono">8</div><div class="label">Projects</div></div>
-        <div class="stat"><div class="num mono">4</div><div class="label">Categories</div></div>
-        <div class="stat"><div class="num mono">AI</div><div class="label">Powered</div></div>
-      </div>
+<header class="hero">
+  <div class="wrap">
+    <p class="eyebrow">AI Developer — 田中そら</p>
+    <h1>AIと一緒につくる、<br>新しい<em>クリエイティブ</em>。</h1>
+    <p class="sub">生成AIとエージェントを組み合わせて、自動化・コンテンツ生成・データ収集を形にします。</p>
+    <div class="cta-row">
+      <a href="#works" class="btn btn-primary">作品を見る →</a>
+      <a href="#contact" class="btn btn-outline">Contact</a>
+    </div>
+    <div class="stats">
+      <div class="stat"><div class="num">8</div><div class="lbl">Projects</div></div>
+      <div class="stat"><div class="num">4</div><div class="lbl">Categories</div></div>
+      <div class="stat"><div class="num">AI</div><div class="lbl">Powered</div></div>
     </div>
   </div>
-</section>
+</header>
 
 <section id="value">
-  <div class="container">
-    <div class="sec-head">
-      <div class="sec-label mono">// WHAT I DO</div>
-      <h2>提供できる3つの価値</h2>
-      <p>AIを実務に落とし込み、繰り返し作業をなくし、新しいアウトプットを生み出します。</p>
-    </div>
+  <div class="wrap">
+    <p class="sec-label">// WHAT I DO</p>
+    <h2 class="sec-h">提供できる3つの価値</h2>
     <div class="value-grid">
-      <div class="value-card"><div class="ico">⚡</div><h3>自動化</h3><p>Selenium やエージェントで、定型業務とデータ連携を自動化します。</p></div>
-      <div class="value-card"><div class="ico">🎨</div><h3>生成</h3><p>画像生成 API や記事生成エージェントで、コンテンツを高速に量産します。</p></div>
-      <div class="value-card"><div class="ico">🔍</div><h3>収集</h3><p>スクレイピングとスプレッドシート連携で、情報を構造化して集めます。</p></div>
+      <div class="card value-card">
+        <div class="ic">⚡</div>
+        <h3>自動化</h3>
+        <p>Selenium やエージェントで、定型業務とデータ連携を自動化します。</p>
+      </div>
+      <div class="card value-card">
+        <div class="ic">🎨</div>
+        <h3>生成</h3>
+        <p>画像生成 API や記事生成エージェントで、コンテンツを高速に量産します。</p>
+      </div>
+      <div class="card value-card">
+        <div class="ic">🔍</div>
+        <h3>収集</h3>
+        <p>スクレイピングとスプレッドシート連携で、情報を構造化して集めます。</p>
+      </div>
     </div>
   </div>
 </section>
 
 <section id="works">
-  <div class="container">
-    <div class="sec-head">
-      <div class="sec-label mono">// SELECTED WORKS</div>
-      <h2>制作実績</h2>
-      <p>AIを活用した8件のプロジェクト。カテゴリで絞り込めます。</p>
-    </div>
+  <div class="wrap">
+    <p class="sec-label">// SELECTED WORKS</p>
+    <h2 class="sec-h">制作実績</h2>
     <div class="filters">
       <button class="filter-btn active" data-f="all">All</button>
       <button class="filter-btn" data-f="agent">Agent</button>
@@ -244,127 +259,129 @@
       <button class="filter-btn" data-f="image">Image</button>
       <button class="filter-btn" data-f="scraping">Scraping</button>
     </div>
-    <div class="works-grid" id="worksGrid">
-      <div class="work-card" data-cat="image">
-        <div class="thumb"><img src="image/スクリーンショット 2026-06-03 174648.png" alt="fal API 画像生成ウォークスルー"></div>
-        <div class="body"><div class="cat mono">Image</div><h3>fal API 画像生成ウォークスルー</h3></div>
-      </div>
-      <div class="work-card" data-cat="agent">
-        <div class="thumb"><img src="image/スクリーンショット 2026-06-05 142436.png" alt="Claude Code SubAgent SEO記事生成"></div>
-        <div class="body"><div class="cat mono">Agent</div><h3>Claude Code SubAgent SEO記事生成</h3></div>
-      </div>
-      <div class="work-card" data-cat="agent">
-        <div class="thumb"><img src="image/スクリーンショット 2026-06-05 161441.png" alt="競合リサーチ分析エージェント"></div>
-        <div class="body"><div class="cat mono">Agent</div><h3>競合リサーチ分析エージェント</h3></div>
-      </div>
-      <div class="work-card" data-cat="automation">
-        <div class="thumb"><img src="image/スクリーンショット 2026-06-05 165955.png" alt="README自動要約スキル"></div>
-        <div class="body"><div class="cat mono">Automation</div><h3>README自動要約スキル</h3></div>
-      </div>
-      <div class="work-card" data-cat="agent">
-        <div class="thumb"><img src="image/スクリーンショット 2026-06-05 173810.png" alt="技術記事Build & Reviewエージェント"></div>
-        <div class="body"><div class="cat mono">Agent</div><h3>技術記事Build &amp; Reviewエージェント</h3></div>
-      </div>
-      <div class="work-card" data-cat="automation">
-        <div class="thumb"><img src="image/スクリーンショット 2026-06-07 210009.png" alt="Seleniumログイン自動化"></div>
-        <div class="body"><div class="cat mono">Automation</div><h3>Seleniumログイン自動化</h3></div>
-      </div>
-      <div class="work-card" data-cat="scraping">
-        <div class="thumb"><img src="image/スクリーンショット 2026-06-07 212949.png" alt="ニュース見出しスプレッドシート連携"></div>
-        <div class="body"><div class="cat mono">Scraping</div><h3>ニュース見出しスプレッドシート連携</h3></div>
-      </div>
-      <div class="work-card" data-cat="scraping">
-        <div class="thumb"><img src="image/スクリーンショット 2026-06-07 215121.png" alt="複数サイトニュース見出し一括収集"></div>
-        <div class="body"><div class="cat mono">Scraping</div><h3>複数サイトニュース見出し一括収集</h3></div>
-      </div>
+    <div class="works-grid">
+      <article class="card work-card" data-cat="image">
+        <div class="work-thumb"><img src="image/スクリーンショット 2026-06-03 174648.png" alt="fal API 画像生成ウォークスルー"></div>
+        <div class="work-body"><span class="cat-badge cat-image">Image</span><h3>fal API 画像生成ウォークスルー</h3></div>
+      </article>
+      <article class="card work-card" data-cat="agent">
+        <div class="work-thumb"><img src="image/スクリーンショット 2026-06-05 142436.png" alt="Claude Code SubAgent SEO記事生成"></div>
+        <div class="work-body"><span class="cat-badge cat-agent">Agent</span><h3>Claude Code SubAgent SEO記事生成</h3></div>
+      </article>
+      <article class="card work-card" data-cat="agent">
+        <div class="work-thumb"><img src="image/スクリーンショット 2026-06-05 161441.png" alt="競合リサーチ分析エージェント"></div>
+        <div class="work-body"><span class="cat-badge cat-agent">Agent</span><h3>競合リサーチ分析エージェント</h3></div>
+      </article>
+      <article class="card work-card" data-cat="automation">
+        <div class="work-thumb"><img src="image/スクリーンショット 2026-06-05 165955.png" alt="README自動要約スキル"></div>
+        <div class="work-body"><span class="cat-badge cat-automation">Auto</span><h3>README自動要約スキル</h3></div>
+      </article>
+      <article class="card work-card" data-cat="agent">
+        <div class="work-thumb"><img src="image/スクリーンショット 2026-06-05 173810.png" alt="技術記事Build & Reviewエージェント"></div>
+        <div class="work-body"><span class="cat-badge cat-agent">Agent</span><h3>技術記事Build &amp; Reviewエージェント</h3></div>
+      </article>
+      <article class="card work-card" data-cat="automation">
+        <div class="work-thumb"><img src="image/スクリーンショット 2026-06-07 210009.png" alt="Seleniumログイン自動化"></div>
+        <div class="work-body"><span class="cat-badge cat-automation">Auto</span><h3>Seleniumログイン自動化</h3></div>
+      </article>
+      <article class="card work-card" data-cat="scraping">
+        <div class="work-thumb"><img src="image/スクリーンショット 2026-06-07 212949.png" alt="ニュース見出しスプレッドシート連携"></div>
+        <div class="work-body"><span class="cat-badge cat-scraping">Scraping</span><h3>ニュース見出しスプレッドシート連携</h3></div>
+      </article>
+      <article class="card work-card" data-cat="scraping">
+        <div class="work-thumb"><img src="image/スクリーンショット 2026-06-07 215121.png" alt="複数サイトニュース見出し一括収集"></div>
+        <div class="work-body"><span class="cat-badge cat-scraping">Scraping</span><h3>複数サイトニュース見出し一括収集</h3></div>
+      </article>
     </div>
   </div>
 </section>
 
 <section id="process">
-  <div class="container">
-    <div class="sec-head">
-      <div class="sec-label mono">// HOW I WORK</div>
-      <h2>制作プロセス</h2>
-    </div>
+  <div class="wrap">
+    <p class="sec-label">// HOW I WORK</p>
+    <h2 class="sec-h">制作プロセス</h2>
     <div class="process-grid">
-      <div class="process-card"><div class="pnum">// 01</div><h3>ヒアリング</h3><p>課題と繰り返し作業を洗い出し、AIで解決できる領域を見極めます。</p></div>
-      <div class="process-card"><div class="pnum">// 02</div><h3>設計・構築</h3><p>エージェントやAPIを組み合わせ、最小構成のプロトタイプを素早く形にします。</p></div>
-      <div class="process-card"><div class="pnum">// 03</div><h3>検証・改善</h3><p>実データで動作を検証し、精度と運用効率を継続的に磨き込みます。</p></div>
+      <div class="card process-card">
+        <div class="step">// 01</div>
+        <h3>ヒアリング</h3>
+        <p>課題と繰り返し作業を洗い出し、AIで解決できる領域を見極めます。</p>
+      </div>
+      <div class="card process-card">
+        <div class="step">// 02</div>
+        <h3>設計・構築</h3>
+        <p>エージェントやAPIを組み合わせ、最小構成のプロトタイプを素早く形にします。</p>
+      </div>
+      <div class="card process-card">
+        <div class="step">// 03</div>
+        <h3>検証・改善</h3>
+        <p>実データで動作を検証し、精度と運用効率を継続的に磨き込みます。</p>
+      </div>
     </div>
   </div>
 </section>
 
-<section id="contact">
-  <div class="container">
+<section id="contact" class="contact">
+  <div class="wrap">
     <div class="glow-line"></div>
-    <h2>一緒につくりましょう</h2>
+    <h2 class="sec-h" style="margin-bottom:20px">一緒につくりましょう</h2>
     <p>AIを使った自動化・生成・収集のご相談はお気軽にどうぞ。</p>
-    <div class="contact-links">
+    <div class="cta-row">
       <a href="mailto:mononokenomomonoke@gmail.com" class="btn btn-primary">Email</a>
       <a href="https://github.com/" target="_blank" rel="noopener" class="btn btn-outline">GitHub</a>
     </div>
   </div>
 </section>
 
-<footer>
-  <div class="container mono">© 2026 田中そら — Built with Agent Teams</div>
-</footer>
+<footer>© 2026 田中そら — Built with Agent Teams</footer>
 
 <div class="lightbox" id="lightbox">
   <span class="close" id="lbClose">×</span>
-  <img id="lbImg" src="" alt="">
+  <img src="" alt="" id="lbImg">
 </div>
 
 <script>
-  // Hamburger
-  const hamburger = document.getElementById('hamburger');
-  const navLinks = document.getElementById('navLinks');
-  hamburger.addEventListener('click', () => navLinks.classList.toggle('open'));
-  navLinks.querySelectorAll('a').forEach(a => a.addEventListener('click', () => navLinks.classList.remove('open')));
+  // 1. Hamburger
+  const hb=document.querySelector('.hamburger');
+  const navLinks=document.querySelector('.nav-links');
+  hb.addEventListener('click',()=>navLinks.classList.toggle('open'));
+  navLinks.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>navLinks.classList.remove('open')));
 
-  // Filters
-  const filterBtns = document.querySelectorAll('.filter-btn');
-  const cards = document.querySelectorAll('.work-card');
-  filterBtns.forEach(btn => {
-    btn.addEventListener('click', () => {
-      filterBtns.forEach(b => b.classList.remove('active'));
+  // 2. Category filter
+  const filterBtns=document.querySelectorAll('.filter-btn');
+  const cards=document.querySelectorAll('.work-card');
+  filterBtns.forEach(btn=>{
+    btn.addEventListener('click',()=>{
+      filterBtns.forEach(b=>b.classList.remove('active'));
       btn.classList.add('active');
-      const f = btn.dataset.f;
-      cards.forEach(card => {
-        card.style.display = (f === 'all' || card.dataset.cat === f) ? '' : 'none';
+      const f=btn.dataset.f;
+      cards.forEach(c=>{
+        const show=(f==='all'||c.dataset.cat===f);
+        c.classList.toggle('hidden',!show);
       });
     });
   });
 
-  // IntersectionObserver staggered fade-in
-  const io = new IntersectionObserver((entries) => {
-    entries.forEach((entry, i) => {
-      if (entry.isIntersecting) {
-        const el = entry.target;
-        setTimeout(() => el.classList.add('visible'), (Array.from(cards).indexOf(el) % 4) * 100);
-        io.unobserve(el);
-      }
-    });
-  }, { threshold: .15 });
-  cards.forEach(c => io.observe(c));
+  // 3. IntersectionObserver reveal
+  const io=new IntersectionObserver((entries)=>{
+    entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('visible'); io.unobserve(e.target);} });
+  },{threshold:0.15});
+  cards.forEach(c=>io.observe(c));
 
-  // Lightbox
-  const lightbox = document.getElementById('lightbox');
-  const lbImg = document.getElementById('lbImg');
-  const lbClose = document.getElementById('lbClose');
-  cards.forEach(card => {
-    card.addEventListener('click', () => {
-      const img = card.querySelector('img');
-      lbImg.src = img.src;
-      lbImg.alt = img.alt;
-      lightbox.classList.add('open');
+  // 4. Lightbox
+  const lb=document.getElementById('lightbox');
+  const lbImg=document.getElementById('lbImg');
+  const lbClose=document.getElementById('lbClose');
+  cards.forEach(c=>{
+    c.addEventListener('click',()=>{
+      const img=c.querySelector('img');
+      lbImg.src=img.src; lbImg.alt=img.alt;
+      lb.classList.add('open');
     });
   });
-  function closeLb() { lightbox.classList.remove('open'); }
-  lbClose.addEventListener('click', closeLb);
-  lightbox.addEventListener('click', (e) => { if (e.target === lightbox) closeLb(); });
-  document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeLb(); });
+  function closeLb(){ lb.classList.remove('open'); lbImg.src=''; }
+  lbClose.addEventListener('click',closeLb);
+  lb.addEventListener('click',(e)=>{ if(e.target===lb) closeLb(); });
+  document.addEventListener('keydown',(e)=>{ if(e.key==='Escape') closeLb(); });
 </script>
 </body>
 </html>
