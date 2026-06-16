@@ -3,487 +3,526 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>田中そら | AI Developer Portfolio</title>
-<meta name="description" content="田中そら のAI開発ポートフォリオ。Claude Code を活用した業務自動化・コンテンツ生成・Webスクレイピング・画像生成など、実用的なAIツールの制作実績を掲載。">
+<title>田中そら | AIと一緒につくる</title>
+<meta name="description" content="Claude Code を使って自動化・生成・収集の可能性を広げる AI 開発者、田中そらの作品集。">
 <meta name="author" content="田中そら">
 <meta property="og:type" content="website">
-<meta property="og:title" content="田中そら | AI Developer Portfolio">
-<meta property="og:description" content="Claude Code を使ってAIエージェント・自動化・スクレイピング・画像生成ツールを開発するAI開発者のポートフォリオ。">
+<meta property="og:title" content="田中そら | AIと一緒につくる">
+<meta property="og:description" content="AIと一緒につくる、新しいクリエイティブ。Claude Code で広げる自動化・生成・収集の可能性。">
 <meta property="og:url" content="https://mononokenomomonoke-tech.github.io/portfolio/">
 <meta property="og:locale" content="ja_JP">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="田中そら | AI Developer Portfolio">
-<meta name="twitter:description" content="Claude Code を使ってAIツールを開発するAI開発者のポートフォリオ。">
 <style>
-  :root{
-    --bg:#111111; --surface:#1c1c1c; --elevated:#242424;
-    --text:#ffffff; --text-2:#b0b0b0; --muted:#666666;
-    --accent:#c8a84b; --accent-hover:#e0be6a; --accent-subtle:#2a2218;
-    --border:#2e2e2e; --border-strong:#444444;
-    --nav-bg:#0a0a0a;
-    --font-head:'Arial Black','Helvetica Neue',sans-serif;
-    --font-body:'Arial','Helvetica Neue',sans-serif;
-  }
-  *{margin:0;padding:0;box-sizing:border-box;}
-  html{scroll-behavior:smooth;}
-  body{
-    background:var(--bg); color:var(--text); font-family:var(--font-body);
-    line-height:1.6; -webkit-font-smoothing:antialiased;
-  }
-  a{color:inherit;text-decoration:none;}
-  img{display:block;max-width:100%;}
+/* ── Reset & Tokens ── */
+*{margin:0;padding:0;box-sizing:border-box;}
+:root{
+  --bg:#111111; --surface:#1c1c1c; --elevated:#242424;
+  --text:#fff; --text2:#b0b0b0; --muted:#666;
+  --accent:#c8a84b; --accent-h:#e0be6a; --accent-s:#2a2218;
+  --border:#2e2e2e; --border2:#444;
+  --nav:#0a0a0a;
+  --fh:'Arial Black','Helvetica Neue',sans-serif;
+  --fb:'Arial','Helvetica Neue',sans-serif;
+}
+html{scroll-behavior:smooth;}
+body{font-family:var(--fb);background:var(--bg);color:var(--text);line-height:1.65;-webkit-font-smoothing:antialiased;}
+a{color:inherit;text-decoration:none;}
+img{display:block;max-width:100%;}
 
-  .skip-link{
-    position:absolute; left:-999px; top:0; z-index:1000;
-    background:var(--accent); color:#000; padding:10px 18px; font-weight:800;
-  }
-  .skip-link:focus{left:8px;top:8px;}
+.skip{position:absolute;left:-999px;top:0;z-index:999;background:var(--accent);color:#000;padding:10px 18px;font-weight:800;}
+.skip:focus{left:8px;top:8px;}
 
-  /* NAV */
-  .nav{
-    position:sticky; top:0; z-index:100;
-    background:var(--nav-bg); border-bottom:2px solid var(--accent);
-    height:56px; display:flex; align-items:center;
-  }
-  .nav-inner{
-    max-width:1200px; width:100%; margin:0 auto; padding:0 24px;
-    display:flex; align-items:center; justify-content:space-between;
-  }
-  .nav-logo{font-family:var(--font-head); font-weight:900; font-size:1.05rem; letter-spacing:-0.01em;}
-  .nav-logo span{color:var(--accent);}
-  .nav-links{display:flex; gap:28px; list-style:none;}
-  .nav-links a{
-    text-transform:uppercase; letter-spacing:0.08em; font-size:0.78rem;
-    font-weight:700; color:#cccccc; transition:color 200ms ease-out;
-  }
-  .nav-links a:hover,.nav-links a:focus{color:var(--accent);}
-  .nav-toggle{
-    display:none; background:none; border:none; color:var(--accent);
-    font-size:1.5rem; cursor:pointer; line-height:1;
-  }
+/* ── NAV ── */
+.nav{position:sticky;top:0;z-index:100;background:var(--nav);border-bottom:2px solid var(--accent);height:56px;display:flex;align-items:center;}
+.nav-in{max-width:1200px;width:100%;margin:0 auto;padding:0 24px;display:flex;align-items:center;justify-content:space-between;}
+.nav-logo{font-family:var(--fh);font-weight:900;font-size:.95rem;letter-spacing:.04em;text-transform:uppercase;}
+.nav-logo em{font-style:normal;color:var(--accent);}
+.nav-links{display:flex;gap:28px;list-style:none;}
+.nav-links a{font-size:.72rem;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:#ccc;transition:color 150ms;}
+.nav-links a:hover{color:var(--accent);}
+.hamburger{display:none;background:none;border:none;color:var(--accent);font-size:1.4rem;cursor:pointer;line-height:1;}
 
-  .wrap{max-width:1200px; margin:0 auto; padding:0 24px;}
+/* ── HERO ── */
+#hero{position:relative;min-height:100svh;display:flex;align-items:center;overflow:hidden;}
 
-  /* LAYOUT: left fixed profile + right grid */
-  .layout{display:grid; grid-template-columns:340px 1fr; gap:48px; padding:64px 0;}
+/* モザイク背景グリッド */
+.hero-mosaic{
+  position:absolute;inset:0;
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  grid-template-rows:repeat(2,1fr);
+}
+.hero-mosaic img{width:100%;height:100%;object-fit:cover;object-position:top;filter:brightness(.45) saturate(.7);}
 
-  /* HERO / PROFILE (left) */
-  .profile{position:sticky; top:88px; align-self:start;}
-  .eyebrow{
-    text-transform:uppercase; letter-spacing:0.1em; font-size:0.7rem;
-    font-weight:700; color:var(--accent); margin-bottom:14px;
-  }
-  .hero-title{
-    font-family:var(--font-head); font-weight:900;
-    font-size:clamp(2.4rem,5vw,3.4rem); line-height:1.05; letter-spacing:-0.01em;
-  }
-  .hero-title span{color:var(--accent);}
-  .hero-role{
-    text-transform:uppercase; letter-spacing:0.1em; font-size:0.85rem;
-    font-weight:700; color:var(--text-2); margin-top:12px;
-  }
-  .hero-catch{color:var(--text-2); font-size:0.95rem; margin-top:20px;}
-  .hero-btns{display:flex; gap:12px; margin-top:28px; flex-wrap:wrap;}
-  .btn{
-    display:inline-block; text-transform:uppercase; letter-spacing:0.08em;
-    font-weight:800; font-size:0.8rem; border-radius:3px; padding:11px 22px;
-    cursor:pointer; transition:all 200ms ease-out; border:1.5px solid transparent;
-  }
-  .btn-primary{background:var(--accent); color:#000;}
-  .btn-primary:hover,.btn-primary:focus{background:var(--accent-hover);}
-  .btn-outline{background:transparent; color:var(--accent); border-color:var(--accent);}
-  .btn-outline:hover,.btn-outline:focus{background:var(--accent); color:#000;}
-  .profile-links{display:flex; gap:18px; margin-top:28px;}
-  .profile-links a{
-    text-transform:uppercase; letter-spacing:0.08em; font-size:0.72rem;
-    font-weight:700; color:var(--muted); transition:color 200ms ease-out;
-  }
-  .profile-links a:hover,.profile-links a:focus{color:var(--accent);}
+/* オーバーレイ */
+.hero-overlay{
+  position:absolute;inset:0;
+  background:
+    linear-gradient(to right, rgba(0,0,0,.75) 0%, rgba(0,0,0,.4) 60%, rgba(0,0,0,.6) 100%),
+    linear-gradient(to bottom, rgba(0,0,0,.3) 0%, rgba(0,0,0,.6) 100%);
+}
 
-  /* MAIN (right) */
-  .section-title{
-    font-family:var(--font-head); font-weight:900;
-    font-size:clamp(1.4rem,3vw,2rem); letter-spacing:-0.01em;
-  }
-  .accent-line{width:48px; height:3px; background:var(--accent); margin:14px 0 28px;}
+/* ゴールドライン装飾 */
+.hero-deco{position:absolute;left:0;top:0;bottom:0;width:4px;background:var(--accent);}
 
-  /* STATS BAR */
-  .stats{
-    display:grid; grid-template-columns:repeat(3,1fr); gap:2px;
-    background:var(--accent); border-radius:4px; overflow:hidden; margin-bottom:40px;
-  }
-  .stat{background:var(--bg); padding:20px 16px; text-align:center;}
-  .stat-num{font-family:var(--font-head); font-weight:900; font-size:2rem; color:var(--accent);}
-  .stat-label{
-    text-transform:uppercase; letter-spacing:0.1em; font-size:0.68rem;
-    font-weight:700; color:var(--text-2); margin-top:4px;
-  }
+.hero-content{position:relative;max-width:1200px;width:100%;margin:0 auto;padding:80px 24px;}
+.hero-label{
+  display:inline-block;background:var(--accent);color:#000;
+  font-size:.62rem;font-weight:800;text-transform:uppercase;letter-spacing:.12em;
+  padding:4px 12px;border-radius:2px;margin-bottom:28px;
+}
+.hero-title{
+  font-family:var(--fh);font-weight:900;
+  font-size:clamp(2.4rem,5.5vw,4.2rem);line-height:1.06;letter-spacing:-.02em;
+  text-shadow:0 2px 16px rgba(0,0,0,.8);
+  margin-bottom:8px;
+}
+.hero-title em{font-style:normal;color:var(--accent);}
+.hero-sub{
+  font-size:clamp(1rem,2.2vw,1.25rem);color:var(--text2);
+  max-width:540px;margin-bottom:40px;line-height:1.7;
+  text-shadow:0 1px 8px rgba(0,0,0,.7);
+}
+.hero-btns{display:flex;gap:14px;flex-wrap:wrap;}
 
-  /* FILTER */
-  .filters{
-    display:flex; gap:6px; flex-wrap:wrap; border-bottom:1px solid var(--border);
-    margin-bottom:32px;
-  }
-  .filter-btn{
-    background:none; border:none; cursor:pointer;
-    text-transform:uppercase; letter-spacing:0.08em; font-size:0.74rem;
-    font-weight:700; color:#888888; padding:12px 16px;
-    border-bottom:2px solid transparent; transition:color 200ms ease-out;
-  }
-  .filter-btn:hover{color:var(--text);}
-  .filter-btn.active{color:var(--accent); border-bottom-color:var(--accent);}
+.btn{
+  display:inline-block;font-size:.78rem;font-weight:800;
+  text-transform:uppercase;letter-spacing:.08em;
+  padding:13px 28px;border-radius:3px;
+  transition:all 150ms ease-out;border:1.5px solid transparent;cursor:pointer;
+}
+.btn-gold{background:var(--accent);color:#000;}
+.btn-gold:hover{background:var(--accent-h);transform:translateY(-2px);}
+.btn-out{background:transparent;color:var(--accent);border-color:var(--accent);}
+.btn-out:hover{background:var(--accent);color:#000;transform:translateY(-2px);}
 
-  /* GRID */
-  .grid{display:grid; grid-template-columns:repeat(2,1fr); gap:24px;}
-  .card{
-    background:var(--surface); border-radius:4px; overflow:hidden;
-    box-shadow:0 4px 16px rgba(0,0,0,0.5); cursor:pointer;
-    transition:transform 200ms ease-out, box-shadow 200ms ease-out;
-    display:flex; flex-direction:column;
-    opacity:0; transform:translateY(18px);
-  }
-  .card.in-view{opacity:1; transform:translateY(0);}
-  .card:hover{transform:translateY(-3px); box-shadow:0 8px 28px rgba(0,0,0,0.7);}
-  .card-media{position:relative; aspect-ratio:3/2; overflow:hidden; background:#000;}
-  .card-media img{width:100%; height:100%; object-fit:cover; transition:transform 300ms ease-out;}
-  .card:hover .card-media img{transform:scale(1.04);}
-  .card-badge{
-    position:absolute; top:10px; left:10px; z-index:2;
-    background:var(--accent); color:#000; font-size:0.62rem; font-weight:800;
-    text-transform:uppercase; letter-spacing:0.1em; padding:3px 8px; border-radius:2px;
-  }
-  .card-body{padding:18px; display:flex; flex-direction:column; flex:1;}
-  .card-title{font-weight:700; font-size:1.05rem; color:var(--text); line-height:1.3;}
-  .card-desc{color:var(--text-2); font-size:0.85rem; margin-top:10px; flex:1;}
-  .card-tags{display:flex; gap:6px; flex-wrap:wrap; margin-top:14px;}
-  .tag{
-    font-size:0.65rem; font-weight:700; text-transform:uppercase; letter-spacing:0.08em;
-    color:var(--accent); background:var(--accent-subtle); padding:3px 8px; border-radius:2px;
-  }
+/* ── WRAP ── */
+.wrap{max-width:1200px;margin:0 auto;padding:0 24px;}
+section{padding:80px 24px;}
 
-  /* SKILLS */
-  .skills-section{margin-top:56px;}
-  .chips{display:flex; gap:10px; flex-wrap:wrap; margin-top:6px;}
-  .chip{
-    background:var(--surface); border:1px solid var(--border);
-    text-transform:uppercase; letter-spacing:0.08em; font-size:0.72rem; font-weight:700;
-    color:var(--text-2); padding:8px 14px; border-radius:4px;
-  }
+.sec-label{font-size:.68rem;font-weight:800;text-transform:uppercase;letter-spacing:.12em;color:var(--accent);margin-bottom:8px;}
+.sec-title{font-family:var(--fh);font-weight:900;font-size:clamp(1.5rem,3vw,2.2rem);letter-spacing:-.01em;margin-bottom:6px;}
+.gold-line{width:48px;height:3px;background:var(--accent);margin:14px 0 40px;}
 
-  /* CONTACT */
-  .contact{margin-top:56px;}
-  .contact p{color:var(--text-2); font-size:0.95rem; margin-bottom:20px;}
-  .contact-mail{
-    font-family:var(--font-head); font-weight:900; color:var(--accent);
-    font-size:clamp(1.1rem,2.4vw,1.6rem); word-break:break-all;
-  }
-  .contact-mail:hover,.contact-mail:focus{color:var(--accent-hover);}
+/* ── VALUE ── */
+#value{background:var(--surface);border-top:1px solid var(--border);border-bottom:1px solid var(--border);}
+.value-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-top:0;}
+.value-card{
+  background:var(--bg);border:1px solid var(--border);border-radius:4px;
+  padding:32px 28px;transition:border-color 200ms,transform 200ms;
+}
+.value-card:hover{border-color:var(--accent);transform:translateY(-3px);}
+.value-icon{font-size:2rem;margin-bottom:16px;}
+.value-head{font-family:var(--fh);font-weight:900;font-size:1.15rem;margin-bottom:10px;}
+.value-desc{font-size:.88rem;color:var(--text2);line-height:1.7;}
+.value-items{margin-top:14px;display:flex;flex-wrap:wrap;gap:6px;}
+.vi{font-size:.65rem;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--accent);background:var(--accent-s);padding:3px 8px;border-radius:2px;}
 
-  /* FOOTER */
-  footer{
-    border-top:1px solid var(--border); margin-top:80px; padding:32px 0;
-    text-align:center;
-  }
-  footer p{
-    color:var(--muted); font-size:0.75rem; text-transform:uppercase; letter-spacing:0.08em;
-  }
+/* ── WORKS ── */
+#works{background:var(--bg);}
 
-  /* LIGHTBOX */
-  .lightbox{
-    position:fixed; inset:0; z-index:200; display:none;
-    background:rgba(0,0,0,0.92); align-items:center; justify-content:center; padding:24px;
-  }
-  .lightbox.open{display:flex;}
-  .lightbox img{max-width:92vw; max-height:88vh; border-radius:4px; box-shadow:0 12px 48px rgba(0,0,0,0.8);}
-  .lightbox-close{
-    position:absolute; top:20px; right:28px; background:none; border:none;
-    color:var(--accent); font-size:2.4rem; line-height:1; cursor:pointer; font-family:var(--font-head);
-  }
-  .lightbox-close:hover{color:var(--accent-hover);}
+.filter-bar{display:flex;gap:0;border-bottom:1px solid var(--border);margin-bottom:36px;flex-wrap:wrap;}
+.fbtn{
+  background:none;border:none;border-bottom:2px solid transparent;margin-bottom:-1px;
+  padding:11px 18px;font-size:.72rem;font-weight:800;text-transform:uppercase;
+  letter-spacing:.08em;color:#888;cursor:pointer;transition:color 150ms,border-color 150ms;
+}
+.fbtn:hover{color:var(--text2);}
+.fbtn.on{color:var(--accent);border-bottom-color:var(--accent);}
 
-  @media (max-width:960px){
-    .layout{grid-template-columns:1fr; gap:32px; padding:40px 0;}
-    .profile{position:static;}
-    .grid{grid-template-columns:1fr;}
-  }
-  @media (max-width:600px){
-    .nav-links{
-      display:none; position:absolute; top:56px; left:0; right:0;
-      flex-direction:column; gap:0; background:var(--nav-bg);
-      border-bottom:2px solid var(--accent);
-    }
-    .nav-links.open{display:flex;}
-    .nav-links li{border-top:1px solid var(--border);}
-    .nav-links a{display:block; padding:14px 24px;}
-    .nav-toggle{display:block;}
-    .stats{grid-template-columns:1fr;}
-  }
-  @media (prefers-reduced-motion:reduce){
-    *{transition:none !important; animation:none !important;}
-    .card{opacity:1; transform:none;}
-  }
+.works-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;}
+.card{
+  background:var(--surface);border-radius:4px;overflow:hidden;border:1px solid var(--border);
+  box-shadow:0 4px 16px rgba(0,0,0,.5);cursor:pointer;
+  transition:transform 200ms ease-out,box-shadow 200ms ease-out,border-color 200ms;
+  opacity:0;transform:translateY(20px);transition:opacity .45s ease-out,transform .45s ease-out;
+}
+.card.vis{opacity:1;transform:translateY(0);}
+.card:hover{transform:translateY(-4px)!important;box-shadow:0 10px 32px rgba(0,0,0,.7);border-color:var(--border2);}
+.card.hide{display:none;}
+
+.card-img{position:relative;aspect-ratio:3/2;overflow:hidden;background:#000;}
+.card-img img{width:100%;height:100%;object-fit:cover;object-position:top;transition:transform 350ms ease-out;}
+.card:hover .card-img img{transform:scale(1.05);}
+.card-img::after{content:'';position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,.7) 0%,transparent 55%);}
+.badge{
+  position:absolute;top:10px;left:10px;z-index:2;
+  background:var(--accent);color:#000;font-size:.6rem;font-weight:800;
+  text-transform:uppercase;letter-spacing:.1em;padding:3px 8px;border-radius:2px;
+}
+.card-body{padding:16px 18px 20px;}
+.card-title{font-weight:700;font-size:1rem;line-height:1.35;margin-bottom:8px;}
+.card-desc{font-size:.82rem;color:var(--text2);line-height:1.6;margin-bottom:14px;}
+.tags{display:flex;gap:6px;flex-wrap:wrap;}
+.tag{font-size:.62rem;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--accent);background:var(--accent-s);padding:3px 8px;border-radius:2px;}
+
+/* ── PROCESS ── */
+#process{background:var(--surface);border-top:1px solid var(--border);}
+.process-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:32px;position:relative;}
+.process-grid::before{
+  content:'';position:absolute;top:28px;left:calc(16.67% + 16px);right:calc(16.67% + 16px);
+  height:1px;background:linear-gradient(to right,var(--accent),var(--border),var(--accent));
+}
+.step{text-align:center;padding:0 16px;}
+.step-num{
+  width:56px;height:56px;border-radius:50%;
+  background:var(--accent);color:#000;
+  font-family:var(--fh);font-weight:900;font-size:1.3rem;
+  display:flex;align-items:center;justify-content:center;
+  margin:0 auto 20px;position:relative;z-index:1;
+}
+.step-title{font-family:var(--fh);font-weight:900;font-size:1rem;margin-bottom:10px;}
+.step-desc{font-size:.85rem;color:var(--text2);line-height:1.65;}
+.step-tool{margin-top:10px;font-size:.65rem;font-weight:800;text-transform:uppercase;letter-spacing:.08em;color:var(--accent);}
+
+/* ── CONTACT ── */
+#contact{background:var(--bg);border-top:3px solid var(--accent);text-align:center;}
+.contact-copy{font-size:.95rem;color:var(--text2);margin-bottom:32px;max-width:440px;margin-left:auto;margin-right:auto;}
+.contact-btns{display:flex;justify-content:center;gap:14px;flex-wrap:wrap;}
+.contact-link{
+  display:inline-flex;align-items:center;gap:8px;
+  padding:12px 24px;border:1.5px solid var(--border2);border-radius:3px;
+  font-size:.76rem;font-weight:800;text-transform:uppercase;letter-spacing:.08em;color:var(--text2);
+  transition:all 200ms;
+}
+.contact-link:hover{border-color:var(--accent);color:var(--accent);background:var(--accent-s);}
+
+/* ── FOOTER ── */
+footer{text-align:center;padding:24px;font-size:.7rem;color:var(--muted);border-top:1px solid var(--border);text-transform:uppercase;letter-spacing:.06em;}
+footer a{color:var(--accent);}
+
+/* ── LIGHTBOX ── */
+.lb{display:none;position:fixed;inset:0;background:rgba(0,0,0,.92);z-index:500;align-items:center;justify-content:center;padding:24px;}
+.lb.open{display:flex;}
+.lb img{max-width:92vw;max-height:88vh;border-radius:3px;box-shadow:0 24px 64px rgba(0,0,0,.8);}
+.lb-close{position:absolute;top:20px;right:24px;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);color:#fff;width:40px;height:40px;border-radius:3px;font-size:1.1rem;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:background 150ms;}
+.lb-close:hover{background:rgba(200,168,75,.35);border-color:var(--accent);}
+
+/* ── RESPONSIVE ── */
+@media(max-width:960px){
+  .works-grid{grid-template-columns:repeat(2,1fr);}
+  .value-grid{grid-template-columns:1fr;}
+  .process-grid{grid-template-columns:1fr;gap:40px;}
+  .process-grid::before{display:none;}
+}
+@media(max-width:600px){
+  .works-grid{grid-template-columns:1fr;}
+  .nav-links{display:none;flex-direction:column;gap:0;position:absolute;top:56px;left:0;right:0;background:var(--nav);border-bottom:1px solid var(--border);}
+  .nav-links.open{display:flex;}
+  .nav-links a{padding:14px 24px;border-top:1px solid var(--border);}
+  .hamburger{display:block;}
+  .hero-mosaic{grid-template-columns:repeat(2,1fr);grid-template-rows:repeat(4,1fr);}
+}
 </style>
 </head>
 <body>
-<a class="skip-link" href="#main">メインコンテンツへスキップ</a>
 
-<nav class="nav" aria-label="メインナビゲーション">
-  <div class="nav-inner">
-    <a class="nav-logo" href="#top">田中<span>そら</span></a>
-    <button class="nav-toggle" aria-label="ナビゲーションを開閉" aria-expanded="false" aria-controls="nav-links">&#9776;</button>
-    <ul class="nav-links" id="nav-links">
+<a class="skip" href="#works">コンテンツへスキップ</a>
+
+<!-- NAV -->
+<nav class="nav" role="banner">
+  <div class="nav-in">
+    <a href="#" class="nav-logo">田中<em>そら</em></a>
+    <button class="hamburger" id="ham" aria-label="メニュー" aria-expanded="false">☰</button>
+    <ul class="nav-links" id="navlinks" role="navigation">
+      <li><a href="#value">About</a></li>
       <li><a href="#works">Works</a></li>
-      <li><a href="#skills">Skills</a></li>
+      <li><a href="#process">Process</a></li>
       <li><a href="#contact">Contact</a></li>
-      <li><a href="https://github.com/mononokenomomonoke-tech" target="_blank" rel="noopener">GitHub</a></li>
     </ul>
   </div>
 </nav>
 
-<div class="wrap" id="top">
-  <div class="layout">
-    <!-- LEFT: PROFILE -->
-    <header class="profile">
-      <p class="eyebrow">AI Developer Portfolio</p>
-      <h1 class="hero-title">田中<span>そら</span></h1>
-      <p class="hero-role">AI Developer</p>
-      <p class="hero-catch">Claude Code を使って業務自動化・コンテンツ生成・Webスクレイピングなど、AI を活用した実用ツールを開発しています。</p>
-      <div class="hero-btns">
-        <a class="btn btn-primary" href="#works">View Works &rarr;</a>
-        <a class="btn btn-outline" href="#contact">Contact</a>
-      </div>
-      <div class="profile-links">
-        <a href="https://github.com/mononokenomomonoke-tech" target="_blank" rel="noopener">GitHub</a>
-        <a href="mailto:mononokenomomonoke@gmail.com">Email</a>
-      </div>
-    </header>
-
-    <!-- RIGHT: MAIN -->
-    <main id="main">
-      <section id="works" aria-labelledby="works-title">
-        <h2 class="section-title" id="works-title">Works</h2>
-        <div class="accent-line" aria-hidden="true"></div>
-
-        <div class="stats" role="list" aria-label="統計サマリー">
-          <div class="stat" role="listitem">
-            <div class="stat-num">8</div>
-            <div class="stat-label">Projects</div>
-          </div>
-          <div class="stat" role="listitem">
-            <div class="stat-num">4</div>
-            <div class="stat-label">Categories</div>
-          </div>
-          <div class="stat" role="listitem">
-            <div class="stat-num">12+</div>
-            <div class="stat-label">Technologies</div>
-          </div>
-        </div>
-
-        <div class="filters" role="tablist" aria-label="カテゴリフィルター">
-          <button class="filter-btn active" role="tab" aria-selected="true" data-filter="all">All</button>
-          <button class="filter-btn" role="tab" aria-selected="false" data-filter="image">Image Generation</button>
-          <button class="filter-btn" role="tab" aria-selected="false" data-filter="agent">AI Agent</button>
-          <button class="filter-btn" role="tab" aria-selected="false" data-filter="automation">Automation</button>
-          <button class="filter-btn" role="tab" aria-selected="false" data-filter="scraping">Web Scraping</button>
-        </div>
-
-        <div class="grid" id="grid">
-
-          <article class="card" data-category="image">
-            <div class="card-media">
-              <span class="card-badge">Image Generation</span>
-              <img src="image/スクリーンショット 2026-06-03 174648.png" alt="fal API 画像生成ウォークスルーのスクリーンショット" loading="lazy">
-            </div>
-            <div class="card-body">
-              <h3 class="card-title">fal API 画像生成ウォークスルー</h3>
-              <p class="card-desc">fal の FLUX/imagen 系 API を使った画像生成パイプラインを構築。プロンプトからインフォグラフィック画像を自動生成し、ウォークスルー資料としてまとめた。</p>
-              <div class="card-tags"><span class="tag">fal API</span><span class="tag">画像生成</span><span class="tag">FLUX</span></div>
-            </div>
-          </article>
-
-          <article class="card" data-category="agent">
-            <div class="card-media">
-              <span class="card-badge">AI Agent</span>
-              <img src="image/スクリーンショット 2026-06-05 142436.png" alt="Claude Code SubAgent SEO記事生成のスクリーンショット" loading="lazy">
-            </div>
-            <div class="card-body">
-              <h3 class="card-title">Claude Code SubAgent SEO記事生成</h3>
-              <p class="card-desc">seo-blog-writer サブエージェントと toc-generator / char-counter スキルを組み合わせ、目次付き3000文字以内のSEOブログ記事を自動執筆するワークフローを構築した。</p>
-              <div class="card-tags"><span class="tag">Claude Code</span><span class="tag">SubAgents</span><span class="tag">Skills</span></div>
-            </div>
-          </article>
-
-          <article class="card" data-category="agent">
-            <div class="card-media">
-              <span class="card-badge">AI Agent</span>
-              <img src="image/スクリーンショット 2026-06-05 161441.png" alt="競合リサーチ分析エージェントのスクリーンショット" loading="lazy">
-            </div>
-            <div class="card-body">
-              <h3 class="card-title">競合リサーチ分析エージェント</h3>
-              <p class="card-desc">my_project 内で competitor-heading-research スキルを用い、競合サイトの見出し構成を取得・分析。リサーチ結果を構造化フォーマットで出力するエージェントを実装した。</p>
-              <div class="card-tags"><span class="tag">Skills</span><span class="tag">競合分析</span><span class="tag">リサーチ</span></div>
-            </div>
-          </article>
-
-          <article class="card" data-category="automation">
-            <div class="card-media">
-              <span class="card-badge">Automation</span>
-              <img src="image/スクリーンショット 2026-06-05 165955.png" alt="README 要約スキルのスクリーンショット" loading="lazy">
-            </div>
-            <div class="card-body">
-              <h3 class="card-title">README 要約スキル</h3>
-              <p class="card-desc">summarize スキルで README.md を読み込み、自己紹介プロフィールをトピック・結論・改善提案の定型フォーマットで日本語要約。文書レビューを自動化した。</p>
-              <div class="card-tags"><span class="tag">summarize</span><span class="tag">要約</span><span class="tag">ドキュメント</span></div>
-            </div>
-          </article>
-
-          <article class="card" data-category="agent">
-            <div class="card-media">
-              <span class="card-badge">AI Agent</span>
-              <img src="image/スクリーンショット 2026-06-05 173810.png" alt="技術記事 Build & Review エージェントのスクリーンショット" loading="lazy">
-            </div>
-            <div class="card-body">
-              <h3 class="card-title">技術記事 Build &amp; Review エージェント</h3>
-              <p class="card-desc">Analyzer / Builder / Reviewer の3段階エージェントで元テキストのノイズ除去・再構成・品質評価を実施。約1,950文字の技術解説記事を生成・承認まで自動化した。</p>
-              <div class="card-tags"><span class="tag">マルチエージェント</span><span class="tag">レビュー</span><span class="tag">記事生成</span></div>
-            </div>
-          </article>
-
-          <article class="card" data-category="automation">
-            <div class="card-media">
-              <span class="card-badge">Automation</span>
-              <img src="image/スクリーンショット 2026-06-07 210009.png" alt="Selenium ログイン自動化のスクリーンショット" loading="lazy">
-            </div>
-            <div class="card-body">
-              <h3 class="card-title">Selenium ログイン自動化</h3>
-              <p class="card-desc">Selenium を用いてWebサイトのログインフローを自動化。ユーザー名・パスワード入力からセキュアエリアへの遷移までを6ステップで再現・検証した。</p>
-              <div class="card-tags"><span class="tag">Selenium</span><span class="tag">ブラウザ自動化</span><span class="tag">Python</span></div>
-            </div>
-          </article>
-
-          <article class="card" data-category="scraping">
-            <div class="card-media">
-              <span class="card-badge">Web Scraping</span>
-              <img src="image/スクリーンショット 2026-06-07 212949.png" alt="ニュース見出しスプレッドシート連携のスクリーンショット" loading="lazy">
-            </div>
-            <div class="card-body">
-              <h3 class="card-title">ニュース見出しスプレッドシート連携</h3>
-              <p class="card-desc">Yahoo!ニュースから見出し10件を取得し、Google スプレッドシートのA1〜A10セルへ自動入力。スクレイピングとシート連携を組み合わせた。</p>
-              <div class="card-tags"><span class="tag">スクレイピング</span><span class="tag">Google Sheets</span><span class="tag">ニュース</span></div>
-            </div>
-          </article>
-
-          <article class="card" data-category="scraping">
-            <div class="card-media">
-              <span class="card-badge">Web Scraping</span>
-              <img src="image/スクリーンショット 2026-06-07 215121.png" alt="複数サイトニュース見出し収集のスクリーンショット" loading="lazy">
-            </div>
-            <div class="card-body">
-              <h3 class="card-title">複数サイトニュース見出し収集</h3>
-              <p class="card-desc">The Ring / BoxingScene / ESPN Boxing の3サイトからボクシングニュースの見出しを横断取得し、日本語に整理して一覧化するスクレイパーを構築した。</p>
-              <div class="card-tags"><span class="tag">スクレイピング</span><span class="tag">多サイト横断</span><span class="tag">日本語整形</span></div>
-            </div>
-          </article>
-
-        </div>
-      </section>
-
-      <section class="skills-section" id="skills" aria-labelledby="skills-title">
-        <h2 class="section-title" id="skills-title">Skills</h2>
-        <div class="accent-line" aria-hidden="true"></div>
-        <div class="chips">
-          <span class="chip">Claude Code</span>
-          <span class="chip">SubAgents</span>
-          <span class="chip">Skills</span>
-          <span class="chip">Python</span>
-          <span class="chip">Selenium</span>
-          <span class="chip">Web Scraping</span>
-          <span class="chip">fal API</span>
-          <span class="chip">FLUX</span>
-          <span class="chip">画像生成</span>
-          <span class="chip">Google Sheets</span>
-          <span class="chip">マルチエージェント</span>
-          <span class="chip">業務自動化</span>
-        </div>
-      </section>
-
-      <section class="contact" id="contact" aria-labelledby="contact-title">
-        <h2 class="section-title" id="contact-title">Contact</h2>
-        <div class="accent-line" aria-hidden="true"></div>
-        <p>お仕事のご相談・ご連絡はメールにてお気軽にどうぞ。</p>
-        <a class="contact-mail" href="mailto:mononokenomomonoke@gmail.com">mononokenomomonoke@gmail.com</a>
-      </section>
-    </main>
+<!-- HERO -->
+<section id="hero" aria-label="ヒーロー">
+  <!-- モザイク背景 -->
+  <div class="hero-mosaic" aria-hidden="true">
+    <img src="image/スクリーンショット 2026-06-03 174648.png" alt="">
+    <img src="image/スクリーンショット 2026-06-05 142436.png" alt="">
+    <img src="image/スクリーンショット 2026-06-05 161441.png" alt="">
+    <img src="image/スクリーンショット 2026-06-05 165955.png" alt="">
+    <img src="image/スクリーンショット 2026-06-05 173810.png" alt="">
+    <img src="image/スクリーンショット 2026-06-07 210009.png" alt="">
+    <img src="image/スクリーンショット 2026-06-07 212949.png" alt="">
+    <img src="image/スクリーンショット 2026-06-07 215121.png" alt="">
   </div>
-</div>
+  <div class="hero-overlay" aria-hidden="true"></div>
+  <div class="hero-deco" aria-hidden="true"></div>
 
-<footer>
-  <p>&copy; 2026 田中そら &mdash; Built with Claude Code</p>
-</footer>
+  <div class="hero-content">
+    <span class="hero-label">AI Developer — 田中そら</span>
+    <h1 class="hero-title">
+      AIと一緒につくる、<br>
+      新しい<em>クリエイティブ</em>。
+    </h1>
+    <p class="hero-sub">
+      Claude Code を使って、自動化・生成・収集の<br>
+      可能性を広げる AI 開発者です。
+    </p>
+    <div class="hero-btns">
+      <a href="#works" class="btn btn-gold">作品を見る →</a>
+      <a href="#contact" class="btn btn-out">Contact</a>
+    </div>
+  </div>
+</section>
 
-<div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="拡大画像">
-  <button class="lightbox-close" id="lightbox-close" aria-label="閉じる">&times;</button>
-  <img id="lightbox-img" src="" alt="">
+<!-- VALUE -->
+<section id="value">
+  <div class="wrap">
+    <p class="sec-label">What I Create</p>
+    <h2 class="sec-title">3つの得意領域</h2>
+    <div class="gold-line"></div>
+    <div class="value-grid">
+      <div class="value-card">
+        <div class="value-icon">⚡</div>
+        <div class="value-head">自動化</div>
+        <p class="value-desc">繰り返し作業を AI エージェントに委ねる。ブラウザ操作・データ入力・フロー制御まで、Claude Code が動かす。</p>
+        <div class="value-items">
+          <span class="vi">Selenium</span>
+          <span class="vi">Browser 操作</span>
+          <span class="vi">Spreadsheet</span>
+        </div>
+      </div>
+      <div class="value-card">
+        <div class="value-icon">🎨</div>
+        <div class="value-head">生成</div>
+        <p class="value-desc">テキスト・画像・記事・要約——プロンプトひとつで品質の高いアウトプットを量産する仕組みをつくる。</p>
+        <div class="value-items">
+          <span class="vi">fal API</span>
+          <span class="vi">SEO 記事</span>
+          <span class="vi">Multi-Agent</span>
+        </div>
+      </div>
+      <div class="value-card">
+        <div class="value-icon">🔍</div>
+        <div class="value-head">収集</div>
+        <p class="value-desc">Web 上の情報を横断的に取得・整形。複数サイトのスクレイピングからスプレッドシート連携まで一気通貫。</p>
+        <div class="value-items">
+          <span class="vi">Scraping</span>
+          <span class="vi">多サイト横断</span>
+          <span class="vi">データ整形</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WORKS -->
+<section id="works">
+  <div class="wrap">
+    <p class="sec-label">Works</p>
+    <h2 class="sec-title">制作実績</h2>
+    <div class="gold-line"></div>
+
+    <div class="filter-bar" role="tablist" aria-label="カテゴリフィルター">
+      <button class="fbtn on" data-f="all"        role="tab" aria-selected="true">All</button>
+      <button class="fbtn"    data-f="image"       role="tab" aria-selected="false">Image Generation</button>
+      <button class="fbtn"    data-f="agent"       role="tab" aria-selected="false">AI Agent</button>
+      <button class="fbtn"    data-f="automation"  role="tab" aria-selected="false">Automation</button>
+      <button class="fbtn"    data-f="scraping"    role="tab" aria-selected="false">Web Scraping</button>
+    </div>
+
+    <div class="works-grid" id="grid">
+
+      <article class="card" data-cat="image">
+        <div class="card-img">
+          <img src="image/スクリーンショット 2026-06-03 174648.png" alt="fal API 画像生成のデモ" loading="lazy">
+          <span class="badge">Image Generation</span>
+        </div>
+        <div class="card-body">
+          <h3 class="card-title">fal API 画像生成ウォークスルー</h3>
+          <p class="card-desc">fal の FLUX 系 API を使った画像生成パイプラインを構築。プロンプトからインフォグラフィック画像を自動生成し、ウォークスルー資料としてまとめた。</p>
+          <div class="tags"><span class="tag">fal API</span><span class="tag">FLUX</span><span class="tag">画像生成</span></div>
+        </div>
+      </article>
+
+      <article class="card" data-cat="agent">
+        <div class="card-img">
+          <img src="image/スクリーンショット 2026-06-05 142436.png" alt="SEO 記事生成エージェントのデモ" loading="lazy">
+          <span class="badge">AI Agent</span>
+        </div>
+        <div class="card-body">
+          <h3 class="card-title">Claude Code SubAgent SEO 記事生成</h3>
+          <p class="card-desc">seo-blog-writer サブエージェントと toc-generator / char-counter スキルを組み合わせ、目次付き 3000 文字以内の SEO 記事を自動執筆するワークフローを構築。</p>
+          <div class="tags"><span class="tag">SubAgents</span><span class="tag">Skills</span><span class="tag">SEO</span></div>
+        </div>
+      </article>
+
+      <article class="card" data-cat="agent">
+        <div class="card-img">
+          <img src="image/スクリーンショット 2026-06-05 161441.png" alt="競合リサーチ分析エージェントのデモ" loading="lazy">
+          <span class="badge">AI Agent</span>
+        </div>
+        <div class="card-body">
+          <h3 class="card-title">競合リサーチ分析エージェント</h3>
+          <p class="card-desc">competitor-heading-research スキルで競合サイトの見出し構成を取得・分析。リサーチ結果を構造化フォーマットで出力するエージェントを実装。</p>
+          <div class="tags"><span class="tag">Skills</span><span class="tag">競合分析</span><span class="tag">リサーチ</span></div>
+        </div>
+      </article>
+
+      <article class="card" data-cat="automation">
+        <div class="card-img">
+          <img src="image/スクリーンショット 2026-06-05 165955.png" alt="README 要約スキルのデモ" loading="lazy">
+          <span class="badge">Automation</span>
+        </div>
+        <div class="card-body">
+          <h3 class="card-title">README 自動要約スキル</h3>
+          <p class="card-desc">summarize スキルで README.md を読み込み、自己紹介プロフィールをトピック・結論・改善提案の定型フォーマットで日本語要約。ドキュメントレビューを自動化。</p>
+          <div class="tags"><span class="tag">summarize</span><span class="tag">要約</span><span class="tag">ドキュメント</span></div>
+        </div>
+      </article>
+
+      <article class="card" data-cat="agent">
+        <div class="card-img">
+          <img src="image/スクリーンショット 2026-06-05 173810.png" alt="Build & Review マルチエージェントのデモ" loading="lazy">
+          <span class="badge">AI Agent</span>
+        </div>
+        <div class="card-body">
+          <h3 class="card-title">技術記事 Build &amp; Review エージェント</h3>
+          <p class="card-desc">Analyzer / Builder / Reviewer の 3 段階エージェントで元テキストのノイズ除去・再構成・品質評価を実施。約 1,950 文字の技術解説記事を生成・承認まで自動化。</p>
+          <div class="tags"><span class="tag">マルチエージェント</span><span class="tag">レビュー</span><span class="tag">記事生成</span></div>
+        </div>
+      </article>
+
+      <article class="card" data-cat="automation">
+        <div class="card-img">
+          <img src="image/スクリーンショット 2026-06-07 210009.png" alt="Selenium ログイン自動化のデモ" loading="lazy">
+          <span class="badge">Automation</span>
+        </div>
+        <div class="card-body">
+          <h3 class="card-title">Selenium ログイン自動化</h3>
+          <p class="card-desc">Selenium を用いて Web サイトのログインフローを自動化。ユーザー名・パスワード入力からセキュアエリアへの遷移までを 6 ステップで再現・検証。</p>
+          <div class="tags"><span class="tag">Selenium</span><span class="tag">ブラウザ自動化</span><span class="tag">Python</span></div>
+        </div>
+      </article>
+
+      <article class="card" data-cat="scraping">
+        <div class="card-img">
+          <img src="image/スクリーンショット 2026-06-07 212949.png" alt="スプレッドシート自動入力のデモ" loading="lazy">
+          <span class="badge">Web Scraping</span>
+        </div>
+        <div class="card-body">
+          <h3 class="card-title">ニュース見出しスプレッドシート連携</h3>
+          <p class="card-desc">Yahoo! ニュースから見出し 10 件を取得し、Google スプレッドシートの A1〜A10 セルへ自動入力。スクレイピングとシート連携を組み合わせた。</p>
+          <div class="tags"><span class="tag">スクレイピング</span><span class="tag">Google Sheets</span><span class="tag">ニュース</span></div>
+        </div>
+      </article>
+
+      <article class="card" data-cat="scraping">
+        <div class="card-img">
+          <img src="image/スクリーンショット 2026-06-07 215121.png" alt="複数サイトスクレイピングのデモ" loading="lazy">
+          <span class="badge">Web Scraping</span>
+        </div>
+        <div class="card-body">
+          <h3 class="card-title">複数サイトニュース見出し一括収集</h3>
+          <p class="card-desc">The Ring / BoxingScene / ESPN Boxing の 3 サイトからニュース見出しを横断取得し、日本語に整理して一覧化するスクレイパーを構築。</p>
+          <div class="tags"><span class="tag">スクレイピング</span><span class="tag">多サイト横断</span><span class="tag">日本語整形</span></div>
+        </div>
+      </article>
+
+    </div>
+  </div>
+</section>
+
+<!-- PROCESS -->
+<section id="process">
+  <div class="wrap">
+    <p class="sec-label">How It Works</p>
+    <h2 class="sec-title">つくり方</h2>
+    <div class="gold-line"></div>
+    <div class="process-grid">
+      <div class="step">
+        <div class="step-num">01</div>
+        <div class="step-title">アイデアを伝える</div>
+        <p class="step-desc">「こんなものをつくりたい」をテキストで伝えるだけ。仕様書も設計図も不要です。</p>
+        <div class="step-tool">自然言語 → Claude Code</div>
+      </div>
+      <div class="step">
+        <div class="step-num">02</div>
+        <div class="step-title">AI エージェントが動く</div>
+        <p class="step-desc">Claude Code がコードを書き、ブラウザを動かし、API を叩き、データを処理する。並行して複数エージェントが協調。</p>
+        <div class="step-tool">SubAgents · Skills · Tools</div>
+      </div>
+      <div class="step">
+        <div class="step-num">03</div>
+        <div class="step-title">成果物ができあがる</div>
+        <p class="step-desc">画像・記事・データ・自動化フロー——アウトプットは即座に使える形で届きます。</p>
+        <div class="step-tool">Output → 即使える</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="wrap">
+    <p class="sec-label">Contact</p>
+    <h2 class="sec-title">一緒につくりませんか</h2>
+    <div class="gold-line"></div>
+    <p class="contact-copy">AI 活用・自動化・コンテンツ生成に関するご相談、お気軽にどうぞ。</p>
+    <div class="contact-btns">
+      <a class="contact-link" href="mailto:mononokenomomonoke@gmail.com">✉️ &nbsp;Email</a>
+      <a class="contact-link" href="https://github.com/mononokenomomonoke-tech" target="_blank" rel="noopener">🐙 &nbsp;GitHub</a>
+    </div>
+  </div>
+</section>
+
+<footer>© 2026 <a href="#">田中そら</a> — Built with <a href="https://claude.ai/code" target="_blank" rel="noopener">Claude Code</a></footer>
+
+<!-- LIGHTBOX -->
+<div class="lb" id="lb" role="dialog" aria-modal="true" aria-label="画像拡大">
+  <button class="lb-close" id="lbclose" aria-label="閉じる">✕</button>
+  <img id="lbimg" src="" alt="">
 </div>
 
 <script>
-  // Mobile nav
-  var toggle = document.querySelector('.nav-toggle');
-  var navLinks = document.getElementById('nav-links');
-  toggle.addEventListener('click', function(){
-    var open = navLinks.classList.toggle('open');
-    toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
-  });
-  navLinks.querySelectorAll('a').forEach(function(a){
-    a.addEventListener('click', function(){
-      navLinks.classList.remove('open');
-      toggle.setAttribute('aria-expanded','false');
-    });
-  });
+// Mobile nav
+const ham = document.getElementById('ham');
+const nav = document.getElementById('navlinks');
+ham.addEventListener('click', () => {
+  const open = nav.classList.toggle('open');
+  ham.setAttribute('aria-expanded', open);
+  ham.textContent = open ? '✕' : '☰';
+});
+nav.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
+  nav.classList.remove('open');
+  ham.textContent = '☰';
+}));
 
-  // Filter
-  var filterBtns = document.querySelectorAll('.filter-btn');
-  var cards = Array.prototype.slice.call(document.querySelectorAll('.card'));
-  filterBtns.forEach(function(btn){
-    btn.addEventListener('click', function(){
-      filterBtns.forEach(function(b){ b.classList.remove('active'); b.setAttribute('aria-selected','false'); });
-      btn.classList.add('active'); btn.setAttribute('aria-selected','true');
-      var f = btn.getAttribute('data-filter');
-      cards.forEach(function(card){
-        var show = (f === 'all' || card.getAttribute('data-category') === f);
-        card.style.display = show ? 'flex' : 'none';
-      });
-    });
+// Filter
+const fbtns = document.querySelectorAll('.fbtn');
+const cards = document.querySelectorAll('.card');
+fbtns.forEach(btn => {
+  btn.addEventListener('click', () => {
+    fbtns.forEach(b => { b.classList.remove('on'); b.setAttribute('aria-selected','false'); });
+    btn.classList.add('on');
+    btn.setAttribute('aria-selected','true');
+    const f = btn.dataset.f;
+    cards.forEach(c => c.classList.toggle('hide', f !== 'all' && c.dataset.cat !== f));
   });
+});
 
-  // Scroll fade-in
-  if ('IntersectionObserver' in window){
-    var io = new IntersectionObserver(function(entries){
-      entries.forEach(function(e){
-        if (e.isIntersecting){ e.target.classList.add('in-view'); io.unobserve(e.target); }
-      });
-    }, { threshold:0.12 });
-    cards.forEach(function(c){ io.observe(c); });
-  } else {
-    cards.forEach(function(c){ c.classList.add('in-view'); });
-  }
+// Scroll fade-in
+const io = new IntersectionObserver(entries => {
+  entries.forEach(e => { if(e.isIntersecting){ e.target.classList.add('vis'); io.unobserve(e.target); }});
+}, { threshold: 0.08 });
+cards.forEach(c => io.observe(c));
 
-  // Lightbox
-  var lightbox = document.getElementById('lightbox');
-  var lightboxImg = document.getElementById('lightbox-img');
-  var lightboxClose = document.getElementById('lightbox-close');
-  cards.forEach(function(card){
-    card.addEventListener('click', function(){
-      var img = card.querySelector('.card-media img');
-      lightboxImg.src = img.src;
-      lightboxImg.alt = img.alt;
-      lightbox.classList.add('open');
-    });
+// Lightbox
+const lb = document.getElementById('lb');
+const lbimg = document.getElementById('lbimg');
+const lbclose = document.getElementById('lbclose');
+cards.forEach(c => {
+  c.addEventListener('click', () => {
+    const img = c.querySelector('img');
+    lbimg.src = img.src; lbimg.alt = img.alt;
+    lb.classList.add('open'); lbclose.focus();
   });
-  function closeLightbox(){ lightbox.classList.remove('open'); lightboxImg.src = ''; }
-  lightboxClose.addEventListener('click', closeLightbox);
-  lightbox.addEventListener('click', function(e){ if (e.target === lightbox) closeLightbox(); });
-  document.addEventListener('keydown', function(e){ if (e.key === 'Escape') closeLightbox(); });
+});
+const closeLb = () => lb.classList.remove('open');
+lbclose.addEventListener('click', closeLb);
+lb.addEventListener('click', e => { if(e.target === lb) closeLb(); });
+document.addEventListener('keydown', e => { if(e.key === 'Escape') closeLb(); });
 </script>
 </body>
 </html>
