@@ -24,6 +24,9 @@
   html { scroll-behavior: smooth; }
   body {
     background: var(--bg);
+    background-image:
+      radial-gradient(ellipse 70% 50% at 100% 0%, rgba(84,216,255,.055) 0%, transparent 60%),
+      radial-gradient(ellipse 50% 40% at 0% 100%, rgba(84,216,255,.04) 0%, transparent 55%);
     color: var(--text);
     font-family: 'Space Grotesk', sans-serif;
     line-height: 1.6;
@@ -76,16 +79,43 @@
   .stat .label { font-size: .75rem; color: var(--text2); letter-spacing: .05em; }
 
   /* SECTION GENERIC */
-  section { padding: 100px 0; }
+  section { padding: 100px 0; position: relative; overflow: hidden; }
+  /* Ambient glow orbs per section */
+  #value::before {
+    content: ''; position: absolute; inset: 0; pointer-events: none;
+    background: radial-gradient(ellipse 55% 45% at 90% 20%, rgba(84,216,255,.06) 0%, transparent 65%);
+  }
+  #works::before {
+    content: ''; position: absolute; inset: 0; pointer-events: none;
+    background: radial-gradient(ellipse 45% 55% at 5% 70%, rgba(84,216,255,.055) 0%, transparent 60%);
+  }
+  #process::before {
+    content: ''; position: absolute; inset: 0; pointer-events: none;
+    background: radial-gradient(ellipse 60% 40% at 85% 80%, rgba(84,216,255,.06) 0%, transparent 60%);
+  }
+  #contact::before {
+    content: ''; position: absolute; inset: 0; pointer-events: none;
+    background: radial-gradient(ellipse 70% 60% at 50% 50%, rgba(84,216,255,.07) 0%, transparent 65%);
+  }
   .sec-head { margin-bottom: 56px; }
   .sec-label { font-size: .8rem; color: var(--accent); letter-spacing: .12em; margin-bottom: 12px; }
-  .sec-head h2 { font-size: clamp(1.8rem, 4vw, 2.6rem); font-weight: 700; }
+  .sec-head h2 {
+    font-size: clamp(1.8rem, 4vw, 2.6rem); font-weight: 700;
+    padding-left: 16px;
+    border-left: 3px solid var(--accent);
+    box-shadow: -6px 0 18px rgba(84,216,255,.3);
+  }
   .sec-head p { color: var(--text2); margin-top: 12px; max-width: 560px; }
 
   /* VALUE */
   .value-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
-  .value-card { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 36px 28px; transition: all .3s; }
-  .value-card:hover { border-color: var(--border-accent); box-shadow: 0 0 28px var(--accent-glow); transform: translateY(-4px); }
+  .value-card {
+    background: linear-gradient(135deg, var(--surface) 0%, #181818 100%);
+    border: 1px solid var(--border); border-radius: 12px; padding: 36px 28px;
+    transition: all .3s;
+    box-shadow: 0 2px 16px rgba(0,0,0,.4), inset 0 1px 0 rgba(255,255,255,.04);
+  }
+  .value-card:hover { border-color: var(--border-accent); box-shadow: 0 0 32px var(--accent-glow), inset 0 1px 0 rgba(84,216,255,.08); transform: translateY(-4px); }
   .value-card .ico { font-size: 2rem; margin-bottom: 18px; }
   .value-card h3 { font-size: 1.2rem; margin-bottom: 10px; }
   .value-card p { color: var(--text2); font-size: .95rem; }
@@ -97,9 +127,11 @@
   .filter-btn.active { background: var(--accent-dim); color: var(--accent); border-color: var(--border-accent); }
   .works-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 24px; }
   .work-card {
-    background: var(--surface); border: 1px solid var(--border); border-radius: 12px; overflow: hidden;
+    background: linear-gradient(160deg, var(--surface) 0%, #181818 100%);
+    border: 1px solid var(--border); border-radius: 12px; overflow: hidden;
     cursor: pointer; transition: all .3s;
     opacity: 0; transform: translateY(24px);
+    box-shadow: 0 2px 16px rgba(0,0,0,.4), inset 0 1px 0 rgba(255,255,255,.04);
   }
   .work-card.visible { opacity: 1; transform: translateY(0); }
   .work-card:hover { border-color: var(--border-accent); box-shadow: 0 0 28px var(--accent-glow); transform: translateY(-4px); }
@@ -112,8 +144,13 @@
 
   /* PROCESS */
   .process-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
-  .process-card { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 36px 28px; transition: all .3s; }
-  .process-card:hover { border-color: var(--border-accent); box-shadow: 0 0 28px var(--accent-glow); }
+  .process-card {
+    background: linear-gradient(135deg, var(--surface) 0%, #181818 100%);
+    border: 1px solid var(--border); border-radius: 12px; padding: 36px 28px;
+    transition: all .3s;
+    box-shadow: 0 2px 16px rgba(0,0,0,.4), inset 0 1px 0 rgba(255,255,255,.04);
+  }
+  .process-card:hover { border-color: var(--border-accent); box-shadow: 0 0 32px var(--accent-glow), inset 0 1px 0 rgba(84,216,255,.08); }
   .process-card .pnum { font-family: 'Space Mono', monospace; color: var(--accent); font-size: .9rem; margin-bottom: 16px; }
   .process-card h3 { font-size: 1.2rem; margin-bottom: 10px; }
   .process-card p { color: var(--text2); font-size: .95rem; }
