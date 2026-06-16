@@ -189,6 +189,8 @@
     .nav-links li{padding:16px 24px;border-top:1px solid rgba(0,240,255,0.1)}
     .value-grid,.process-grid{grid-template-columns:1fr}
     .stats{gap:32px}
+    /* モバイルでカードのbackdrop-filterを無効化（GPU負荷軽減） */
+    .card{backdrop-filter:none;-webkit-backdrop-filter:none;background:rgba(10,16,20,0.95)}
   }
 </style>
 </head>
@@ -261,35 +263,35 @@
     </div>
     <div class="works-grid">
       <article class="card work-card" data-cat="image">
-        <div class="work-thumb"><img src="image/スクリーンショット 2026-06-03 174648.png" alt="fal API 画像生成ウォークスルー"></div>
+        <div class="work-thumb"><img src="image/%E3%82%B9%E3%82%AF%E3%83%AA%E3%83%BC%E3%83%B3%E3%82%B7%E3%83%A7%E3%83%83%E3%83%88%202026-06-03%20174648.png" alt="fal API 画像生成ウォークスルー" loading="lazy" decoding="async"></div>
         <div class="work-body"><span class="cat-badge cat-image">Image</span><h3>fal API 画像生成ウォークスルー</h3></div>
       </article>
       <article class="card work-card" data-cat="agent">
-        <div class="work-thumb"><img src="image/スクリーンショット 2026-06-05 142436.png" alt="Claude Code SubAgent SEO記事生成"></div>
+        <div class="work-thumb"><img src="image/%E3%82%B9%E3%82%AF%E3%83%AA%E3%83%BC%E3%83%B3%E3%82%B7%E3%83%A7%E3%83%83%E3%83%88%202026-06-05%20142436.png" alt="Claude Code SubAgent SEO記事生成" loading="lazy" decoding="async"></div>
         <div class="work-body"><span class="cat-badge cat-agent">Agent</span><h3>Claude Code SubAgent SEO記事生成</h3></div>
       </article>
       <article class="card work-card" data-cat="agent">
-        <div class="work-thumb"><img src="image/スクリーンショット 2026-06-05 161441.png" alt="競合リサーチ分析エージェント"></div>
+        <div class="work-thumb"><img src="image/%E3%82%B9%E3%82%AF%E3%83%AA%E3%83%BC%E3%83%B3%E3%82%B7%E3%83%A7%E3%83%83%E3%83%88%202026-06-05%20161441.png" alt="競合リサーチ分析エージェント" loading="lazy" decoding="async"></div>
         <div class="work-body"><span class="cat-badge cat-agent">Agent</span><h3>競合リサーチ分析エージェント</h3></div>
       </article>
       <article class="card work-card" data-cat="automation">
-        <div class="work-thumb"><img src="image/スクリーンショット 2026-06-05 165955.png" alt="README自動要約スキル"></div>
+        <div class="work-thumb"><img src="image/%E3%82%B9%E3%82%AF%E3%83%AA%E3%83%BC%E3%83%B3%E3%82%B7%E3%83%A7%E3%83%83%E3%83%88%202026-06-05%20165955.png" alt="README自動要約スキル" loading="lazy" decoding="async"></div>
         <div class="work-body"><span class="cat-badge cat-automation">Auto</span><h3>README自動要約スキル</h3></div>
       </article>
       <article class="card work-card" data-cat="agent">
-        <div class="work-thumb"><img src="image/スクリーンショット 2026-06-05 173810.png" alt="技術記事Build & Reviewエージェント"></div>
+        <div class="work-thumb"><img src="image/%E3%82%B9%E3%82%AF%E3%83%AA%E3%83%BC%E3%83%B3%E3%82%B7%E3%83%A7%E3%83%83%E3%83%88%202026-06-05%20173810.png" alt="技術記事Build &amp; Reviewエージェント" loading="lazy" decoding="async"></div>
         <div class="work-body"><span class="cat-badge cat-agent">Agent</span><h3>技術記事Build &amp; Reviewエージェント</h3></div>
       </article>
       <article class="card work-card" data-cat="automation">
-        <div class="work-thumb"><img src="image/スクリーンショット 2026-06-07 210009.png" alt="Seleniumログイン自動化"></div>
+        <div class="work-thumb"><img src="image/%E3%82%B9%E3%82%AF%E3%83%AA%E3%83%BC%E3%83%B3%E3%82%B7%E3%83%A7%E3%83%83%E3%83%88%202026-06-07%20210009.png" alt="Seleniumログイン自動化" loading="lazy" decoding="async"></div>
         <div class="work-body"><span class="cat-badge cat-automation">Auto</span><h3>Seleniumログイン自動化</h3></div>
       </article>
       <article class="card work-card" data-cat="scraping">
-        <div class="work-thumb"><img src="image/スクリーンショット 2026-06-07 212949.png" alt="ニュース見出しスプレッドシート連携"></div>
+        <div class="work-thumb"><img src="image/%E3%82%B9%E3%82%AF%E3%83%AA%E3%83%BC%E3%83%B3%E3%82%B7%E3%83%A7%E3%83%83%E3%83%88%202026-06-07%20212949.png" alt="ニュース見出しスプレッドシート連携" loading="lazy" decoding="async"></div>
         <div class="work-body"><span class="cat-badge cat-scraping">Scraping</span><h3>ニュース見出しスプレッドシート連携</h3></div>
       </article>
       <article class="card work-card" data-cat="scraping">
-        <div class="work-thumb"><img src="image/スクリーンショット 2026-06-07 215121.png" alt="複数サイトニュース見出し一括収集"></div>
+        <div class="work-thumb"><img src="image/%E3%82%B9%E3%82%AF%E3%83%AA%E3%83%BC%E3%83%B3%E3%82%B7%E3%83%A7%E3%83%83%E3%83%88%202026-06-07%20215121.png" alt="複数サイトニュース見出し一括収集" loading="lazy" decoding="async"></div>
         <div class="work-body"><span class="cat-badge cat-scraping">Scraping</span><h3>複数サイトニュース見出し一括収集</h3></div>
       </article>
     </div>
@@ -327,7 +329,7 @@
     <p>AIを使った自動化・生成・収集のご相談はお気軽にどうぞ。</p>
     <div class="cta-row">
       <a href="mailto:mononokenomomonoke@gmail.com" class="btn btn-primary">Email</a>
-      <a href="https://github.com/" target="_blank" rel="noopener" class="btn btn-outline">GitHub</a>
+      <a href="https://github.com/" target="_blank" rel="noopener noreferrer" class="btn btn-outline">GitHub</a>
     </div>
   </div>
 </section>
