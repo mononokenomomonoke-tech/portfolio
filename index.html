@@ -5,213 +5,157 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>田中そら | AIと一緒につくる</title>
 <meta name="description" content="Claude Code を使って自動化・生成・収集の可能性を広げる AI 開発者、田中そらの作品集。">
-<meta name="author" content="田中そら">
 <meta property="og:type" content="website">
 <meta property="og:title" content="田中そら | AIと一緒につくる">
 <meta property="og:description" content="AIと一緒につくる、新しいクリエイティブ。Claude Code で広げる自動化・生成・収集の可能性。">
-<meta property="og:url" content="https://mononokenomomonoke-tech.github.io/portfolio/">
-<meta property="og:locale" content="ja_JP">
 <meta name="twitter:card" content="summary_large_image">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
 <style>
-/* ── Reset & Tokens ── */
 *{margin:0;padding:0;box-sizing:border-box;}
 :root{
-  --bg:#111111; --surface:#1c1c1c; --elevated:#242424;
-  --text:#fff; --text2:#b0b0b0; --muted:#666;
-  --accent:#c8a84b; --accent-h:#e0be6a; --accent-s:#2a2218;
-  --border:#2e2e2e; --border2:#444;
-  --nav:#0a0a0a;
-  --fh:'Arial Black','Helvetica Neue',sans-serif;
-  --fb:'Arial','Helvetica Neue',sans-serif;
+  --bg:#111111;
+  --surface:#1F1F1F;
+  --elevated:#2a2a2a;
+  --text:#FFFFFF;
+  --text2:#999999;
+  --muted:#555;
+  --accent:#54D8FF;
+  --accent-dim:rgba(84,216,255,.1);
+  --accent-glow:rgba(84,216,255,.25);
+  --border:#333333;
+  --border-a:rgba(84,216,255,.35);
+  --nav:#0d0d0d;
+  --r8:8px;--r10:10px;--r12:12px;
+  --fh:'Space Grotesk','Helvetica Neue',sans-serif;
+  --mono:'Space Mono',monospace;
 }
 html{scroll-behavior:smooth;}
-body{font-family:var(--fb);background:var(--bg);color:var(--text);line-height:1.65;-webkit-font-smoothing:antialiased;}
+body{font-family:var(--fh);background:var(--bg);color:var(--text);line-height:1.65;-webkit-font-smoothing:antialiased;}
 a{color:inherit;text-decoration:none;}
 img{display:block;max-width:100%;}
-
-.skip{position:absolute;left:-999px;top:0;z-index:999;background:var(--accent);color:#000;padding:10px 18px;font-weight:800;}
+.skip{position:absolute;left:-999px;top:0;z-index:999;background:var(--accent);color:#000;padding:10px 18px;font-weight:700;}
 .skip:focus{left:8px;top:8px;}
 
-/* ── NAV ── */
-.nav{position:sticky;top:0;z-index:100;background:var(--nav);border-bottom:2px solid var(--accent);height:56px;display:flex;align-items:center;}
-.nav-in{max-width:1200px;width:100%;margin:0 auto;padding:0 24px;display:flex;align-items:center;justify-content:space-between;}
-.nav-logo{font-family:var(--fh);font-weight:900;font-size:.95rem;letter-spacing:.04em;text-transform:uppercase;}
+/* NAV */
+.nav{position:sticky;top:0;z-index:100;background:var(--nav);height:60px;display:flex;align-items:center;border-bottom:1px solid var(--border);}
+.nav::after{content:'';position:absolute;bottom:-1px;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent 0%,var(--accent) 50%,transparent 100%);opacity:.5;}
+.nav-in{max-width:1200px;width:100%;margin:0 auto;padding:0 28px;display:flex;align-items:center;justify-content:space-between;}
+.nav-logo{font-weight:700;font-size:1rem;letter-spacing:-.01em;}
 .nav-logo em{font-style:normal;color:var(--accent);}
-.nav-links{display:flex;gap:28px;list-style:none;}
-.nav-links a{font-size:.72rem;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:#ccc;transition:color 150ms;}
-.nav-links a:hover{color:var(--accent);}
-.hamburger{display:none;background:none;border:none;color:var(--accent);font-size:1.4rem;cursor:pointer;line-height:1;}
+.nav-links{display:flex;gap:32px;list-style:none;}
+.nav-links a{font-size:.78rem;font-weight:500;color:var(--text2);transition:color 200ms;}
+.nav-links a:hover{color:var(--text);}
+.nav-dot{width:7px;height:7px;border-radius:50%;background:var(--accent);box-shadow:0 0 10px var(--accent);}
+.hamburger{display:none;background:none;border:none;color:var(--accent);font-size:1.3rem;cursor:pointer;}
 
-/* ── HERO ── */
+/* HERO */
 #hero{position:relative;min-height:100svh;display:flex;align-items:center;overflow:hidden;}
-
-/* モザイク背景グリッド */
-.hero-mosaic{
-  position:absolute;inset:0;
-  display:grid;
-  grid-template-columns:repeat(4,1fr);
-  grid-template-rows:repeat(2,1fr);
-}
-.hero-mosaic img{width:100%;height:100%;object-fit:cover;object-position:top;filter:brightness(.45) saturate(.7);}
-
-/* オーバーレイ */
-.hero-overlay{
-  position:absolute;inset:0;
-  background:
-    linear-gradient(to right, rgba(0,0,0,.75) 0%, rgba(0,0,0,.4) 60%, rgba(0,0,0,.6) 100%),
-    linear-gradient(to bottom, rgba(0,0,0,.3) 0%, rgba(0,0,0,.6) 100%);
-}
-
-/* ゴールドライン装飾 */
-.hero-deco{position:absolute;left:0;top:0;bottom:0;width:4px;background:var(--accent);}
-
-.hero-content{position:relative;max-width:1200px;width:100%;margin:0 auto;padding:80px 24px;}
-.hero-label{
-  display:inline-block;background:var(--accent);color:#000;
-  font-size:.62rem;font-weight:800;text-transform:uppercase;letter-spacing:.12em;
-  padding:4px 12px;border-radius:2px;margin-bottom:28px;
-}
-.hero-title{
-  font-family:var(--fh);font-weight:900;
-  font-size:clamp(2.4rem,5.5vw,4.2rem);line-height:1.06;letter-spacing:-.02em;
-  text-shadow:0 2px 16px rgba(0,0,0,.8);
-  margin-bottom:8px;
-}
-.hero-title em{font-style:normal;color:var(--accent);}
-.hero-sub{
-  font-size:clamp(1rem,2.2vw,1.25rem);color:var(--text2);
-  max-width:540px;margin-bottom:40px;line-height:1.7;
-  text-shadow:0 1px 8px rgba(0,0,0,.7);
-}
+.hero-mosaic{position:absolute;inset:0;display:grid;grid-template-columns:repeat(4,1fr);grid-template-rows:repeat(2,1fr);}
+.hero-mosaic img{width:100%;height:100%;object-fit:cover;object-position:top;filter:brightness(.28) saturate(.45);}
+.hero-overlay{position:absolute;inset:0;background:linear-gradient(120deg,rgba(0,0,0,.94) 0%,rgba(0,0,0,.65) 55%,rgba(0,0,0,.82) 100%);}
+.hero-grid{position:absolute;inset:0;background-image:linear-gradient(var(--border) 1px,transparent 1px),linear-gradient(90deg,var(--border) 1px,transparent 1px);background-size:72px 72px;opacity:.07;}
+.hero-line{position:absolute;left:0;top:0;bottom:0;width:2px;background:linear-gradient(to bottom,transparent 10%,var(--accent) 50%,transparent 90%);opacity:.7;}
+.hero-content{position:relative;max-width:1200px;width:100%;margin:0 auto;padding:80px 28px;}
+.hero-eyebrow{display:inline-flex;align-items:center;gap:10px;margin-bottom:28px;}
+.eyebrow-dot{width:8px;height:8px;border-radius:50%;background:var(--accent);box-shadow:0 0 12px var(--accent);}
+.eyebrow-txt{font-family:var(--mono);font-size:.68rem;font-weight:700;text-transform:uppercase;letter-spacing:.12em;color:var(--accent);}
+.hero-title{font-weight:700;font-size:clamp(2.5rem,5.5vw,4.4rem);line-height:1.08;letter-spacing:-.03em;margin-bottom:8px;}
+.hero-title em{font-style:normal;color:var(--accent);text-shadow:0 0 48px rgba(84,216,255,.35);}
+.hero-sub{font-size:clamp(.95rem,1.8vw,1.12rem);color:var(--text2);max-width:500px;margin-bottom:42px;line-height:1.75;}
 .hero-btns{display:flex;gap:14px;flex-wrap:wrap;}
+.btn{display:inline-flex;align-items:center;gap:8px;font-family:var(--fh);font-size:.8rem;font-weight:700;letter-spacing:.03em;padding:13px 28px;border-radius:var(--r8);transition:all 220ms ease-out;border:1px solid transparent;cursor:pointer;}
+.btn-p{background:var(--accent);color:#000;}
+.btn-p:hover{background:#7ee5ff;box-shadow:0 0 32px var(--accent-glow);transform:translateY(-2px);}
+.btn-o{background:transparent;color:var(--accent);border-color:var(--border-a);}
+.btn-o:hover{background:var(--accent-dim);box-shadow:0 0 24px rgba(84,216,255,.15);transform:translateY(-2px);}
+.hero-stats{display:flex;gap:40px;margin-top:52px;padding-top:36px;border-top:1px solid var(--border);}
+.stat-num{font-family:var(--mono);font-size:1.55rem;font-weight:700;color:var(--accent);display:block;}
+.stat-label{font-size:.7rem;color:var(--text2);margin-top:2px;}
 
-.btn{
-  display:inline-block;font-size:.78rem;font-weight:800;
-  text-transform:uppercase;letter-spacing:.08em;
-  padding:13px 28px;border-radius:3px;
-  transition:all 150ms ease-out;border:1.5px solid transparent;cursor:pointer;
-}
-.btn-gold{background:var(--accent);color:#000;}
-.btn-gold:hover{background:var(--accent-h);transform:translateY(-2px);}
-.btn-out{background:transparent;color:var(--accent);border-color:var(--accent);}
-.btn-out:hover{background:var(--accent);color:#000;transform:translateY(-2px);}
+/* SECTIONS */
+.wrap{max-width:1200px;margin:0 auto;padding:0 28px;}
+section{padding:88px 28px;}
+.eyebrow{display:inline-flex;align-items:center;gap:9px;margin-bottom:12px;}
+.eyebrow-line{width:22px;height:1px;background:var(--accent);}
+.eyebrow-label{font-family:var(--mono);font-size:.64rem;font-weight:700;text-transform:uppercase;letter-spacing:.12em;color:var(--accent);}
+.sec-title{font-weight:700;font-size:clamp(1.55rem,3vw,2.3rem);letter-spacing:-.02em;margin-bottom:6px;}
+.cyan-line{width:36px;height:2px;background:var(--accent);border-radius:1px;margin:14px 0 44px;box-shadow:0 0 8px var(--accent-glow);}
 
-/* ── WRAP ── */
-.wrap{max-width:1200px;margin:0 auto;padding:0 24px;}
-section{padding:80px 24px;}
+/* VALUE */
+#value{background:var(--bg);border-top:1px solid var(--border);}
+.val-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;}
+.val-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--r12);padding:32px 28px;transition:border-color 250ms,box-shadow 250ms,transform 250ms;}
+.val-card:hover{border-color:var(--border-a);box-shadow:0 8px 40px rgba(84,216,255,.1);transform:translateY(-4px);}
+.val-icon{width:46px;height:46px;border-radius:var(--r8);background:var(--accent-dim);border:1px solid var(--border-a);display:flex;align-items:center;justify-content:center;margin-bottom:18px;font-size:1.25rem;}
+.val-head{font-weight:700;font-size:1.08rem;margin-bottom:10px;}
+.val-desc{font-size:.87rem;color:var(--text2);line-height:1.75;}
+.val-tags{margin-top:16px;display:flex;flex-wrap:wrap;gap:6px;}
+.vtag{font-size:.62rem;font-weight:500;font-family:var(--mono);color:var(--accent);background:var(--accent-dim);border:1px solid var(--border-a);padding:3px 9px;border-radius:6px;}
 
-.sec-label{font-size:.68rem;font-weight:800;text-transform:uppercase;letter-spacing:.12em;color:var(--accent);margin-bottom:8px;}
-.sec-title{font-family:var(--fh);font-weight:900;font-size:clamp(1.5rem,3vw,2.2rem);letter-spacing:-.01em;margin-bottom:6px;}
-.gold-line{width:48px;height:3px;background:var(--accent);margin:14px 0 40px;}
-
-/* ── VALUE ── */
-#value{background:var(--surface);border-top:1px solid var(--border);border-bottom:1px solid var(--border);}
-.value-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-top:0;}
-.value-card{
-  background:var(--bg);border:1px solid var(--border);border-radius:4px;
-  padding:32px 28px;transition:border-color 200ms,transform 200ms;
-}
-.value-card:hover{border-color:var(--accent);transform:translateY(-3px);}
-.value-icon{font-size:2rem;margin-bottom:16px;}
-.value-head{font-family:var(--fh);font-weight:900;font-size:1.15rem;margin-bottom:10px;}
-.value-desc{font-size:.88rem;color:var(--text2);line-height:1.7;}
-.value-items{margin-top:14px;display:flex;flex-wrap:wrap;gap:6px;}
-.vi{font-size:.65rem;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--accent);background:var(--accent-s);padding:3px 8px;border-radius:2px;}
-
-/* ── WORKS ── */
-#works{background:var(--bg);}
-
-.filter-bar{display:flex;gap:0;border-bottom:1px solid var(--border);margin-bottom:36px;flex-wrap:wrap;}
-.fbtn{
-  background:none;border:none;border-bottom:2px solid transparent;margin-bottom:-1px;
-  padding:11px 18px;font-size:.72rem;font-weight:800;text-transform:uppercase;
-  letter-spacing:.08em;color:#888;cursor:pointer;transition:color 150ms,border-color 150ms;
-}
-.fbtn:hover{color:var(--text2);}
-.fbtn.on{color:var(--accent);border-bottom-color:var(--accent);}
-
+/* WORKS */
+#works{background:var(--surface);border-top:1px solid var(--border);}
+.filter-bar{display:flex;gap:6px;margin-bottom:32px;flex-wrap:wrap;}
+.fbtn{background:transparent;border:1px solid var(--border);border-radius:var(--r8);padding:8px 18px;font-size:.72rem;font-weight:500;font-family:var(--fh);color:var(--text2);cursor:pointer;transition:all 200ms;}
+.fbtn:hover{color:var(--text);border-color:#555;}
+.fbtn.on{color:#000;background:var(--accent);border-color:var(--accent);box-shadow:0 0 18px var(--accent-glow);}
 .works-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;}
-.card{
-  background:var(--surface);border-radius:4px;overflow:hidden;border:1px solid var(--border);
-  box-shadow:0 4px 16px rgba(0,0,0,.5);cursor:pointer;
-  transition:transform 200ms ease-out,box-shadow 200ms ease-out,border-color 200ms;
-  opacity:0;transform:translateY(20px);transition:opacity .45s ease-out,transform .45s ease-out;
-}
+.card{background:var(--bg);border-radius:var(--r12);overflow:hidden;border:1px solid var(--border);cursor:pointer;opacity:0;transform:translateY(24px);transition:opacity .5s ease-out,transform .5s ease-out;}
 .card.vis{opacity:1;transform:translateY(0);}
-.card:hover{transform:translateY(-4px)!important;box-shadow:0 10px 32px rgba(0,0,0,.7);border-color:var(--border2);}
+.card:hover{border-color:var(--border-a);box-shadow:0 10px 40px rgba(84,216,255,.12);transform:translateY(-5px)!important;}
 .card.hide{display:none;}
-
 .card-img{position:relative;aspect-ratio:3/2;overflow:hidden;background:#000;}
-.card-img img{width:100%;height:100%;object-fit:cover;object-position:top;transition:transform 350ms ease-out;}
-.card:hover .card-img img{transform:scale(1.05);}
-.card-img::after{content:'';position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,.7) 0%,transparent 55%);}
-.badge{
-  position:absolute;top:10px;left:10px;z-index:2;
-  background:var(--accent);color:#000;font-size:.6rem;font-weight:800;
-  text-transform:uppercase;letter-spacing:.1em;padding:3px 8px;border-radius:2px;
-}
-.card-body{padding:16px 18px 20px;}
-.card-title{font-weight:700;font-size:1rem;line-height:1.35;margin-bottom:8px;}
-.card-desc{font-size:.82rem;color:var(--text2);line-height:1.6;margin-bottom:14px;}
+.card-img img{width:100%;height:100%;object-fit:cover;object-position:top;transition:transform 350ms ease-out,filter 350ms;}
+.card:hover .card-img img{transform:scale(1.06);filter:brightness(1);}
+.card-img::after{content:'';position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,.8) 0%,transparent 55%);}
+.badge{position:absolute;top:10px;left:10px;z-index:2;background:var(--accent);color:#000;font-size:.6rem;font-weight:700;font-family:var(--mono);letter-spacing:.05em;padding:3px 9px;border-radius:6px;}
+.card-body{padding:18px 20px 22px;}
+.card-title{font-weight:700;font-size:.97rem;line-height:1.4;margin-bottom:8px;}
+.card-desc{font-size:.82rem;color:var(--text2);line-height:1.65;margin-bottom:14px;}
 .tags{display:flex;gap:6px;flex-wrap:wrap;}
-.tag{font-size:.62rem;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--accent);background:var(--accent-s);padding:3px 8px;border-radius:2px;}
+.tag{font-size:.62rem;font-weight:500;font-family:var(--mono);color:var(--accent);background:var(--accent-dim);border:1px solid var(--border-a);padding:3px 8px;border-radius:6px;}
 
-/* ── PROCESS ── */
-#process{background:var(--surface);border-top:1px solid var(--border);}
-.process-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:32px;position:relative;}
-.process-grid::before{
-  content:'';position:absolute;top:28px;left:calc(16.67% + 16px);right:calc(16.67% + 16px);
-  height:1px;background:linear-gradient(to right,var(--accent),var(--border),var(--accent));
-}
-.step{text-align:center;padding:0 16px;}
-.step-num{
-  width:56px;height:56px;border-radius:50%;
-  background:var(--accent);color:#000;
-  font-family:var(--fh);font-weight:900;font-size:1.3rem;
-  display:flex;align-items:center;justify-content:center;
-  margin:0 auto 20px;position:relative;z-index:1;
-}
-.step-title{font-family:var(--fh);font-weight:900;font-size:1rem;margin-bottom:10px;}
-.step-desc{font-size:.85rem;color:var(--text2);line-height:1.65;}
-.step-tool{margin-top:10px;font-size:.65rem;font-weight:800;text-transform:uppercase;letter-spacing:.08em;color:var(--accent);}
+/* PROCESS */
+#process{background:var(--bg);border-top:1px solid var(--border);}
+.proc-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;}
+.step{background:var(--surface);border:1px solid var(--border);border-radius:var(--r12);padding:32px 28px;transition:border-color 250ms,box-shadow 250ms;}
+.step:hover{border-color:var(--border-a);box-shadow:0 8px 32px rgba(84,216,255,.08);}
+.step-num{font-family:var(--mono);font-size:.68rem;font-weight:700;color:var(--accent);letter-spacing:.1em;margin-bottom:14px;}
+.step-icon{font-size:1.5rem;margin-bottom:14px;}
+.step-title{font-weight:700;font-size:1.05rem;margin-bottom:10px;}
+.step-desc{font-size:.85rem;color:var(--text2);line-height:1.7;}
+.step-tool{margin-top:16px;font-family:var(--mono);font-size:.62rem;color:var(--accent);opacity:.65;}
 
-/* ── CONTACT ── */
-#contact{background:var(--bg);border-top:3px solid var(--accent);text-align:center;}
-.contact-copy{font-size:.95rem;color:var(--text2);margin-bottom:32px;max-width:440px;margin-left:auto;margin-right:auto;}
-.contact-btns{display:flex;justify-content:center;gap:14px;flex-wrap:wrap;}
-.contact-link{
-  display:inline-flex;align-items:center;gap:8px;
-  padding:12px 24px;border:1.5px solid var(--border2);border-radius:3px;
-  font-size:.76rem;font-weight:800;text-transform:uppercase;letter-spacing:.08em;color:var(--text2);
-  transition:all 200ms;
-}
-.contact-link:hover{border-color:var(--accent);color:var(--accent);background:var(--accent-s);}
+/* CONTACT */
+#contact{background:var(--surface);border-top:1px solid var(--border);text-align:center;}
+.contact-inner{max-width:520px;margin:0 auto;}
+.contact-glow{width:100px;height:1px;background:linear-gradient(to right,transparent,var(--accent),transparent);margin:0 auto 36px;box-shadow:0 0 12px var(--accent);}
+.contact-copy{font-size:.93rem;color:var(--text2);margin-bottom:32px;line-height:1.8;}
+.contact-btns{display:flex;justify-content:center;gap:12px;flex-wrap:wrap;}
+.clink{display:inline-flex;align-items:center;gap:9px;padding:12px 24px;border:1px solid var(--border);border-radius:var(--r8);font-size:.78rem;font-weight:500;color:var(--text2);transition:all 220ms;}
+.clink:hover{border-color:var(--border-a);color:var(--accent);background:var(--accent-dim);box-shadow:0 0 20px rgba(84,216,255,.1);}
 
-/* ── FOOTER ── */
-footer{text-align:center;padding:24px;font-size:.7rem;color:var(--muted);border-top:1px solid var(--border);text-transform:uppercase;letter-spacing:.06em;}
+footer{text-align:center;padding:26px;font-family:var(--mono);font-size:.64rem;color:var(--muted);border-top:1px solid var(--border);letter-spacing:.04em;}
 footer a{color:var(--accent);}
 
-/* ── LIGHTBOX ── */
-.lb{display:none;position:fixed;inset:0;background:rgba(0,0,0,.92);z-index:500;align-items:center;justify-content:center;padding:24px;}
+/* LIGHTBOX */
+.lb{display:none;position:fixed;inset:0;background:rgba(0,0,0,.94);z-index:500;align-items:center;justify-content:center;padding:24px;}
 .lb.open{display:flex;}
-.lb img{max-width:92vw;max-height:88vh;border-radius:3px;box-shadow:0 24px 64px rgba(0,0,0,.8);}
-.lb-close{position:absolute;top:20px;right:24px;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);color:#fff;width:40px;height:40px;border-radius:3px;font-size:1.1rem;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:background 150ms;}
-.lb-close:hover{background:rgba(200,168,75,.35);border-color:var(--accent);}
+.lb img{max-width:92vw;max-height:88vh;border-radius:var(--r10);box-shadow:0 0 80px rgba(84,216,255,.08);}
+.lb-close{position:absolute;top:20px;right:24px;background:var(--surface);border:1px solid var(--border);color:var(--text2);width:42px;height:42px;border-radius:var(--r8);font-size:1rem;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all 150ms;}
+.lb-close:hover{border-color:var(--border-a);color:var(--accent);box-shadow:0 0 16px rgba(84,216,255,.2);}
 
-/* ── RESPONSIVE ── */
-@media(max-width:960px){
-  .works-grid{grid-template-columns:repeat(2,1fr);}
-  .value-grid{grid-template-columns:1fr;}
-  .process-grid{grid-template-columns:1fr;gap:40px;}
-  .process-grid::before{display:none;}
-}
+/* RESPONSIVE */
+@media(max-width:960px){.works-grid,.val-grid,.proc-grid{grid-template-columns:repeat(2,1fr);}.hero-stats{gap:24px;}}
 @media(max-width:600px){
-  .works-grid{grid-template-columns:1fr;}
-  .nav-links{display:none;flex-direction:column;gap:0;position:absolute;top:56px;left:0;right:0;background:var(--nav);border-bottom:1px solid var(--border);}
+  .works-grid,.val-grid,.proc-grid{grid-template-columns:1fr;}
+  .nav-links{display:none;flex-direction:column;gap:0;position:absolute;top:60px;left:0;right:0;background:var(--nav);border-bottom:1px solid var(--border);}
   .nav-links.open{display:flex;}
-  .nav-links a{padding:14px 24px;border-top:1px solid var(--border);}
+  .nav-links a{padding:14px 28px;border-top:1px solid var(--border);}
   .hamburger{display:block;}
   .hero-mosaic{grid-template-columns:repeat(2,1fr);grid-template-rows:repeat(4,1fr);}
+  .hero-stats{flex-wrap:wrap;gap:20px;}
 }
 </style>
 </head>
@@ -222,7 +166,7 @@ footer a{color:var(--accent);}
 <!-- NAV -->
 <nav class="nav" role="banner">
   <div class="nav-in">
-    <a href="#" class="nav-logo">田中<em>そら</em></a>
+    <a href="#" class="nav-logo">そら<em>.</em>dev</a>
     <button class="hamburger" id="ham" aria-label="メニュー" aria-expanded="false">☰</button>
     <ul class="nav-links" id="navlinks" role="navigation">
       <li><a href="#value">About</a></li>
@@ -230,12 +174,12 @@ footer a{color:var(--accent);}
       <li><a href="#process">Process</a></li>
       <li><a href="#contact">Contact</a></li>
     </ul>
+    <div class="nav-dot" aria-hidden="true"></div>
   </div>
 </nav>
 
 <!-- HERO -->
 <section id="hero" aria-label="ヒーロー">
-  <!-- モザイク背景 -->
   <div class="hero-mosaic" aria-hidden="true">
     <img src="image/スクリーンショット 2026-06-03 174648.png" alt="">
     <img src="image/スクリーンショット 2026-06-05 142436.png" alt="">
@@ -247,10 +191,14 @@ footer a{color:var(--accent);}
     <img src="image/スクリーンショット 2026-06-07 215121.png" alt="">
   </div>
   <div class="hero-overlay" aria-hidden="true"></div>
-  <div class="hero-deco" aria-hidden="true"></div>
+  <div class="hero-grid" aria-hidden="true"></div>
+  <div class="hero-line" aria-hidden="true"></div>
 
   <div class="hero-content">
-    <span class="hero-label">AI Developer — 田中そら</span>
+    <div class="hero-eyebrow">
+      <div class="eyebrow-dot"></div>
+      <span class="eyebrow-txt">AI Developer — 田中そら</span>
+    </div>
     <h1 class="hero-title">
       AIと一緒につくる、<br>
       新しい<em>クリエイティブ</em>。
@@ -260,8 +208,13 @@ footer a{color:var(--accent);}
       可能性を広げる AI 開発者です。
     </p>
     <div class="hero-btns">
-      <a href="#works" class="btn btn-gold">作品を見る →</a>
-      <a href="#contact" class="btn btn-out">Contact</a>
+      <a href="#works" class="btn btn-p">作品を見る →</a>
+      <a href="#contact" class="btn btn-o">Contact</a>
+    </div>
+    <div class="hero-stats">
+      <div><span class="stat-num">8</span><div class="stat-label">Projects</div></div>
+      <div><span class="stat-num">4</span><div class="stat-label">Categories</div></div>
+      <div><span class="stat-num">AI</span><div class="stat-label">Powered by Claude Code</div></div>
     </div>
   </div>
 </section>
@@ -269,39 +222,27 @@ footer a{color:var(--accent);}
 <!-- VALUE -->
 <section id="value">
   <div class="wrap">
-    <p class="sec-label">What I Create</p>
+    <div class="eyebrow"><div class="eyebrow-line"></div><span class="eyebrow-label">What I Create</span></div>
     <h2 class="sec-title">3つの得意領域</h2>
-    <div class="gold-line"></div>
-    <div class="value-grid">
-      <div class="value-card">
-        <div class="value-icon">⚡</div>
-        <div class="value-head">自動化</div>
-        <p class="value-desc">繰り返し作業を AI エージェントに委ねる。ブラウザ操作・データ入力・フロー制御まで、Claude Code が動かす。</p>
-        <div class="value-items">
-          <span class="vi">Selenium</span>
-          <span class="vi">Browser 操作</span>
-          <span class="vi">Spreadsheet</span>
-        </div>
+    <div class="cyan-line"></div>
+    <div class="val-grid">
+      <div class="val-card">
+        <div class="val-icon">⚡</div>
+        <div class="val-head">自動化</div>
+        <p class="val-desc">繰り返し作業を AI エージェントに委ねる。ブラウザ操作・データ入力・フロー制御まで、Claude Code が動かす。</p>
+        <div class="val-tags"><span class="vtag">Selenium</span><span class="vtag">Browser 操作</span><span class="vtag">Spreadsheet</span></div>
       </div>
-      <div class="value-card">
-        <div class="value-icon">🎨</div>
-        <div class="value-head">生成</div>
-        <p class="value-desc">テキスト・画像・記事・要約——プロンプトひとつで品質の高いアウトプットを量産する仕組みをつくる。</p>
-        <div class="value-items">
-          <span class="vi">fal API</span>
-          <span class="vi">SEO 記事</span>
-          <span class="vi">Multi-Agent</span>
-        </div>
+      <div class="val-card">
+        <div class="val-icon">🎨</div>
+        <div class="val-head">生成</div>
+        <p class="val-desc">テキスト・画像・記事・要約——プロンプトひとつで品質の高いアウトプットを量産する仕組みをつくる。</p>
+        <div class="val-tags"><span class="vtag">fal API</span><span class="vtag">SEO 記事</span><span class="vtag">Multi-Agent</span></div>
       </div>
-      <div class="value-card">
-        <div class="value-icon">🔍</div>
-        <div class="value-head">収集</div>
-        <p class="value-desc">Web 上の情報を横断的に取得・整形。複数サイトのスクレイピングからスプレッドシート連携まで一気通貫。</p>
-        <div class="value-items">
-          <span class="vi">Scraping</span>
-          <span class="vi">多サイト横断</span>
-          <span class="vi">データ整形</span>
-        </div>
+      <div class="val-card">
+        <div class="val-icon">🔍</div>
+        <div class="val-head">収集</div>
+        <p class="val-desc">Web 上の情報を横断的に取得・整形。複数サイトのスクレイピングからスプレッドシート連携まで一気通貫。</p>
+        <div class="val-tags"><span class="vtag">Scraping</span><span class="vtag">多サイト横断</span><span class="vtag">データ整形</span></div>
       </div>
     </div>
   </div>
@@ -310,116 +251,49 @@ footer a{color:var(--accent);}
 <!-- WORKS -->
 <section id="works">
   <div class="wrap">
-    <p class="sec-label">Works</p>
+    <div class="eyebrow"><div class="eyebrow-line"></div><span class="eyebrow-label">Works</span></div>
     <h2 class="sec-title">制作実績</h2>
-    <div class="gold-line"></div>
-
+    <div class="cyan-line"></div>
     <div class="filter-bar" role="tablist" aria-label="カテゴリフィルター">
-      <button class="fbtn on" data-f="all"        role="tab" aria-selected="true">All</button>
-      <button class="fbtn"    data-f="image"       role="tab" aria-selected="false">Image Generation</button>
-      <button class="fbtn"    data-f="agent"       role="tab" aria-selected="false">AI Agent</button>
-      <button class="fbtn"    data-f="automation"  role="tab" aria-selected="false">Automation</button>
-      <button class="fbtn"    data-f="scraping"    role="tab" aria-selected="false">Web Scraping</button>
+      <button class="fbtn on" data-f="all"       role="tab" aria-selected="true">All</button>
+      <button class="fbtn"    data-f="image"      role="tab" aria-selected="false">Image Generation</button>
+      <button class="fbtn"    data-f="agent"      role="tab" aria-selected="false">AI Agent</button>
+      <button class="fbtn"    data-f="automation" role="tab" aria-selected="false">Automation</button>
+      <button class="fbtn"    data-f="scraping"   role="tab" aria-selected="false">Web Scraping</button>
     </div>
-
     <div class="works-grid" id="grid">
-
       <article class="card" data-cat="image">
-        <div class="card-img">
-          <img src="image/スクリーンショット 2026-06-03 174648.png" alt="fal API 画像生成のデモ" loading="lazy">
-          <span class="badge">Image Generation</span>
-        </div>
-        <div class="card-body">
-          <h3 class="card-title">fal API 画像生成ウォークスルー</h3>
-          <p class="card-desc">fal の FLUX 系 API を使った画像生成パイプラインを構築。プロンプトからインフォグラフィック画像を自動生成し、ウォークスルー資料としてまとめた。</p>
-          <div class="tags"><span class="tag">fal API</span><span class="tag">FLUX</span><span class="tag">画像生成</span></div>
-        </div>
+        <div class="card-img"><img src="image/スクリーンショット 2026-06-03 174648.png" alt="fal API 画像生成のデモ" loading="lazy"><span class="badge">Image Gen</span></div>
+        <div class="card-body"><h3 class="card-title">fal API 画像生成ウォークスルー</h3><p class="card-desc">fal の FLUX 系 API を使った画像生成パイプラインを構築。プロンプトからインフォグラフィック画像を自動生成し、ウォークスルー資料としてまとめた。</p><div class="tags"><span class="tag">fal API</span><span class="tag">FLUX</span><span class="tag">画像生成</span></div></div>
       </article>
-
       <article class="card" data-cat="agent">
-        <div class="card-img">
-          <img src="image/スクリーンショット 2026-06-05 142436.png" alt="SEO 記事生成エージェントのデモ" loading="lazy">
-          <span class="badge">AI Agent</span>
-        </div>
-        <div class="card-body">
-          <h3 class="card-title">Claude Code SubAgent SEO 記事生成</h3>
-          <p class="card-desc">seo-blog-writer サブエージェントと toc-generator / char-counter スキルを組み合わせ、目次付き 3000 文字以内の SEO 記事を自動執筆するワークフローを構築。</p>
-          <div class="tags"><span class="tag">SubAgents</span><span class="tag">Skills</span><span class="tag">SEO</span></div>
-        </div>
+        <div class="card-img"><img src="image/スクリーンショット 2026-06-05 142436.png" alt="SEO 記事生成エージェントのデモ" loading="lazy"><span class="badge">AI Agent</span></div>
+        <div class="card-body"><h3 class="card-title">Claude Code SubAgent SEO 記事生成</h3><p class="card-desc">seo-blog-writer サブエージェントと toc-generator / char-counter スキルを組み合わせ、目次付き 3000 文字以内の SEO 記事を自動執筆するワークフローを構築。</p><div class="tags"><span class="tag">SubAgents</span><span class="tag">Skills</span><span class="tag">SEO</span></div></div>
       </article>
-
       <article class="card" data-cat="agent">
-        <div class="card-img">
-          <img src="image/スクリーンショット 2026-06-05 161441.png" alt="競合リサーチ分析エージェントのデモ" loading="lazy">
-          <span class="badge">AI Agent</span>
-        </div>
-        <div class="card-body">
-          <h3 class="card-title">競合リサーチ分析エージェント</h3>
-          <p class="card-desc">competitor-heading-research スキルで競合サイトの見出し構成を取得・分析。リサーチ結果を構造化フォーマットで出力するエージェントを実装。</p>
-          <div class="tags"><span class="tag">Skills</span><span class="tag">競合分析</span><span class="tag">リサーチ</span></div>
-        </div>
+        <div class="card-img"><img src="image/スクリーンショット 2026-06-05 161441.png" alt="競合リサーチ分析エージェントのデモ" loading="lazy"><span class="badge">AI Agent</span></div>
+        <div class="card-body"><h3 class="card-title">競合リサーチ分析エージェント</h3><p class="card-desc">competitor-heading-research スキルで競合サイトの見出し構成を取得・分析。リサーチ結果を構造化フォーマットで出力するエージェントを実装。</p><div class="tags"><span class="tag">Skills</span><span class="tag">競合分析</span><span class="tag">リサーチ</span></div></div>
       </article>
-
       <article class="card" data-cat="automation">
-        <div class="card-img">
-          <img src="image/スクリーンショット 2026-06-05 165955.png" alt="README 要約スキルのデモ" loading="lazy">
-          <span class="badge">Automation</span>
-        </div>
-        <div class="card-body">
-          <h3 class="card-title">README 自動要約スキル</h3>
-          <p class="card-desc">summarize スキルで README.md を読み込み、自己紹介プロフィールをトピック・結論・改善提案の定型フォーマットで日本語要約。ドキュメントレビューを自動化。</p>
-          <div class="tags"><span class="tag">summarize</span><span class="tag">要約</span><span class="tag">ドキュメント</span></div>
-        </div>
+        <div class="card-img"><img src="image/スクリーンショット 2026-06-05 165955.png" alt="README 要約スキルのデモ" loading="lazy"><span class="badge">Automation</span></div>
+        <div class="card-body"><h3 class="card-title">README 自動要約スキル</h3><p class="card-desc">summarize スキルで README.md を読み込み、自己紹介プロフィールをトピック・結論・改善提案の定型フォーマットで日本語要約。ドキュメントレビューを自動化。</p><div class="tags"><span class="tag">summarize</span><span class="tag">要約</span><span class="tag">ドキュメント</span></div></div>
       </article>
-
       <article class="card" data-cat="agent">
-        <div class="card-img">
-          <img src="image/スクリーンショット 2026-06-05 173810.png" alt="Build & Review マルチエージェントのデモ" loading="lazy">
-          <span class="badge">AI Agent</span>
-        </div>
-        <div class="card-body">
-          <h3 class="card-title">技術記事 Build &amp; Review エージェント</h3>
-          <p class="card-desc">Analyzer / Builder / Reviewer の 3 段階エージェントで元テキストのノイズ除去・再構成・品質評価を実施。約 1,950 文字の技術解説記事を生成・承認まで自動化。</p>
-          <div class="tags"><span class="tag">マルチエージェント</span><span class="tag">レビュー</span><span class="tag">記事生成</span></div>
-        </div>
+        <div class="card-img"><img src="image/スクリーンショット 2026-06-05 173810.png" alt="Build & Review マルチエージェントのデモ" loading="lazy"><span class="badge">AI Agent</span></div>
+        <div class="card-body"><h3 class="card-title">技術記事 Build &amp; Review エージェント</h3><p class="card-desc">Analyzer / Builder / Reviewer の 3 段階エージェントで元テキストのノイズ除去・再構成・品質評価を実施。約 1,950 文字の技術解説記事を生成・承認まで自動化。</p><div class="tags"><span class="tag">マルチエージェント</span><span class="tag">レビュー</span><span class="tag">記事生成</span></div></div>
       </article>
-
       <article class="card" data-cat="automation">
-        <div class="card-img">
-          <img src="image/スクリーンショット 2026-06-07 210009.png" alt="Selenium ログイン自動化のデモ" loading="lazy">
-          <span class="badge">Automation</span>
-        </div>
-        <div class="card-body">
-          <h3 class="card-title">Selenium ログイン自動化</h3>
-          <p class="card-desc">Selenium を用いて Web サイトのログインフローを自動化。ユーザー名・パスワード入力からセキュアエリアへの遷移までを 6 ステップで再現・検証。</p>
-          <div class="tags"><span class="tag">Selenium</span><span class="tag">ブラウザ自動化</span><span class="tag">Python</span></div>
-        </div>
+        <div class="card-img"><img src="image/スクリーンショット 2026-06-07 210009.png" alt="Selenium ログイン自動化のデモ" loading="lazy"><span class="badge">Automation</span></div>
+        <div class="card-body"><h3 class="card-title">Selenium ログイン自動化</h3><p class="card-desc">Selenium を用いて Web サイトのログインフローを自動化。ユーザー名・パスワード入力からセキュアエリアへの遷移までを 6 ステップで再現・検証。</p><div class="tags"><span class="tag">Selenium</span><span class="tag">ブラウザ自動化</span><span class="tag">Python</span></div></div>
       </article>
-
       <article class="card" data-cat="scraping">
-        <div class="card-img">
-          <img src="image/スクリーンショット 2026-06-07 212949.png" alt="スプレッドシート自動入力のデモ" loading="lazy">
-          <span class="badge">Web Scraping</span>
-        </div>
-        <div class="card-body">
-          <h3 class="card-title">ニュース見出しスプレッドシート連携</h3>
-          <p class="card-desc">Yahoo! ニュースから見出し 10 件を取得し、Google スプレッドシートの A1〜A10 セルへ自動入力。スクレイピングとシート連携を組み合わせた。</p>
-          <div class="tags"><span class="tag">スクレイピング</span><span class="tag">Google Sheets</span><span class="tag">ニュース</span></div>
-        </div>
+        <div class="card-img"><img src="image/スクリーンショット 2026-06-07 212949.png" alt="スプレッドシート自動入力のデモ" loading="lazy"><span class="badge">Scraping</span></div>
+        <div class="card-body"><h3 class="card-title">ニュース見出しスプレッドシート連携</h3><p class="card-desc">Yahoo! ニュースから見出し 10 件を取得し、Google スプレッドシートの A1〜A10 セルへ自動入力。スクレイピングとシート連携を組み合わせた。</p><div class="tags"><span class="tag">スクレイピング</span><span class="tag">Google Sheets</span><span class="tag">ニュース</span></div></div>
       </article>
-
       <article class="card" data-cat="scraping">
-        <div class="card-img">
-          <img src="image/スクリーンショット 2026-06-07 215121.png" alt="複数サイトスクレイピングのデモ" loading="lazy">
-          <span class="badge">Web Scraping</span>
-        </div>
-        <div class="card-body">
-          <h3 class="card-title">複数サイトニュース見出し一括収集</h3>
-          <p class="card-desc">The Ring / BoxingScene / ESPN Boxing の 3 サイトからニュース見出しを横断取得し、日本語に整理して一覧化するスクレイパーを構築。</p>
-          <div class="tags"><span class="tag">スクレイピング</span><span class="tag">多サイト横断</span><span class="tag">日本語整形</span></div>
-        </div>
+        <div class="card-img"><img src="image/スクリーンショット 2026-06-07 215121.png" alt="複数サイトスクレイピングのデモ" loading="lazy"><span class="badge">Scraping</span></div>
+        <div class="card-body"><h3 class="card-title">複数サイトニュース見出し一括収集</h3><p class="card-desc">The Ring / BoxingScene / ESPN Boxing の 3 サイトからニュース見出しを横断取得し、日本語に整理して一覧化するスクレイパーを構築。</p><div class="tags"><span class="tag">スクレイピング</span><span class="tag">多サイト横断</span><span class="tag">日本語整形</span></div></div>
       </article>
-
     </div>
   </div>
 </section>
@@ -427,24 +301,27 @@ footer a{color:var(--accent);}
 <!-- PROCESS -->
 <section id="process">
   <div class="wrap">
-    <p class="sec-label">How It Works</p>
+    <div class="eyebrow"><div class="eyebrow-line"></div><span class="eyebrow-label">How It Works</span></div>
     <h2 class="sec-title">つくり方</h2>
-    <div class="gold-line"></div>
-    <div class="process-grid">
+    <div class="cyan-line"></div>
+    <div class="proc-grid">
       <div class="step">
-        <div class="step-num">01</div>
+        <div class="step-num">// 01</div>
+        <div class="step-icon">💬</div>
         <div class="step-title">アイデアを伝える</div>
         <p class="step-desc">「こんなものをつくりたい」をテキストで伝えるだけ。仕様書も設計図も不要です。</p>
         <div class="step-tool">自然言語 → Claude Code</div>
       </div>
       <div class="step">
-        <div class="step-num">02</div>
+        <div class="step-num">// 02</div>
+        <div class="step-icon">⚙️</div>
         <div class="step-title">AI エージェントが動く</div>
         <p class="step-desc">Claude Code がコードを書き、ブラウザを動かし、API を叩き、データを処理する。並行して複数エージェントが協調。</p>
         <div class="step-tool">SubAgents · Skills · Tools</div>
       </div>
       <div class="step">
-        <div class="step-num">03</div>
+        <div class="step-num">// 03</div>
+        <div class="step-icon">✅</div>
         <div class="step-title">成果物ができあがる</div>
         <p class="step-desc">画像・記事・データ・自動化フロー——アウトプットは即座に使える形で届きます。</p>
         <div class="step-tool">Output → 即使える</div>
@@ -456,73 +333,49 @@ footer a{color:var(--accent);}
 <!-- CONTACT -->
 <section id="contact">
   <div class="wrap">
-    <p class="sec-label">Contact</p>
-    <h2 class="sec-title">一緒につくりませんか</h2>
-    <div class="gold-line"></div>
-    <p class="contact-copy">AI 活用・自動化・コンテンツ生成に関するご相談、お気軽にどうぞ。</p>
-    <div class="contact-btns">
-      <a class="contact-link" href="mailto:mononokenomomonoke@gmail.com">✉️ &nbsp;Email</a>
-      <a class="contact-link" href="https://github.com/mononokenomomonoke-tech" target="_blank" rel="noopener">🐙 &nbsp;GitHub</a>
+    <div class="contact-inner">
+      <div class="eyebrow" style="justify-content:center;">
+        <div class="eyebrow-line"></div>
+        <span class="eyebrow-label">Contact</span>
+        <div class="eyebrow-line"></div>
+      </div>
+      <h2 class="sec-title" style="margin-top:12px;">一緒につくりませんか</h2>
+      <div class="contact-glow"></div>
+      <p class="contact-copy">AI 活用・自動化・コンテンツ生成に関するご相談、お気軽にどうぞ。</p>
+      <div class="contact-btns">
+        <a class="clink" href="mailto:mononokenomomonoke@gmail.com">✉ &nbsp;Email</a>
+        <a class="clink" href="https://github.com/mononokenomomonoke-tech" target="_blank" rel="noopener">⬡ &nbsp;GitHub</a>
+      </div>
     </div>
   </div>
 </section>
 
 <footer>© 2026 <a href="#">田中そら</a> — Built with <a href="https://claude.ai/code" target="_blank" rel="noopener">Claude Code</a></footer>
 
-<!-- LIGHTBOX -->
 <div class="lb" id="lb" role="dialog" aria-modal="true" aria-label="画像拡大">
   <button class="lb-close" id="lbclose" aria-label="閉じる">✕</button>
   <img id="lbimg" src="" alt="">
 </div>
 
 <script>
-// Mobile nav
-const ham = document.getElementById('ham');
-const nav = document.getElementById('navlinks');
-ham.addEventListener('click', () => {
-  const open = nav.classList.toggle('open');
-  ham.setAttribute('aria-expanded', open);
-  ham.textContent = open ? '✕' : '☰';
-});
-nav.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
-  nav.classList.remove('open');
-  ham.textContent = '☰';
+const ham=document.getElementById('ham'),nav=document.getElementById('navlinks');
+ham.addEventListener('click',()=>{const o=nav.classList.toggle('open');ham.setAttribute('aria-expanded',o);ham.textContent=o?'✕':'☰';});
+nav.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>{nav.classList.remove('open');ham.textContent='☰';}));
+const fbtns=document.querySelectorAll('.fbtn'),cards=document.querySelectorAll('.card');
+fbtns.forEach(btn=>btn.addEventListener('click',()=>{
+  fbtns.forEach(b=>{b.classList.remove('on');b.setAttribute('aria-selected','false');});
+  btn.classList.add('on');btn.setAttribute('aria-selected','true');
+  const f=btn.dataset.f;
+  cards.forEach(c=>c.classList.toggle('hide',f!=='all'&&c.dataset.cat!==f));
 }));
-
-// Filter
-const fbtns = document.querySelectorAll('.fbtn');
-const cards = document.querySelectorAll('.card');
-fbtns.forEach(btn => {
-  btn.addEventListener('click', () => {
-    fbtns.forEach(b => { b.classList.remove('on'); b.setAttribute('aria-selected','false'); });
-    btn.classList.add('on');
-    btn.setAttribute('aria-selected','true');
-    const f = btn.dataset.f;
-    cards.forEach(c => c.classList.toggle('hide', f !== 'all' && c.dataset.cat !== f));
-  });
-});
-
-// Scroll fade-in
-const io = new IntersectionObserver(entries => {
-  entries.forEach(e => { if(e.isIntersecting){ e.target.classList.add('vis'); io.unobserve(e.target); }});
-}, { threshold: 0.08 });
-cards.forEach(c => io.observe(c));
-
-// Lightbox
-const lb = document.getElementById('lb');
-const lbimg = document.getElementById('lbimg');
-const lbclose = document.getElementById('lbclose');
-cards.forEach(c => {
-  c.addEventListener('click', () => {
-    const img = c.querySelector('img');
-    lbimg.src = img.src; lbimg.alt = img.alt;
-    lb.classList.add('open'); lbclose.focus();
-  });
-});
-const closeLb = () => lb.classList.remove('open');
-lbclose.addEventListener('click', closeLb);
-lb.addEventListener('click', e => { if(e.target === lb) closeLb(); });
-document.addEventListener('keydown', e => { if(e.key === 'Escape') closeLb(); });
+const io=new IntersectionObserver(entries=>entries.forEach((e,i)=>{if(e.isIntersecting){setTimeout(()=>e.target.classList.add('vis'),i*80);io.unobserve(e.target);}}),{threshold:.06});
+cards.forEach(c=>io.observe(c));
+const lb=document.getElementById('lb'),lbimg=document.getElementById('lbimg'),lbclose=document.getElementById('lbclose');
+cards.forEach(c=>c.addEventListener('click',()=>{const img=c.querySelector('img');lbimg.src=img.src;lbimg.alt=img.alt;lb.classList.add('open');lbclose.focus();}));
+const closeLb=()=>lb.classList.remove('open');
+lbclose.addEventListener('click',closeLb);
+lb.addEventListener('click',e=>{if(e.target===lb)closeLb();});
+document.addEventListener('keydown',e=>{if(e.key==='Escape')closeLb();});
 </script>
 </body>
 </html>
