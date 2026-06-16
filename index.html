@@ -3,363 +3,331 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>AI Creative Portfolio | Immersive Night Mode</title>
+<title>田中そら — AI Developer Portfolio</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
 <style>
-:root{
-  --bg:#111111;
-  --surface:#1F1F1F;
-  --accent:#54D8FF;
-  --text:#EDEDED;
-  --muted:#9A9A9A;
-  --border:rgba(255,255,255,.08);
-  --radius:10px;
-  --glow:0 0 24px rgba(84,216,255,.35);
-  --font-body:'Space Grotesk',system-ui,sans-serif;
-  --font-mono:'Space Mono',monospace;
-}
-*{margin:0;padding:0;box-sizing:border-box}
-html{scroll-behavior:smooth}
-body{
-  background:var(--bg);
-  color:var(--text);
-  font-family:var(--font-body);
-  line-height:1.6;
-  overflow-x:hidden;
-}
-a{color:inherit;text-decoration:none}
-.label{font-family:var(--font-mono);font-size:.75rem;letter-spacing:.15em;text-transform:uppercase;color:var(--accent)}
-.container{max-width:1200px;margin:0 auto;padding:0 24px}
-section{position:relative}
+  :root {
+    --bg: #111111;
+    --surface: #1F1F1F;
+    --accent: #54D8FF;
+    --accent-dim: rgba(84,216,255,.1);
+    --accent-glow: rgba(84,216,255,.25);
+    --border: #333333;
+    --border-accent: rgba(84,216,255,.35);
+    --text: #FFFFFF;
+    --text2: #999999;
+    --nav-bg: #0d0d0d;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Space Grotesk', sans-serif;
+    line-height: 1.6;
+    overflow-x: hidden;
+  }
+  .mono { font-family: 'Space Mono', monospace; }
+  a { color: inherit; text-decoration: none; }
+  .container { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
 
-/* ===== NAV ===== */
-header.nav{
-  position:fixed;top:0;left:0;right:0;z-index:100;
-  display:flex;align-items:center;justify-content:space-between;
-  padding:18px 24px;
-  background:rgba(17,17,17,.72);
-  backdrop-filter:blur(12px);
-  border-bottom:1px solid var(--border);
-}
-.nav .brand{font-family:var(--font-mono);font-weight:700;letter-spacing:.05em}
-.nav .brand span{color:var(--accent)}
-.nav ul{display:flex;gap:28px;list-style:none}
-.nav ul a{font-size:.9rem;color:var(--muted);transition:color .2s}
-.nav ul a:hover{color:var(--accent)}
-.burger{display:none;flex-direction:column;gap:5px;cursor:pointer;background:none;border:none;padding:6px}
-.burger span{width:24px;height:2px;background:var(--text);transition:.3s}
-.burger.open span:nth-child(1){transform:translateY(7px) rotate(45deg)}
-.burger.open span:nth-child(2){opacity:0}
-.burger.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
+  /* NAV */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    background: rgba(13,13,13,.85); backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+  }
+  nav .container { display: flex; align-items: center; justify-content: space-between; height: 64px; }
+  .logo { font-weight: 700; font-size: 1.1rem; letter-spacing: .02em; }
+  .logo span { color: var(--accent); }
+  .nav-links { display: flex; gap: 32px; align-items: center; }
+  .nav-links a { font-size: .9rem; color: var(--text2); transition: color .2s; }
+  .nav-links a:hover { color: var(--accent); }
+  .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; background: none; border: none; padding: 4px; }
+  .hamburger span { width: 24px; height: 2px; background: var(--text); transition: .3s; }
 
-/* ===== HERO ===== */
-.hero{min-height:100vh;display:flex;align-items:center;overflow:hidden}
-.hero-mosaic{
-  position:absolute;inset:0;z-index:0;
-  display:grid;grid-template-columns:repeat(4,1fr);grid-template-rows:repeat(2,1fr);
-  filter:brightness(.28) saturate(.45);
-}
-.hero-mosaic div{background-size:cover;background-position:center}
-.hero-overlay{position:absolute;inset:0;z-index:1;background:
-  radial-gradient(120% 90% at 20% 10%,rgba(84,216,255,.10),transparent 55%),
-  linear-gradient(180deg,rgba(17,17,17,.55),rgba(17,17,17,.92))}
-.hero-grid-tex{position:absolute;inset:0;z-index:2;opacity:.4;
-  background-image:linear-gradient(rgba(255,255,255,.04) 1px,transparent 1px),
-  linear-gradient(90deg,rgba(255,255,255,.04) 1px,transparent 1px);
-  background-size:48px 48px}
-.hero-line{position:absolute;left:0;top:0;bottom:0;width:3px;z-index:3;
-  background:linear-gradient(180deg,transparent,var(--accent),transparent);
-  box-shadow:var(--glow)}
-.hero-inner{position:relative;z-index:4;max-width:1200px;margin:0 auto;padding:0 24px;width:100%}
-.hero h1{font-size:clamp(2.4rem,6vw,4.6rem);font-weight:700;line-height:1.1;margin:18px 0 20px;letter-spacing:-.02em}
-.hero h1 .ac{color:var(--accent)}
-.hero p.sub{max-width:560px;color:var(--muted);font-size:1.05rem;margin-bottom:32px}
-.cta-row{display:flex;gap:16px;flex-wrap:wrap;margin-bottom:48px}
-.btn{padding:14px 28px;border-radius:var(--radius);font-weight:600;font-size:.95rem;transition:.25s;cursor:pointer;border:1px solid transparent;display:inline-block}
-.btn-primary{background:var(--accent);color:#04222e}
-.btn-primary:hover{box-shadow:var(--glow);transform:translateY(-2px)}
-.btn-ghost{border-color:var(--border);color:var(--text)}
-.btn-ghost:hover{border-color:var(--accent);color:var(--accent);box-shadow:var(--glow)}
-.stats{display:flex;gap:48px;flex-wrap:wrap}
-.stats .stat .num{font-family:var(--font-mono);font-size:1.8rem;font-weight:700;color:var(--accent)}
-.stats .stat .cap{font-size:.8rem;color:var(--muted);letter-spacing:.08em}
+  /* HERO */
+  #hero {
+    min-height: 100svh;
+    background-image:
+      linear-gradient(to right, rgba(17,17,17,.85) 0%, rgba(17,17,17,.5) 50%, rgba(17,17,17,.1) 100%),
+      url('image/hero.png');
+    background-size: cover;
+    background-position: center right;
+    display: flex;
+    align-items: center;
+  }
+  .hero-content { max-width: 580px; }
+  .eyebrow { display: inline-flex; align-items: center; gap: 10px; font-size: .8rem; color: var(--text2); letter-spacing: .08em; margin-bottom: 24px; }
+  .eyebrow .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--accent); box-shadow: 0 0 12px var(--accent); }
+  #hero h1 { font-size: clamp(2.2rem, 5.5vw, 3.6rem); font-weight: 700; line-height: 1.2; margin-bottom: 20px; }
+  #hero h1 em { color: var(--accent); font-style: normal; }
+  .hero-sub { color: var(--text2); font-size: 1.05rem; margin-bottom: 36px; max-width: 480px; }
+  .cta-row { display: flex; gap: 16px; flex-wrap: wrap; margin-bottom: 48px; }
+  .btn { display: inline-block; padding: 14px 28px; border-radius: 10px; font-weight: 500; font-size: .95rem; transition: all .25s; cursor: pointer; }
+  .btn-primary { background: var(--accent); color: #06222b; }
+  .btn-primary:hover { box-shadow: 0 0 28px var(--accent-glow); transform: translateY(-2px); }
+  .btn-outline { border: 1px solid var(--border-accent); color: var(--accent); }
+  .btn-outline:hover { background: var(--accent-dim); box-shadow: 0 0 28px var(--accent-glow); }
+  .stats { display: flex; gap: 40px; padding-top: 28px; border-top: 1px solid var(--border); max-width: 460px; }
+  .stat .num { font-size: 1.6rem; font-weight: 700; color: var(--accent); }
+  .stat .label { font-size: .75rem; color: var(--text2); letter-spacing: .05em; }
 
-/* ===== SECTION HEADING ===== */
-.sec-head{margin-bottom:48px}
-.sec-head h2{font-size:clamp(1.8rem,4vw,2.6rem);font-weight:700;margin-top:10px;letter-spacing:-.01em}
-.pad{padding:110px 0}
+  /* SECTION GENERIC */
+  section { padding: 100px 0; }
+  .sec-head { margin-bottom: 56px; }
+  .sec-label { font-size: .8rem; color: var(--accent); letter-spacing: .12em; margin-bottom: 12px; }
+  .sec-head h2 { font-size: clamp(1.8rem, 4vw, 2.6rem); font-weight: 700; }
+  .sec-head p { color: var(--text2); margin-top: 12px; max-width: 560px; }
 
-/* ===== VALUE ===== */
-.value-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
-.value-card{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:32px;transition:.25s}
-.value-card:hover{border-color:var(--accent);box-shadow:var(--glow);transform:translateY(-4px)}
-.value-card .ico{font-size:2rem;margin-bottom:16px}
-.value-card h3{font-size:1.25rem;margin-bottom:10px}
-.value-card p{color:var(--muted);font-size:.95rem}
+  /* VALUE */
+  .value-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+  .value-card { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 36px 28px; transition: all .3s; }
+  .value-card:hover { border-color: var(--border-accent); box-shadow: 0 0 28px var(--accent-glow); transform: translateY(-4px); }
+  .value-card .ico { font-size: 2rem; margin-bottom: 18px; }
+  .value-card h3 { font-size: 1.2rem; margin-bottom: 10px; }
+  .value-card p { color: var(--text2); font-size: .95rem; }
 
-/* ===== WORKS ===== */
-.filters{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:36px}
-.filter-btn{font-family:var(--font-mono);font-size:.8rem;padding:9px 18px;border-radius:999px;
-  background:transparent;border:1px solid var(--border);color:var(--muted);cursor:pointer;transition:.2s}
-.filter-btn:hover{color:var(--accent);border-color:var(--accent)}
-.filter-btn.active{background:var(--accent);color:#04222e;border-color:var(--accent);box-shadow:var(--glow)}
-.works-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
-.work-card{background:var(--surface);border:1px solid var(--border);border-radius:12px;overflow:hidden;cursor:pointer;
-  opacity:0;transform:translateY(24px);transition:opacity .6s ease,transform .6s ease,border-color .25s,box-shadow .25s}
-.work-card.show{opacity:1;transform:translateY(0)}
-.work-card:hover{border-color:var(--accent);box-shadow:var(--glow)}
-.work-thumb{aspect-ratio:16/10;overflow:hidden;background:#000}
-.work-thumb img{width:100%;height:100%;object-fit:cover;transition:transform .4s}
-.work-card:hover .work-thumb img{transform:scale(1.06)}
-.work-body{padding:20px}
-.badge{display:inline-block;font-family:var(--font-mono);font-size:.68rem;padding:4px 10px;border-radius:6px;margin-bottom:12px;letter-spacing:.06em}
-.badge.image{background:rgba(160,120,255,.15);color:#b79dff}
-.badge.agent{background:rgba(84,216,255,.15);color:var(--accent)}
-.badge.automation{background:rgba(255,190,90,.15);color:#ffce80}
-.badge.scraping{background:rgba(90,150,255,.15);color:#8fb6ff}
-.work-body h3{font-size:1.1rem;margin-bottom:8px}
-.work-body p{color:var(--muted);font-size:.88rem;margin-bottom:14px}
-.tags{display:flex;gap:8px;flex-wrap:wrap}
-.tag{font-size:.72rem;padding:4px 10px;border-radius:999px;background:rgba(255,255,255,.05);color:var(--muted)}
+  /* WORKS */
+  .filters { display: flex; gap: 12px; flex-wrap: wrap; margin-bottom: 40px; }
+  .filter-btn { background: transparent; border: 1px solid var(--border); color: var(--text2); padding: 8px 20px; border-radius: 8px; font-family: 'Space Mono', monospace; font-size: .85rem; cursor: pointer; transition: all .25s; }
+  .filter-btn:hover { color: var(--text); border-color: var(--border-accent); }
+  .filter-btn.active { background: var(--accent-dim); color: var(--accent); border-color: var(--border-accent); }
+  .works-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 24px; }
+  .work-card {
+    background: var(--surface); border: 1px solid var(--border); border-radius: 12px; overflow: hidden;
+    cursor: pointer; transition: all .3s;
+    opacity: 0; transform: translateY(24px);
+  }
+  .work-card.visible { opacity: 1; transform: translateY(0); }
+  .work-card:hover { border-color: var(--border-accent); box-shadow: 0 0 28px var(--accent-glow); transform: translateY(-4px); }
+  .work-card .thumb { aspect-ratio: 16/10; overflow: hidden; background: #000; }
+  .work-card .thumb img { width: 100%; height: 100%; object-fit: cover; transition: transform .4s; }
+  .work-card:hover .thumb img { transform: scale(1.05); }
+  .work-card .body { padding: 20px; }
+  .work-card .cat { font-family: 'Space Mono', monospace; font-size: .72rem; color: var(--accent); letter-spacing: .08em; text-transform: uppercase; }
+  .work-card h3 { font-size: 1.05rem; margin-top: 8px; }
 
-/* ===== PROCESS ===== */
-.process-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
-.proc-card{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:32px;transition:.25s}
-.proc-card:hover{border-color:var(--accent);box-shadow:var(--glow)}
-.proc-num{font-family:var(--font-mono);color:var(--accent);font-size:.9rem;margin-bottom:18px}
-.proc-card h3{font-size:1.2rem;margin-bottom:10px}
-.proc-card p{color:var(--muted);font-size:.92rem}
+  /* PROCESS */
+  .process-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+  .process-card { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 36px 28px; transition: all .3s; }
+  .process-card:hover { border-color: var(--border-accent); box-shadow: 0 0 28px var(--accent-glow); }
+  .process-card .pnum { font-family: 'Space Mono', monospace; color: var(--accent); font-size: .9rem; margin-bottom: 16px; }
+  .process-card h3 { font-size: 1.2rem; margin-bottom: 10px; }
+  .process-card p { color: var(--text2); font-size: .95rem; }
 
-/* ===== CONTACT ===== */
-.contact{text-align:center;padding:120px 0}
-.contact .glowline{height:2px;width:120px;margin:0 auto 36px;background:var(--accent);box-shadow:var(--glow)}
-.contact h2{font-size:clamp(2rem,5vw,3rem);margin-bottom:18px}
-.contact p{color:var(--muted);max-width:480px;margin:0 auto 36px}
-.contact-links{display:flex;gap:18px;justify-content:center;flex-wrap:wrap}
+  /* CONTACT */
+  #contact { text-align: center; }
+  .glow-line { width: 120px; height: 2px; margin: 0 auto 40px; background: var(--accent); box-shadow: 0 0 24px var(--accent), 0 0 48px var(--accent-glow); border-radius: 2px; }
+  #contact h2 { font-size: clamp(2rem, 5vw, 3rem); margin-bottom: 20px; }
+  #contact p { color: var(--text2); max-width: 480px; margin: 0 auto 36px; }
+  .contact-links { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
 
-footer.foot{border-top:1px solid var(--border);padding:28px 0;text-align:center;color:var(--muted);font-size:.82rem;font-family:var(--font-mono)}
+  footer { border-top: 1px solid var(--border); padding: 32px 0; text-align: center; color: var(--text2); font-size: .85rem; }
 
-/* ===== LIGHTBOX ===== */
-.lightbox{position:fixed;inset:0;z-index:200;background:rgba(8,8,8,.92);display:none;align-items:center;justify-content:center;padding:32px}
-.lightbox.open{display:flex}
-.lightbox img{max-width:92%;max-height:88%;border-radius:10px;box-shadow:0 0 60px rgba(84,216,255,.25)}
-.lightbox .close{position:absolute;top:24px;right:32px;font-size:2rem;color:var(--text);cursor:pointer;font-family:var(--font-mono)}
+  /* LIGHTBOX */
+  .lightbox { position: fixed; inset: 0; background: rgba(0,0,0,.92); z-index: 200; display: none; align-items: center; justify-content: center; padding: 40px; }
+  .lightbox.open { display: flex; }
+  .lightbox img { max-width: 92vw; max-height: 88vh; border-radius: 8px; box-shadow: 0 0 60px var(--accent-glow); }
+  .lightbox .close { position: absolute; top: 24px; right: 32px; font-size: 2rem; color: var(--text); cursor: pointer; line-height: 1; }
 
-/* ===== RESPONSIVE ===== */
-@media(max-width:900px){
-  .value-grid,.works-grid,.process-grid{grid-template-columns:repeat(2,1fr)}
-  .hero-mosaic{grid-template-columns:repeat(2,1fr);grid-template-rows:repeat(4,1fr)}
-}
-@media(max-width:640px){
-  .nav ul{position:fixed;top:62px;right:0;flex-direction:column;background:var(--surface);
-    width:64%;height:calc(100vh - 62px);padding:32px 24px;gap:24px;transform:translateX(100%);
-    transition:transform .3s;border-left:1px solid var(--border)}
-  .nav ul.open{transform:translateX(0)}
-  .burger{display:flex}
-  .value-grid,.works-grid,.process-grid{grid-template-columns:1fr}
-  .stats{gap:28px}
-}
+  @media (max-width: 860px) {
+    .value-grid, .process-grid { grid-template-columns: 1fr; }
+    .nav-links { position: fixed; top: 64px; left: 0; right: 0; flex-direction: column; background: var(--nav-bg); padding: 24px; gap: 20px; border-bottom: 1px solid var(--border); transform: translateY(-150%); transition: transform .3s; }
+    .nav-links.open { transform: translateY(0); }
+    .hamburger { display: flex; }
+    .stats { gap: 28px; }
+  }
 </style>
 </head>
 <body>
 
-<header class="nav">
-  <div class="brand">YUNICO<span>.AI</span></div>
-  <ul id="navMenu">
-    <li><a href="#value">Value</a></li>
-    <li><a href="#works">Works</a></li>
-    <li><a href="#process">Process</a></li>
-    <li><a href="#contact">Contact</a></li>
-  </ul>
-  <button class="burger" id="burger" aria-label="menu"><span></span><span></span><span></span></button>
-</header>
-
-<!-- HERO -->
-<section class="hero" id="top">
-  <div class="hero-mosaic" id="mosaic"></div>
-  <div class="hero-overlay"></div>
-  <div class="hero-grid-tex"></div>
-  <div class="hero-line"></div>
-  <div class="hero-inner">
-    <div class="label">// AI Creative Portfolio</div>
-    <h1>AIと一緒につくる、<br><span class="ac">新しいクリエイティブ。</span></h1>
-    <p class="sub">AIエージェント・自動化・スクレイピング・画像生成を横断し、アイデアを動くプロダクトへ。8つのプロジェクトでその実践を紹介します。</p>
-    <div class="cta-row">
-      <a href="#works" class="btn btn-primary">作品を見る</a>
-      <a href="#contact" class="btn btn-ghost">お問い合わせ</a>
+<nav>
+  <div class="container">
+    <div class="logo">SORA<span>.</span>AI</div>
+    <button class="hamburger" id="hamburger" aria-label="menu">
+      <span></span><span></span><span></span>
+    </button>
+    <div class="nav-links" id="navLinks">
+      <a href="#value">Value</a>
+      <a href="#works">Works</a>
+      <a href="#process">Process</a>
+      <a href="#contact">Contact</a>
     </div>
-    <div class="stats">
-      <div class="stat"><div class="num">8</div><div class="cap">PROJECTS</div></div>
-      <div class="stat"><div class="num">4</div><div class="cap">CATEGORIES</div></div>
-      <div class="stat"><div class="num">AI</div><div class="cap">POWERED</div></div>
+  </div>
+</nav>
+
+<section id="hero">
+  <div class="container">
+    <div class="hero-content">
+      <div class="eyebrow"><span class="dot"></span><span class="mono">AI Developer — 田中そら</span></div>
+      <h1>AIと一緒につくる、<br>新しい<em>クリエイティブ</em>。</h1>
+      <p class="hero-sub">生成AIとエージェントを組み合わせて、自動化・コンテンツ生成・データ収集を形にします。</p>
+      <div class="cta-row">
+        <a href="#works" class="btn btn-primary">作品を見る →</a>
+        <a href="#contact" class="btn btn-outline">Contact</a>
+      </div>
+      <div class="stats">
+        <div class="stat"><div class="num mono">8</div><div class="label">Projects</div></div>
+        <div class="stat"><div class="num mono">4</div><div class="label">Categories</div></div>
+        <div class="stat"><div class="num mono">AI</div><div class="label">Powered</div></div>
+      </div>
     </div>
   </div>
 </section>
 
-<!-- VALUE -->
-<section class="pad" id="value">
+<section id="value">
   <div class="container">
     <div class="sec-head">
-      <div class="label">// What I Do</div>
-      <h2>提供できる価値</h2>
+      <div class="sec-label mono">// WHAT I DO</div>
+      <h2>提供できる3つの価値</h2>
+      <p>AIを実務に落とし込み、繰り返し作業をなくし、新しいアウトプットを生み出します。</p>
     </div>
     <div class="value-grid">
-      <div class="value-card"><div class="ico">⚡</div><h3>自動化</h3><p>Selenium やマルチエージェントで反復作業を自動化し、人の手を介さないワークフローを構築します。</p></div>
-      <div class="value-card"><div class="ico">🎨</div><h3>生成</h3><p>fal / FLUX 系 API や Claude Code を活用し、画像・記事・資料を高速に生成します。</p></div>
-      <div class="value-card"><div class="ico">🔍</div><h3>収集</h3><p>複数サイトを横断するスクレイピングで情報を収集し、スプレッドシート連携まで一気通貫で対応します。</p></div>
+      <div class="value-card"><div class="ico">⚡</div><h3>自動化</h3><p>Selenium やエージェントで、定型業務とデータ連携を自動化します。</p></div>
+      <div class="value-card"><div class="ico">🎨</div><h3>生成</h3><p>画像生成 API や記事生成エージェントで、コンテンツを高速に量産します。</p></div>
+      <div class="value-card"><div class="ico">🔍</div><h3>収集</h3><p>スクレイピングとスプレッドシート連携で、情報を構造化して集めます。</p></div>
     </div>
   </div>
 </section>
 
-<!-- WORKS -->
-<section class="pad" id="works">
+<section id="works">
   <div class="container">
     <div class="sec-head">
-      <div class="label">// Selected Works</div>
+      <div class="sec-label mono">// SELECTED WORKS</div>
       <h2>制作実績</h2>
+      <p>AIを活用した8件のプロジェクト。カテゴリで絞り込めます。</p>
     </div>
-    <div class="filters" id="filters">
-      <button class="filter-btn active" data-filter="all">All</button>
-      <button class="filter-btn" data-filter="image">Image Generation</button>
-      <button class="filter-btn" data-filter="agent">AI Agent</button>
-      <button class="filter-btn" data-filter="automation">Automation</button>
-      <button class="filter-btn" data-filter="scraping">Web Scraping</button>
+    <div class="filters">
+      <button class="filter-btn active" data-f="all">All</button>
+      <button class="filter-btn" data-f="agent">Agent</button>
+      <button class="filter-btn" data-f="automation">Automation</button>
+      <button class="filter-btn" data-f="image">Image</button>
+      <button class="filter-btn" data-f="scraping">Scraping</button>
     </div>
-    <div class="works-grid" id="worksGrid"></div>
+    <div class="works-grid" id="worksGrid">
+      <div class="work-card" data-cat="image">
+        <div class="thumb"><img src="image/スクリーンショット 2026-06-03 174648.png" alt="fal API 画像生成ウォークスルー"></div>
+        <div class="body"><div class="cat mono">Image</div><h3>fal API 画像生成ウォークスルー</h3></div>
+      </div>
+      <div class="work-card" data-cat="agent">
+        <div class="thumb"><img src="image/スクリーンショット 2026-06-05 142436.png" alt="Claude Code SubAgent SEO記事生成"></div>
+        <div class="body"><div class="cat mono">Agent</div><h3>Claude Code SubAgent SEO記事生成</h3></div>
+      </div>
+      <div class="work-card" data-cat="agent">
+        <div class="thumb"><img src="image/スクリーンショット 2026-06-05 161441.png" alt="競合リサーチ分析エージェント"></div>
+        <div class="body"><div class="cat mono">Agent</div><h3>競合リサーチ分析エージェント</h3></div>
+      </div>
+      <div class="work-card" data-cat="automation">
+        <div class="thumb"><img src="image/スクリーンショット 2026-06-05 165955.png" alt="README自動要約スキル"></div>
+        <div class="body"><div class="cat mono">Automation</div><h3>README自動要約スキル</h3></div>
+      </div>
+      <div class="work-card" data-cat="agent">
+        <div class="thumb"><img src="image/スクリーンショット 2026-06-05 173810.png" alt="技術記事Build & Reviewエージェント"></div>
+        <div class="body"><div class="cat mono">Agent</div><h3>技術記事Build &amp; Reviewエージェント</h3></div>
+      </div>
+      <div class="work-card" data-cat="automation">
+        <div class="thumb"><img src="image/スクリーンショット 2026-06-07 210009.png" alt="Seleniumログイン自動化"></div>
+        <div class="body"><div class="cat mono">Automation</div><h3>Seleniumログイン自動化</h3></div>
+      </div>
+      <div class="work-card" data-cat="scraping">
+        <div class="thumb"><img src="image/スクリーンショット 2026-06-07 212949.png" alt="ニュース見出しスプレッドシート連携"></div>
+        <div class="body"><div class="cat mono">Scraping</div><h3>ニュース見出しスプレッドシート連携</h3></div>
+      </div>
+      <div class="work-card" data-cat="scraping">
+        <div class="thumb"><img src="image/スクリーンショット 2026-06-07 215121.png" alt="複数サイトニュース見出し一括収集"></div>
+        <div class="body"><div class="cat mono">Scraping</div><h3>複数サイトニュース見出し一括収集</h3></div>
+      </div>
+    </div>
   </div>
 </section>
 
-<!-- PROCESS -->
-<section class="pad" id="process">
+<section id="process">
   <div class="container">
     <div class="sec-head">
-      <div class="label">// How I Work</div>
+      <div class="sec-label mono">// HOW I WORK</div>
       <h2>制作プロセス</h2>
     </div>
     <div class="process-grid">
-      <div class="proc-card"><div class="proc-num">// 01</div><h3>設計</h3><p>課題とゴールを整理し、AIに任せる範囲と人が判断する範囲を切り分けてワークフローを設計します。</p></div>
-      <div class="proc-card"><div class="proc-num">// 02</div><h3>実装</h3><p>エージェント・スキル・スクリプトを組み合わせ、生成と検証を回しながらプロダクトを構築します。</p></div>
-      <div class="proc-card"><div class="proc-num">// 03</div><h3>検証</h3><p>Reviewer エージェントや実行ログで品質を評価し、出力を承認できる状態まで仕上げます。</p></div>
+      <div class="process-card"><div class="pnum">// 01</div><h3>ヒアリング</h3><p>課題と繰り返し作業を洗い出し、AIで解決できる領域を見極めます。</p></div>
+      <div class="process-card"><div class="pnum">// 02</div><h3>設計・構築</h3><p>エージェントやAPIを組み合わせ、最小構成のプロトタイプを素早く形にします。</p></div>
+      <div class="process-card"><div class="pnum">// 03</div><h3>検証・改善</h3><p>実データで動作を検証し、精度と運用効率を継続的に磨き込みます。</p></div>
     </div>
   </div>
 </section>
 
-<!-- CONTACT -->
-<section class="contact" id="contact">
+<section id="contact">
   <div class="container">
-    <div class="glowline"></div>
-    <div class="label">// Get In Touch</div>
-    <h2>一緒につくりませんか？</h2>
-    <p>AI活用・自動化・コンテンツ生成のご相談はお気軽にどうぞ。</p>
+    <div class="glow-line"></div>
+    <h2>一緒につくりましょう</h2>
+    <p>AIを使った自動化・生成・収集のご相談はお気軽にどうぞ。</p>
     <div class="contact-links">
       <a href="mailto:mononokenomomonoke@gmail.com" class="btn btn-primary">Email</a>
-      <a href="https://github.com/" target="_blank" rel="noopener" class="btn btn-ghost">GitHub</a>
+      <a href="https://github.com/" target="_blank" rel="noopener" class="btn btn-outline">GitHub</a>
     </div>
   </div>
 </section>
 
-<footer class="foot">© 2026 YUNICO.AI — Built with AI, in Immersive Night Mode.</footer>
+<footer>
+  <div class="container mono">© 2026 田中そら — Built with Agent Teams</div>
+</footer>
 
-<!-- LIGHTBOX -->
 <div class="lightbox" id="lightbox">
-  <span class="close" id="lbClose">✕ ESC</span>
+  <span class="close" id="lbClose">×</span>
   <img id="lbImg" src="" alt="">
 </div>
 
 <script>
-const IMAGES=[
-  "image/スクリーンショット 2026-06-03 174648.png",
-  "image/スクリーンショット 2026-06-05 142436.png",
-  "image/スクリーンショット 2026-06-05 161441.png",
-  "image/スクリーンショット 2026-06-05 165955.png",
-  "image/スクリーンショット 2026-06-05 173810.png",
-  "image/スクリーンショット 2026-06-07 210009.png",
-  "image/スクリーンショット 2026-06-07 212949.png",
-  "image/スクリーンショット 2026-06-07 215121.png"
-];
+  // Hamburger
+  const hamburger = document.getElementById('hamburger');
+  const navLinks = document.getElementById('navLinks');
+  hamburger.addEventListener('click', () => navLinks.classList.toggle('open'));
+  navLinks.querySelectorAll('a').forEach(a => a.addEventListener('click', () => navLinks.classList.remove('open')));
 
-const WORKS=[
-  {img:IMAGES[0],cat:"image",badge:"Image Generation",title:"fal API 画像生成ウォークスルー",desc:"fal の FLUX/imagen 系 API を使った画像生成パイプラインを構築。プロンプトからインフォグラフィック画像を自動生成し、資料化した。",tags:["fal API","画像生成","FLUX"]},
-  {img:IMAGES[1],cat:"agent",badge:"AI Agent",title:"Claude Code SubAgent SEO記事生成",desc:"seo-blog-writer サブエージェントと toc-generator / char-counter スキルで、目次付き3000文字以内のSEO記事を自動執筆。",tags:["Claude Code","SubAgents","Skills"]},
-  {img:IMAGES[2],cat:"agent",badge:"AI Agent",title:"競合リサーチ分析エージェント",desc:"competitor-heading-research スキルで競合サイトの見出し構成を取得・分析し、構造化フォーマットで出力するエージェント。",tags:["Skills","競合分析","リサーチ"]},
-  {img:IMAGES[3],cat:"automation",badge:"Automation",title:"README 要約スキル",desc:"summarize スキルで README.md を読み込み、トピック・結論・改善提案の定型フォーマットで日本語要約。レビューを自動化。",tags:["summarize","要約","ドキュメント"]},
-  {img:IMAGES[4],cat:"agent",badge:"AI Agent",title:"技術記事 Build & Review エージェント",desc:"Analyzer / Builder / Reviewer の3段階エージェントでノイズ除去・再構成・品質評価を実施し、約1,950文字の記事を生成・承認。",tags:["マルチエージェント","レビュー","記事生成"]},
-  {img:IMAGES[5],cat:"automation",badge:"Automation",title:"Selenium ログイン自動化",desc:"Selenium でログインフローを自動化。ユーザー名・パスワード入力からセキュアエリアへの遷移までを6ステップで再現・検証。",tags:["Selenium","ブラウザ自動化","Python"]},
-  {img:IMAGES[6],cat:"scraping",badge:"Web Scraping",title:"ニュース見出しスプレッドシート連携",desc:"Yahoo!ニュースから見出し10件を取得し、Google スプレッドシートのA1〜A10へ自動入力。スクレイピングとシート連携を結合。",tags:["スクレイピング","Google Sheets","ニュース"]},
-  {img:IMAGES[7],cat:"scraping",badge:"Web Scraping",title:"複数サイトニュース見出し収集",desc:"The Ring / BoxingScene / ESPN Boxing の3サイトから見出しを横断取得し、日本語に整理して一覧化するスクレイパー。",tags:["スクレイピング","多サイト横断","日本語整形"]}
-];
-
-// HERO mosaic (4x2 = 8)
-const mosaic=document.getElementById('mosaic');
-IMAGES.forEach(src=>{
-  const d=document.createElement('div');
-  d.style.backgroundImage=`url("${src}")`;
-  mosaic.appendChild(d);
-});
-
-// WORKS render
-const grid=document.getElementById('worksGrid');
-function escapeHtml(s){return s.replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));}
-function renderWorks(){
-  grid.innerHTML='';
-  WORKS.forEach(w=>{
-    const card=document.createElement('div');
-    card.className='work-card';
-    card.dataset.cat=w.cat;
-    card.innerHTML=`
-      <div class="work-thumb"><img src="${w.img}" alt="${escapeHtml(w.title)}" loading="lazy"></div>
-      <div class="work-body">
-        <span class="badge ${w.cat}">${w.badge}</span>
-        <h3>${escapeHtml(w.title)}</h3>
-        <p>${escapeHtml(w.desc)}</p>
-        <div class="tags">${w.tags.map(t=>`<span class="tag">${escapeHtml(t)}</span>`).join('')}</div>
-      </div>`;
-    card.querySelector('img').addEventListener('click',()=>openLightbox(w.img));
-    grid.appendChild(card);
+  // Filters
+  const filterBtns = document.querySelectorAll('.filter-btn');
+  const cards = document.querySelectorAll('.work-card');
+  filterBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      filterBtns.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      const f = btn.dataset.f;
+      cards.forEach(card => {
+        card.style.display = (f === 'all' || card.dataset.cat === f) ? '' : 'none';
+      });
+    });
   });
-  observeCards();
-}
 
-// IntersectionObserver fade-in
-let io;
-function observeCards(){
-  if(io)io.disconnect();
-  io=new IntersectionObserver(entries=>{
-    entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('show');io.unobserve(e.target);}});
-  },{threshold:.15});
-  document.querySelectorAll('.work-card').forEach(c=>io.observe(c));
-}
+  // IntersectionObserver staggered fade-in
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach((entry, i) => {
+      if (entry.isIntersecting) {
+        const el = entry.target;
+        setTimeout(() => el.classList.add('visible'), (Array.from(cards).indexOf(el) % 4) * 100);
+        io.unobserve(el);
+      }
+    });
+  }, { threshold: .15 });
+  cards.forEach(c => io.observe(c));
 
-// Filters
-document.getElementById('filters').addEventListener('click',e=>{
-  const btn=e.target.closest('.filter-btn');
-  if(!btn)return;
-  document.querySelectorAll('.filter-btn').forEach(b=>b.classList.remove('active'));
-  btn.classList.add('active');
-  const f=btn.dataset.filter;
-  document.querySelectorAll('.work-card').forEach(c=>{
-    const match=(f==='all'||c.dataset.cat===f);
-    c.style.display=match?'':'none';
-    if(match&&!c.classList.contains('show')){c.classList.add('show');}
+  // Lightbox
+  const lightbox = document.getElementById('lightbox');
+  const lbImg = document.getElementById('lbImg');
+  const lbClose = document.getElementById('lbClose');
+  cards.forEach(card => {
+    card.addEventListener('click', () => {
+      const img = card.querySelector('img');
+      lbImg.src = img.src;
+      lbImg.alt = img.alt;
+      lightbox.classList.add('open');
+    });
   });
-});
-
-// Lightbox
-const lb=document.getElementById('lightbox'),lbImg=document.getElementById('lbImg');
-function openLightbox(src){lbImg.src=src;lb.classList.add('open');}
-function closeLightbox(){lb.classList.remove('open');lbImg.src='';}
-document.getElementById('lbClose').addEventListener('click',closeLightbox);
-lb.addEventListener('click',e=>{if(e.target===lb)closeLightbox();});
-document.addEventListener('keydown',e=>{if(e.key==='Escape')closeLightbox();});
-
-// Burger
-const burger=document.getElementById('burger'),navMenu=document.getElementById('navMenu');
-burger.addEventListener('click',()=>{burger.classList.toggle('open');navMenu.classList.toggle('open');});
-navMenu.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>{burger.classList.remove('open');navMenu.classList.remove('open');}));
-
-renderWorks();
+  function closeLb() { lightbox.classList.remove('open'); }
+  lbClose.addEventListener('click', closeLb);
+  lightbox.addEventListener('click', (e) => { if (e.target === lightbox) closeLb(); });
+  document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeLb(); });
 </script>
 </body>
 </html>
