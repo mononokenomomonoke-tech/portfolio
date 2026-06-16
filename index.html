@@ -3,10 +3,12 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data:; script-src 'self' 'unsafe-inline'">
 <title>SORA.AI — AI Developer 田中そら</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<link rel="preload" as="image" href="image/hero.png">
 <style>
   :root{
     --bg:#050505;
@@ -17,7 +19,7 @@
     --txt-2:#88A0A8;
     --cat-image:#a855f7;
     --cat-agent:#00F0FF;
-    --cat-auto:#f59e0b;
+    --cat-automation:#f59e0b;
     --cat-scraping:#00FF66;
   }
   *{margin:0;padding:0;box-sizing:border-box}
@@ -44,6 +46,7 @@
   }
   .nav-inner{display:flex;align-items:center;justify-content:space-between;height:64px}
   .logo{font-family:'Space Mono',monospace;font-weight:700;font-size:1.2rem;letter-spacing:0.08em}
+  .logo-dot{color:var(--cyan)}
   .nav-links{display:flex;gap:32px;list-style:none}
   .nav-links a{
     font-family:'Space Mono',monospace;font-size:0.85rem;letter-spacing:0.1em;
@@ -128,8 +131,14 @@
   }
   .work-card.visible{opacity:1;transform:translateY(0)}
   .work-card.hidden{display:none}
+  .work-card:focus{outline:2px solid var(--cyan);outline-offset:2px}
   .work-thumb{aspect-ratio:16/10;overflow:hidden;background:#0A1014}
   .work-thumb img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .4s}
+  .work-thumb .img-fallback{
+    width:100%;height:100%;display:flex;align-items:center;justify-content:center;
+    color:var(--txt-2);font-size:0.85rem;font-family:'Space Mono',monospace;
+    background:var(--bg-2);
+  }
   .work-card:hover .work-thumb img{transform:scale(1.06)}
   .work-body{padding:20px 22px}
   .cat-badge{
@@ -139,7 +148,7 @@
   }
   .cat-image{background:rgba(168,85,247,0.15);color:var(--cat-image);border:1px solid var(--cat-image)}
   .cat-agent{background:rgba(0,240,255,0.12);color:var(--cat-agent);border:1px solid var(--cat-agent)}
-  .cat-automation{background:rgba(245,158,11,0.12);color:var(--cat-auto);border:1px solid var(--cat-auto)}
+  .cat-automation{background:rgba(245,158,11,0.12);color:var(--cat-automation);border:1px solid var(--cat-automation)}
   .cat-scraping{background:rgba(0,255,102,0.12);color:var(--cat-scraping);border:1px solid var(--cat-scraping)}
   .work-body h3{font-size:1.02rem;letter-spacing:0.03em;line-height:1.5}
 
@@ -152,6 +161,7 @@
 
   /* CONTACT */
   .contact{text-align:center}
+  .contact .sec-h{margin-bottom:20px}
   .glow-line{width:80px;height:3px;background:var(--cyan);margin:0 auto 28px;box-shadow:0 0 18px var(--cyan)}
   .contact p{color:var(--txt-2);max-width:520px;margin:0 auto 36px}
   .contact .cta-row{justify-content:center}
@@ -172,9 +182,12 @@
   .lightbox.open{display:flex}
   .lightbox img{max-width:92vw;max-height:88vh;border:1px solid rgba(0,240,255,0.4);border-radius:8px;box-shadow:0 0 40px rgba(0,240,255,.3)}
   .lightbox .close{
-    position:absolute;top:24px;right:32px;font-family:'Space Mono',monospace;
-    font-size:2rem;color:var(--cyan);cursor:pointer;line-height:1;
+    position:absolute;top:24px;right:32px;
+    font-family:'Space Mono',monospace;font-size:2rem;
+    color:var(--cyan);cursor:pointer;line-height:1;
+    background:none;border:none;padding:4px 8px;
   }
+  .lightbox .close:focus{outline:2px solid var(--cyan);outline-offset:2px}
 
   /* RESPONSIVE */
   @media(max-width:860px){
@@ -189,7 +202,6 @@
     .nav-links li{padding:16px 24px;border-top:1px solid rgba(0,240,255,0.1)}
     .value-grid,.process-grid{grid-template-columns:1fr}
     .stats{gap:32px}
-    /* モバイルでカードのbackdrop-filterを無効化（GPU負荷軽減） */
     .card{backdrop-filter:none;-webkit-backdrop-filter:none;background:rgba(10,16,20,0.95)}
   }
 </style>
@@ -198,14 +210,16 @@
 
 <nav>
   <div class="wrap nav-inner">
-    <div class="logo">SORA<span style="color:#00F0FF">.</span>AI</div>
-    <ul class="nav-links">
+    <div class="logo">SORA<span class="logo-dot">.</span>AI</div>
+    <ul class="nav-links" id="navLinks">
       <li><a href="#value">Value</a></li>
       <li><a href="#works">Works</a></li>
       <li><a href="#process">Process</a></li>
       <li><a href="#contact">Contact</a></li>
     </ul>
-    <button class="hamburger" aria-label="menu"><span></span><span></span><span></span></button>
+    <button class="hamburger" id="hamburgerBtn" aria-label="メニューを開く" aria-expanded="false" aria-controls="navLinks">
+      <span></span><span></span><span></span>
+    </button>
   </div>
 </nav>
 
@@ -254,7 +268,7 @@
   <div class="wrap">
     <p class="sec-label">// SELECTED WORKS</p>
     <h2 class="sec-h">制作実績</h2>
-    <div class="filters">
+    <div class="filters" role="group" aria-label="カテゴリフィルター">
       <button class="filter-btn active" data-f="all">All</button>
       <button class="filter-btn" data-f="agent">Agent</button>
       <button class="filter-btn" data-f="automation">Automation</button>
@@ -262,36 +276,36 @@
       <button class="filter-btn" data-f="scraping">Scraping</button>
     </div>
     <div class="works-grid">
-      <article class="card work-card" data-cat="image">
-        <div class="work-thumb"><img src="image/%E3%82%B9%E3%82%AF%E3%83%AA%E3%83%BC%E3%83%B3%E3%82%B7%E3%83%A7%E3%83%83%E3%83%88%202026-06-03%20174648.png" alt="fal API 画像生成ウォークスルー" loading="lazy" decoding="async"></div>
+      <article class="card work-card" data-cat="image" tabindex="0" role="button" aria-label="fal API 画像生成ウォークスルー を拡大表示">
+        <div class="work-thumb"><img src="image/%E3%82%B9%E3%82%AF%E3%83%AA%E3%83%BC%E3%83%B3%E3%82%B7%E3%83%A7%E3%83%83%E3%83%88%202026-06-03%20174648.png" alt="fal API 画像生成ウォークスルーのスクリーンショット" loading="eager" decoding="async" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><span class="img-fallback" style="display:none">画像を読み込めませんでした</span></div>
         <div class="work-body"><span class="cat-badge cat-image">Image</span><h3>fal API 画像生成ウォークスルー</h3></div>
       </article>
-      <article class="card work-card" data-cat="agent">
-        <div class="work-thumb"><img src="image/%E3%82%B9%E3%82%AF%E3%83%AA%E3%83%BC%E3%83%B3%E3%82%B7%E3%83%A7%E3%83%83%E3%83%88%202026-06-05%20142436.png" alt="Claude Code SubAgent SEO記事生成" loading="lazy" decoding="async"></div>
+      <article class="card work-card" data-cat="agent" tabindex="0" role="button" aria-label="Claude Code SubAgent SEO記事生成 を拡大表示">
+        <div class="work-thumb"><img src="image/%E3%82%B9%E3%82%AF%E3%83%AA%E3%83%BC%E3%83%B3%E3%82%B7%E3%83%A7%E3%83%83%E3%83%88%202026-06-05%20142436.png" alt="Claude Code SubAgent SEO記事生成のスクリーンショット" loading="lazy" decoding="async" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><span class="img-fallback" style="display:none">画像を読み込めませんでした</span></div>
         <div class="work-body"><span class="cat-badge cat-agent">Agent</span><h3>Claude Code SubAgent SEO記事生成</h3></div>
       </article>
-      <article class="card work-card" data-cat="agent">
-        <div class="work-thumb"><img src="image/%E3%82%B9%E3%82%AF%E3%83%AA%E3%83%BC%E3%83%B3%E3%82%B7%E3%83%A7%E3%83%83%E3%83%88%202026-06-05%20161441.png" alt="競合リサーチ分析エージェント" loading="lazy" decoding="async"></div>
+      <article class="card work-card" data-cat="agent" tabindex="0" role="button" aria-label="競合リサーチ分析エージェント を拡大表示">
+        <div class="work-thumb"><img src="image/%E3%82%B9%E3%82%AF%E3%83%AA%E3%83%BC%E3%83%B3%E3%82%B7%E3%83%A7%E3%83%83%E3%83%88%202026-06-05%20161441.png" alt="競合リサーチ分析エージェントのスクリーンショット" loading="lazy" decoding="async" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><span class="img-fallback" style="display:none">画像を読み込めませんでした</span></div>
         <div class="work-body"><span class="cat-badge cat-agent">Agent</span><h3>競合リサーチ分析エージェント</h3></div>
       </article>
-      <article class="card work-card" data-cat="automation">
-        <div class="work-thumb"><img src="image/%E3%82%B9%E3%82%AF%E3%83%AA%E3%83%BC%E3%83%B3%E3%82%B7%E3%83%A7%E3%83%83%E3%83%88%202026-06-05%20165955.png" alt="README自動要約スキル" loading="lazy" decoding="async"></div>
+      <article class="card work-card" data-cat="automation" tabindex="0" role="button" aria-label="README自動要約スキル を拡大表示">
+        <div class="work-thumb"><img src="image/%E3%82%B9%E3%82%AF%E3%83%AA%E3%83%BC%E3%83%B3%E3%82%B7%E3%83%A7%E3%83%83%E3%83%88%202026-06-05%20165955.png" alt="README自動要約スキルのスクリーンショット" loading="lazy" decoding="async" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><span class="img-fallback" style="display:none">画像を読み込めませんでした</span></div>
         <div class="work-body"><span class="cat-badge cat-automation">Auto</span><h3>README自動要約スキル</h3></div>
       </article>
-      <article class="card work-card" data-cat="agent">
-        <div class="work-thumb"><img src="image/%E3%82%B9%E3%82%AF%E3%83%AA%E3%83%BC%E3%83%B3%E3%82%B7%E3%83%A7%E3%83%83%E3%83%88%202026-06-05%20173810.png" alt="技術記事Build &amp; Reviewエージェント" loading="lazy" decoding="async"></div>
+      <article class="card work-card" data-cat="agent" tabindex="0" role="button" aria-label="技術記事Build &amp; Reviewエージェント を拡大表示">
+        <div class="work-thumb"><img src="image/%E3%82%B9%E3%82%AF%E3%83%AA%E3%83%BC%E3%83%B3%E3%82%B7%E3%83%A7%E3%83%83%E3%83%88%202026-06-05%20173810.png" alt="技術記事Build &amp; Reviewエージェントのスクリーンショット" loading="lazy" decoding="async" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><span class="img-fallback" style="display:none">画像を読み込めませんでした</span></div>
         <div class="work-body"><span class="cat-badge cat-agent">Agent</span><h3>技術記事Build &amp; Reviewエージェント</h3></div>
       </article>
-      <article class="card work-card" data-cat="automation">
-        <div class="work-thumb"><img src="image/%E3%82%B9%E3%82%AF%E3%83%AA%E3%83%BC%E3%83%B3%E3%82%B7%E3%83%A7%E3%83%83%E3%83%88%202026-06-07%20210009.png" alt="Seleniumログイン自動化" loading="lazy" decoding="async"></div>
+      <article class="card work-card" data-cat="automation" tabindex="0" role="button" aria-label="Seleniumログイン自動化 を拡大表示">
+        <div class="work-thumb"><img src="image/%E3%82%B9%E3%82%AF%E3%83%AA%E3%83%BC%E3%83%B3%E3%82%B7%E3%83%A7%E3%83%83%E3%83%88%202026-06-07%20210009.png" alt="Seleniumログイン自動化のスクリーンショット" loading="lazy" decoding="async" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><span class="img-fallback" style="display:none">画像を読み込めませんでした</span></div>
         <div class="work-body"><span class="cat-badge cat-automation">Auto</span><h3>Seleniumログイン自動化</h3></div>
       </article>
-      <article class="card work-card" data-cat="scraping">
-        <div class="work-thumb"><img src="image/%E3%82%B9%E3%82%AF%E3%83%AA%E3%83%BC%E3%83%B3%E3%82%B7%E3%83%A7%E3%83%83%E3%83%88%202026-06-07%20212949.png" alt="ニュース見出しスプレッドシート連携" loading="lazy" decoding="async"></div>
+      <article class="card work-card" data-cat="scraping" tabindex="0" role="button" aria-label="ニュース見出しスプレッドシート連携 を拡大表示">
+        <div class="work-thumb"><img src="image/%E3%82%B9%E3%82%AF%E3%83%AA%E3%83%BC%E3%83%B3%E3%82%B7%E3%83%A7%E3%83%83%E3%83%88%202026-06-07%20212949.png" alt="ニュース見出しスプレッドシート連携のスクリーンショット" loading="lazy" decoding="async" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><span class="img-fallback" style="display:none">画像を読み込めませんでした</span></div>
         <div class="work-body"><span class="cat-badge cat-scraping">Scraping</span><h3>ニュース見出しスプレッドシート連携</h3></div>
       </article>
-      <article class="card work-card" data-cat="scraping">
-        <div class="work-thumb"><img src="image/%E3%82%B9%E3%82%AF%E3%83%AA%E3%83%BC%E3%83%B3%E3%82%B7%E3%83%A7%E3%83%83%E3%83%88%202026-06-07%20215121.png" alt="複数サイトニュース見出し一括収集" loading="lazy" decoding="async"></div>
+      <article class="card work-card" data-cat="scraping" tabindex="0" role="button" aria-label="複数サイトニュース見出し一括収集 を拡大表示">
+        <div class="work-thumb"><img src="image/%E3%82%B9%E3%82%AF%E3%83%AA%E3%83%BC%E3%83%B3%E3%82%B7%E3%83%A7%E3%83%83%E3%83%88%202026-06-07%20215121.png" alt="複数サイトニュース見出し一括収集のスクリーンショット" loading="lazy" decoding="async" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><span class="img-fallback" style="display:none">画像を読み込めませんでした</span></div>
         <div class="work-body"><span class="cat-badge cat-scraping">Scraping</span><h3>複数サイトニュース見出し一括収集</h3></div>
       </article>
     </div>
@@ -325,7 +339,7 @@
 <section id="contact" class="contact">
   <div class="wrap">
     <div class="glow-line"></div>
-    <h2 class="sec-h" style="margin-bottom:20px">一緒につくりましょう</h2>
+    <h2 class="sec-h">一緒につくりましょう</h2>
     <p>AIを使った自動化・生成・収集のご相談はお気軽にどうぞ。</p>
     <div class="cta-row">
       <a href="mailto:mononokenomomonoke@gmail.com" class="btn btn-primary">Email</a>
@@ -336,54 +350,100 @@
 
 <footer>© 2026 田中そら — Built with Agent Teams</footer>
 
-<div class="lightbox" id="lightbox">
-  <span class="close" id="lbClose">×</span>
-  <img src="" alt="" id="lbImg">
+<div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="作品画像">
+  <button class="close" id="lbClose" aria-label="閉じる">×</button>
+  <img id="lbImg" alt="">
 </div>
 
 <script>
-  // 1. Hamburger
-  const hb=document.querySelector('.hamburger');
-  const navLinks=document.querySelector('.nav-links');
-  hb.addEventListener('click',()=>navLinks.classList.toggle('open'));
-  navLinks.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>navLinks.classList.remove('open')));
+  // 1. Hamburger menu
+  const hamburgerBtn = document.getElementById('hamburgerBtn');
+  const navLinks = document.getElementById('navLinks');
+  if (hamburgerBtn && navLinks) {
+    hamburgerBtn.addEventListener('click', () => {
+      const isOpen = navLinks.classList.toggle('open');
+      hamburgerBtn.setAttribute('aria-expanded', String(isOpen));
+      hamburgerBtn.setAttribute('aria-label', isOpen ? 'メニューを閉じる' : 'メニューを開く');
+    });
+    navLinks.querySelectorAll('a').forEach(anchor => {
+      anchor.addEventListener('click', () => {
+        navLinks.classList.remove('open');
+        hamburgerBtn.setAttribute('aria-expanded', 'false');
+        hamburgerBtn.setAttribute('aria-label', 'メニューを開く');
+      });
+    });
+  }
 
   // 2. Category filter
-  const filterBtns=document.querySelectorAll('.filter-btn');
-  const cards=document.querySelectorAll('.work-card');
-  filterBtns.forEach(btn=>{
-    btn.addEventListener('click',()=>{
-      filterBtns.forEach(b=>b.classList.remove('active'));
+  const filterButtons = document.querySelectorAll('.filter-btn');
+  const workCards = document.querySelectorAll('.work-card');
+  filterButtons.forEach(btn => {
+    btn.addEventListener('click', () => {
+      filterButtons.forEach(b => b.classList.remove('active'));
       btn.classList.add('active');
-      const f=btn.dataset.f;
-      cards.forEach(c=>{
-        const show=(f==='all'||c.dataset.cat===f);
-        c.classList.toggle('hidden',!show);
+      const filter = btn.dataset.f;
+      workCards.forEach(card => {
+        const show = (filter === 'all' || card.dataset.cat === filter);
+        card.classList.toggle('hidden', !show);
       });
     });
   });
 
-  // 3. IntersectionObserver reveal
-  const io=new IntersectionObserver((entries)=>{
-    entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('visible'); io.unobserve(e.target);} });
-  },{threshold:0.15});
-  cards.forEach(c=>io.observe(c));
+  // 3. IntersectionObserver reveal (with fallback)
+  if ('IntersectionObserver' in window) {
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.15 });
+    workCards.forEach(card => observer.observe(card));
+  } else {
+    workCards.forEach(card => card.classList.add('visible'));
+  }
 
-  // 4. Lightbox
-  const lb=document.getElementById('lightbox');
-  const lbImg=document.getElementById('lbImg');
-  const lbClose=document.getElementById('lbClose');
-  cards.forEach(c=>{
-    c.addEventListener('click',()=>{
-      const img=c.querySelector('img');
-      lbImg.src=img.src; lbImg.alt=img.alt;
-      lb.classList.add('open');
+  // 4. Lightbox with focus management
+  const lightbox = document.getElementById('lightbox');
+  const lightboxImg = document.getElementById('lbImg');
+  const lightboxClose = document.getElementById('lbClose');
+  let lightboxTrigger = null;
+
+  if (lightbox && lightboxImg && lightboxClose) {
+    workCards.forEach(card => {
+      card.addEventListener('click', () => {
+        const img = card.querySelector('img');
+        if (!img) return;
+        lightboxImg.src = img.src;
+        lightboxImg.alt = img.alt;
+        lightbox.classList.add('open');
+        lightboxTrigger = card;
+        lightboxClose.focus();
+      });
+      // キーボード操作（Enter / Space）
+      card.addEventListener('keydown', evt => {
+        if (evt.key === 'Enter' || evt.key === ' ') {
+          evt.preventDefault();
+          card.click();
+        }
+      });
     });
-  });
-  function closeLb(){ lb.classList.remove('open'); lbImg.src=''; }
-  lbClose.addEventListener('click',closeLb);
-  lb.addEventListener('click',(e)=>{ if(e.target===lb) closeLb(); });
-  document.addEventListener('keydown',(e)=>{ if(e.key==='Escape') closeLb(); });
+
+    function closeLightbox() {
+      lightbox.classList.remove('open');
+      lightboxImg.src = '';
+      lightboxImg.alt = '';
+      if (lightboxTrigger) {
+        lightboxTrigger.focus();
+        lightboxTrigger = null;
+      }
+    }
+
+    lightboxClose.addEventListener('click', closeLightbox);
+    lightbox.addEventListener('click', evt => { if (evt.target === lightbox) closeLightbox(); });
+    document.addEventListener('keydown', evt => { if (evt.key === 'Escape') closeLightbox(); });
+  }
 </script>
 </body>
 </html>
