@@ -128,6 +128,7 @@
     overflow:hidden;cursor:pointer;
     opacity:0;transform:translateY(24px);
     transition:opacity .6s ease, transform .6s ease, border-color .3s, box-shadow .3s;
+    will-change:transform;
   }
   .work-card.visible{opacity:1;transform:translateY(0)}
   .work-card.hidden{display:none}
@@ -343,7 +344,7 @@
     <p>AIを使った自動化・生成・収集のご相談はお気軽にどうぞ。</p>
     <div class="cta-row">
       <a href="mailto:mononokenomomonoke@gmail.com" class="btn btn-primary">Email</a>
-      <a href="https://github.com/" target="_blank" rel="noopener noreferrer" class="btn btn-outline">GitHub</a>
+      <a href="https://github.com/mononokenomomonoke-tech" target="_blank" rel="noopener noreferrer" class="btn btn-outline">GitHub</a>
     </div>
   </div>
 </section>
@@ -443,6 +444,9 @@
     lightboxClose.addEventListener('click', closeLightbox);
     lightbox.addEventListener('click', evt => { if (evt.target === lightbox) closeLightbox(); });
     document.addEventListener('keydown', evt => { if (evt.key === 'Escape') closeLightbox(); });
+    lightbox.addEventListener('keydown', evt => {
+      if (evt.key === 'Tab') { evt.preventDefault(); lightboxClose.focus(); }
+    });
   }
 </script>
 </body>
