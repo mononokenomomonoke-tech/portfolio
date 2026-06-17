@@ -3,7 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data:; script-src 'self' 'unsafe-inline'">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data:; script-src 'self'">
+<meta name="description" content="AI Developer 田中そら のポートフォリオ。生成AI・エージェント・自動化・スクレイピングを組み合わせた制作実績を紹介。">
 <title>SORA.AI — AI Developer 田中そら</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -128,6 +129,7 @@
     overflow:hidden;cursor:pointer;
     opacity:0;transform:translateY(24px);
     transition:opacity .6s ease, transform .6s ease, border-color .3s, box-shadow .3s;
+    will-change:transform;
   }
   .work-card.visible{opacity:1;transform:translateY(0)}
   .work-card.hidden{display:none}
@@ -207,6 +209,7 @@
 </style>
 </head>
 <body>
+<noscript><style>.work-card{opacity:1;transform:none}</style></noscript>
 
 <nav>
   <div class="wrap nav-inner">
@@ -223,6 +226,7 @@
   </div>
 </nav>
 
+<main>
 <header class="hero">
   <div class="wrap">
     <p class="eyebrow">AI Developer — 田中そら</p>
@@ -269,11 +273,11 @@
     <p class="sec-label">// SELECTED WORKS</p>
     <h2 class="sec-h">制作実績</h2>
     <div class="filters" role="group" aria-label="カテゴリフィルター">
-      <button class="filter-btn active" data-f="all">All</button>
-      <button class="filter-btn" data-f="agent">Agent</button>
-      <button class="filter-btn" data-f="automation">Automation</button>
-      <button class="filter-btn" data-f="image">Image</button>
-      <button class="filter-btn" data-f="scraping">Scraping</button>
+      <button class="filter-btn active" data-f="all" aria-pressed="true">All</button>
+      <button class="filter-btn" data-f="agent" aria-pressed="false">Agent</button>
+      <button class="filter-btn" data-f="automation" aria-pressed="false">Automation</button>
+      <button class="filter-btn" data-f="image" aria-pressed="false">Image</button>
+      <button class="filter-btn" data-f="scraping" aria-pressed="false">Scraping</button>
     </div>
     <div class="works-grid">
       <article class="card work-card" data-cat="image" tabindex="0" role="button" aria-label="fal API 画像生成ウォークスルー を拡大表示">
@@ -343,10 +347,11 @@
     <p>AIを使った自動化・生成・収集のご相談はお気軽にどうぞ。</p>
     <div class="cta-row">
       <a href="mailto:mononokenomomonoke@gmail.com" class="btn btn-primary">Email</a>
-      <a href="https://github.com/" target="_blank" rel="noopener noreferrer" class="btn btn-outline">GitHub</a>
+      <a href="https://github.com/mononokenomomonoke-tech" target="_blank" rel="noopener noreferrer" class="btn btn-outline">GitHub</a>
     </div>
   </div>
 </section>
+</main>
 
 <footer>© 2026 田中そら — Built with Agent Teams</footer>
 
@@ -355,95 +360,6 @@
   <img id="lbImg" alt="">
 </div>
 
-<script>
-  // 1. Hamburger menu
-  const hamburgerBtn = document.getElementById('hamburgerBtn');
-  const navLinks = document.getElementById('navLinks');
-  if (hamburgerBtn && navLinks) {
-    hamburgerBtn.addEventListener('click', () => {
-      const isOpen = navLinks.classList.toggle('open');
-      hamburgerBtn.setAttribute('aria-expanded', String(isOpen));
-      hamburgerBtn.setAttribute('aria-label', isOpen ? 'メニューを閉じる' : 'メニューを開く');
-    });
-    navLinks.querySelectorAll('a').forEach(anchor => {
-      anchor.addEventListener('click', () => {
-        navLinks.classList.remove('open');
-        hamburgerBtn.setAttribute('aria-expanded', 'false');
-        hamburgerBtn.setAttribute('aria-label', 'メニューを開く');
-      });
-    });
-  }
-
-  // 2. Category filter
-  const filterButtons = document.querySelectorAll('.filter-btn');
-  const workCards = document.querySelectorAll('.work-card');
-  filterButtons.forEach(btn => {
-    btn.addEventListener('click', () => {
-      filterButtons.forEach(b => b.classList.remove('active'));
-      btn.classList.add('active');
-      const filter = btn.dataset.f;
-      workCards.forEach(card => {
-        const show = (filter === 'all' || card.dataset.cat === filter);
-        card.classList.toggle('hidden', !show);
-      });
-    });
-  });
-
-  // 3. IntersectionObserver reveal (with fallback)
-  if ('IntersectionObserver' in window) {
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('visible');
-          observer.unobserve(entry.target);
-        }
-      });
-    }, { threshold: 0.15 });
-    workCards.forEach(card => observer.observe(card));
-  } else {
-    workCards.forEach(card => card.classList.add('visible'));
-  }
-
-  // 4. Lightbox with focus management
-  const lightbox = document.getElementById('lightbox');
-  const lightboxImg = document.getElementById('lbImg');
-  const lightboxClose = document.getElementById('lbClose');
-  let lightboxTrigger = null;
-
-  if (lightbox && lightboxImg && lightboxClose) {
-    workCards.forEach(card => {
-      card.addEventListener('click', () => {
-        const img = card.querySelector('img');
-        if (!img) return;
-        lightboxImg.src = img.src;
-        lightboxImg.alt = img.alt;
-        lightbox.classList.add('open');
-        lightboxTrigger = card;
-        lightboxClose.focus();
-      });
-      // キーボード操作（Enter / Space）
-      card.addEventListener('keydown', evt => {
-        if (evt.key === 'Enter' || evt.key === ' ') {
-          evt.preventDefault();
-          card.click();
-        }
-      });
-    });
-
-    function closeLightbox() {
-      lightbox.classList.remove('open');
-      lightboxImg.src = '';
-      lightboxImg.alt = '';
-      if (lightboxTrigger) {
-        lightboxTrigger.focus();
-        lightboxTrigger = null;
-      }
-    }
-
-    lightboxClose.addEventListener('click', closeLightbox);
-    lightbox.addEventListener('click', evt => { if (evt.target === lightbox) closeLightbox(); });
-    document.addEventListener('keydown', evt => { if (evt.key === 'Escape') closeLightbox(); });
-  }
-</script>
+<script src="main.js"></script>
 </body>
 </html>
